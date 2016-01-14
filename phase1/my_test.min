@@ -1,5 +1,4 @@
-## Requires 5 integer arguments, all of which are assumed to be < 100
-
+## hi
 program mytest;
 
   n : integer;

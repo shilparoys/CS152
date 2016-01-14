@@ -1923,9 +1923,5 @@ int main(int argc, char ** argv)
    
    yylex();
    
-   printf("# Numbers: %d\n", numNumbers);
-   printf("# Operators: %d\n", numOperators);
-   printf("# Parentheses: %d\n", numParens);
-   printf("# Equal Signs: %d\n", numEquals);
 }
 

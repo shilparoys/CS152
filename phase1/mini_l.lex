@@ -61,7 +61,7 @@ ID      [a-z][a-z0-p_]*[a-z0-9]*
 ":="           {printf("ASSIGN\n"); currPos += yyleng;}
 {ID}           {printf("IDENT %s\n", yytext); currPos += yyleng;}
 (\.{DIGIT}+)|({DIGIT}+(\.{DIGIT}*)?([eE][+-]?[0-9]+)?)   {printf("NUMBER %s\n", yytext); currPos += yyleng; numNumbers++;}
-[#]+           {currLine++; currPos = 1;}
+[##]+           {currLine++; currPos = 1;}
 [ \t]+         {/* ignore spaces */ currPos += yyleng;}
 
 "\n"           {currLine++; currPos = 1;}
@@ -87,9 +87,5 @@ int main(int argc, char ** argv)
    
    yylex();
    
-   printf("# Numbers: %d\n", numNumbers);
-   printf("# Operators: %d\n", numOperators);
-   printf("# Parentheses: %d\n", numParens);
-   printf("# Equal Signs: %d\n", numEquals);
 }
 
