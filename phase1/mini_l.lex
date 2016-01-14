@@ -54,8 +54,9 @@ DIGIT    [0-9]
 "["            {printf("L_BRACKET\n"); currPos += yyleng;}
 "]"            {printf("R_BRACKET\n"); currPos += yyleng;}
 ":="           {printf("ASSIGN\n"); currPos += yyleng;}
+[a-z]+         {printf("IDENT %s\n", yytext); currPos += yyleng;}
 (\.{DIGIT}+)|({DIGIT}+(\.{DIGIT}*)?([eE][+-]?[0-9]+)?)   {printf("NUMBER %s\n", yytext); currPos += yyleng;}
-[##]+           {currLine++; currPos = 1;}
+"##".*         {}
 [ \t]+         {/* ignore spaces */ currPos += yyleng;}
 
 "\n"           {currLine++; currPos = 1;}
