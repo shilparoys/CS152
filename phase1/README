@@ -1,0 +1,15 @@
+Command Sequence:
+    flex sample*.lex
+    gcc lex.yy.c -lfl
+    ./a.out
+
+Understand the input file
+Format:
+    definitions
+    %%
+    rules
+    %%
+    user code
+The definitions section: "name definition"
+The rules section: "pattern action"
+The user code section: "yylex() routine"
