@@ -1,57 +1,52 @@
-   /* cs152-fall08 */
-   /* A flex scanner specification for the calculator language */
-   /* Written by Dennis Jeffrey */
+   /* cs152-winter16 */
+   /* Phase One */
+   /* Shilpa Chirackel & Rachel Law */
+
 
 %{   
    int currLine = 1, currPos = 1;
-   int numNumbers = 0;
-   int numOperators = 0;
-   int numParens = 0;
-   int numEquals = 0;
-   int numReserved = 0;
 %}
 
 DIGIT    [0-9]
-ID      [a-z][a-z0-p_]*[a-z0-9]*
 %%
-"program"      {printf("PROGRAM\n"); currPos += yyleng; numReserved++;}
-"beginprogram" {printf("BEGIN_PROGRAM\n"); currPos += yyleng; numReserved++;}
-"endprogram"   {printf("END_PROGRAM\n"); currPos += yyleng; numReserved++;}
-"integer"      {printf("INTEGER\n"); currPos += yyleng; numReserved++;}
-"array"        {printf("INTEGER\n"); currPos += yyleng; numReserved++;}
-"of"           {printf("OF\n"); currPos += yyleng; numReserved++;}
-"if"           {printf("IF\n"); currPos += yyleng; numReserved++;}
-"then"         {printf("THEN\n"); currPos += yyleng; numReserved++;}
-"endif"        {printf("ENDIF\n"); currPos += yyleng; numReserved++;}
-"else"         {printf("ELSE\n"); currPos += yyleng; numReserved++;}
-"elseif"       {printf("ELSEIF\n"); currPos += yyleng; numReserved++;}
-"while"        {printf("WHILE\n"); currPos += yyleng; numReserved++;}
-"do"           {printf("DO\n"); currPos += yyleng; numReserved++;}
-"beginloop"    {printf("BEGINLOOP\n"); currPos += yyleng; numReserved++;}
-"endloop"      {printf("ENDLOOP\n"); currPos += yyleng; numReserved++;}
-"break"        {printf("BREAK\n"); currPos += yyleng; numReserved++;}
-"continue"     {printf("CONTINUE\n"); currPos += yyleng; numReserved++;}
-"exit"         {printf("EXIT\n"); currPos += yyleng; numReserved++;}
-"read"         {printf("READ\n"); currPos += yyleng; numReserved++;}
-"write"        {printf("WRITE\n"); currPos += yyleng; numReserved++;}
-"and"          {printf("AND\n"); currPos += yyleng; numReserved++;}
-"or"           {printf("OR\n"); currPos += yyleng; numReserved++;}
-"not"          {printf("NOT\n"); currPos += yyleng; numReserved++;}
-"true"         {printf("TRUE\n"); currPos += yyleng; numReserved++;}
-"false"        {printf("FALSE\n"); currPos += yyleng; numReserved++;} 
-"-"            {printf("SUB\n"); currPos += yyleng; numOperators++;}
-"+"            {printf("ADD\n"); currPos += yyleng; numOperators++;}
-"*"            {printf("MULT\n"); currPos += yyleng; numOperators++;}
-"/"            {printf("DIV\n"); currPos += yyleng; numOperators++;}
-"%"            {printf("MOD\n"); currPos += yyleng; numOperators++;}
-"="            {printf("EQ\n"); currPos += yyleng; numEquals++;}
+"program"      {printf("PROGRAM\n"); currPos += yyleng; }
+"beginprogram" {printf("BEGIN_PROGRAM\n"); currPos += yyleng;}
+"endprogram"   {printf("END_PROGRAM\n"); currPos += yyleng; }
+"integer"      {printf("INTEGER\n"); currPos += yyleng;}
+"array"        {printf("ARRAY\n"); currPos += yyleng;}
+"of"           {printf("OF\n"); currPos += yyleng; }
+"if"           {printf("IF\n"); currPos += yyleng; }
+"then"         {printf("THEN\n"); currPos += yyleng; }
+"endif"        {printf("ENDIF\n"); currPos += yyleng; }
+"else"         {printf("ELSE\n"); currPos += yyleng; }
+"elseif"       {printf("ELSEIF\n"); currPos += yyleng; }
+"while"        {printf("WHILE\n"); currPos += yyleng; }
+"do"           {printf("DO\n"); currPos += yyleng;}
+"beginloop"    {printf("BEGINLOOP\n"); currPos += yyleng; }
+"endloop"      {printf("ENDLOOP\n"); currPos += yyleng; }
+"break"        {printf("BREAK\n"); currPos += yyleng; }
+"continue"     {printf("CONTINUE\n"); currPos += yyleng;}
+"exit"         {printf("EXIT\n"); currPos += yyleng;}
+"read"         {printf("READ\n"); currPos += yyleng; }
+"write"        {printf("WRITE\n"); currPos += yyleng;}
+"and"          {printf("AND\n"); currPos += yyleng;}
+"or"           {printf("OR\n"); currPos += yyleng; }
+"not"          {printf("NOT\n"); currPos += yyleng; }
+"true"         {printf("TRUE\n"); currPos += yyleng;}
+"false"        {printf("FALSE\n"); currPos += yyleng; }
+"-"            {printf("SUB\n"); currPos += yyleng; }
+"+"            {printf("ADD\n"); currPos += yyleng; }
+"*"            {printf("MULT\n"); currPos += yyleng; }
+"/"            {printf("DIV\n"); currPos += yyleng; }
+"%"            {printf("MOD\n"); currPos += yyleng; }
+"="            {printf("EQ\n"); currPos += yyleng; }
 "<>"           {printf("NEQ\n"); currPos += yyleng;}
 "<"            {printf("LT\n"); currPos += yyleng;}
 ">"            {printf("GT\n"); currPos += yyleng;}
 "<="           {printf("LTE\n"); currPos += yyleng;}
 ">="           {printf("GTE\n"); currPos += yyleng;}
-"("            {printf("L_PAREN\n"); currPos += yyleng; numParens++;}
-")"            {printf("R_PAREN\n"); currPos += yyleng; numParens++;}
+"("            {printf("L_PAREN\n"); currPos += yyleng;}
+")"            {printf("R_PAREN\n"); currPos += yyleng;}
 ";"            {printf("SEMICOLON\n"); currPos += yyleng;}
 ":"            {printf("COLON\n"); currPos += yyleng;}
 ","            {printf("COMMA\n"); currPos += yyleng;}
@@ -59,8 +54,7 @@ ID      [a-z][a-z0-p_]*[a-z0-9]*
 "["            {printf("L_BRACKET\n"); currPos += yyleng;}
 "]"            {printf("R_BRACKET\n"); currPos += yyleng;}
 ":="           {printf("ASSIGN\n"); currPos += yyleng;}
-{ID}           {printf("IDENT %s\n", yytext); currPos += yyleng;}
-(\.{DIGIT}+)|({DIGIT}+(\.{DIGIT}*)?([eE][+-]?[0-9]+)?)   {printf("NUMBER %s\n", yytext); currPos += yyleng; numNumbers++;}
+(\.{DIGIT}+)|({DIGIT}+(\.{DIGIT}*)?([eE][+-]?[0-9]+)?)   {printf("NUMBER %s\n", yytext); currPos += yyleng;}
 [##]+           {currLine++; currPos = 1;}
 [ \t]+         {/* ignore spaces */ currPos += yyleng;}
 

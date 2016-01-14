@@ -13,3 +13,7 @@ Format:
 The definitions section: "name definition"
 The rules section: "pattern action"
 The user code section: "yylex() routine"
+
+Current Problems:
+1. Identifiers are not being picked up correctly. It picks up reserved words as well. 
+2. Comments are not being picked up correctly.
