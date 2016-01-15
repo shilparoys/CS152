@@ -944,7 +944,7 @@ YY_RULE_SETUP
 case 48:
 YY_RULE_SETUP
 #line 59 "mini_l.lex"
-{}
+{currLine++; currPos = 1;}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
