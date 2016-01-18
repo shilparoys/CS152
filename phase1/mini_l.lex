@@ -39,7 +39,7 @@ DIGIT    [0-9]
 "*"            {printf("MULT\n"); currPos += yyleng; }
 "/"            {printf("DIV\n"); currPos += yyleng; }
 "%"            {printf("MOD\n"); currPos += yyleng; }
-"="            {printf("EQ\n"); currPos += yyleng; }
+"=="            {printf("EQ\n"); currPos += yyleng; }
 "<>"           {printf("NEQ\n"); currPos += yyleng;}
 "<"            {printf("LT\n"); currPos += yyleng;}
 ">"            {printf("GT\n"); currPos += yyleng;}
@@ -54,7 +54,7 @@ DIGIT    [0-9]
 "["            {printf("L_BRACKET\n"); currPos += yyleng;}
 "]"            {printf("R_BRACKET\n"); currPos += yyleng;}
 ":="           {printf("ASSIGN\n"); currPos += yyleng;}
-[a-z]+         {printf("IDENT %s\n", yytext); currPos += yyleng;}
+[a-zA-Z](([a-zA-Z0-9]|"_")+([a-zA-Z]|[0-9])+)* {printf("IDENT %s\n", yytext); currPos += yyleng;}
 (\.{DIGIT}+)|({DIGIT}+(\.{DIGIT}*)?([eE][+-]?[0-9]+)?)   {printf("NUMBER %s\n", yytext); currPos += yyleng;}
 "##".*         {currLine++; currPos = 1;}
 [ \t]+         {/* ignore spaces */ currPos += yyleng;}
