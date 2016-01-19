@@ -56,6 +56,8 @@ DIGIT    [0-9]
 ":="           {printf("ASSIGN\n"); currPos += yyleng;}
 [a-zA-Z](([a-zA-Z0-9]|"_")+([a-zA-Z]|[0-9])+)* {printf("IDENT %s\n", yytext); currPos += yyleng;}
 (\.{DIGIT}+)|({DIGIT}+(\.{DIGIT}*)?([eE][+-]?[0-9]+)?)   {printf("NUMBER %s\n", yytext); currPos += yyleng;}
+[0-9][a-z][a-z0-9_]*|[_][a-z][a-z0-9_]* { printf("Error at line %d, column %d: ", currLine, currPos);  printf("identifier \"%s\" ", yytext);  printf("must begin with a letter\n"); exit(0);}
+[a-z][a-z0-9_]*_ {printf("Error at line %d, column %d: ", currLine, currPos); printf("identifer \"%s\" cannot ", yytext); printf("end with an underscore\n");  exit(0);}
 "##".*         {currLine++; currPos = 1;}
 [ \t]+         {/* ignore spaces */ currPos += yyleng;}
 
