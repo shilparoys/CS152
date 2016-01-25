@@ -11,7 +11,10 @@ Assumptions:
 (1) Column line enumeration begins at 1
 (2) Position enumerations begins at 1
 
-
+Usage
+flex mini_l.lex
+gcc lex.yy.c -lfl
+./a.out < sampleTest.min
 
 #####################################################
 
