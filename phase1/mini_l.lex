@@ -1,6 +1,23 @@
-   /* cs152-winter16 */
-   /* Phase One */
-   /* Shilpa Chirackel & Rachel Law */
+/*
+Rachel Law (861071722) & Shilpa Chirackel (86106176)
+rlaw001@ucr.edu
+schir001@ucr.edu
+
+cs152-winter16
+Phase One
+
+
+README
+Project 1
+Assumptions:
+(1) Column line enumeration begins at 1
+(2) Position enumerations begins at 1
+
+Usage
+flex mini_l.lex
+gcc lex.yy.c -lfl
+./a.out < sampleTest.min
+*/
 
 
 %{   
