@@ -3,9 +3,8 @@ Rachel Law (861071722) & Shilpa Chirackel (86106176)
 rlaw001@ucr.edu
 schir001@ucr.edu
 
-cs152-winter16
-Phase One
-
+CS152 Compilers
+Winter '16
 
 README
 Project 1
