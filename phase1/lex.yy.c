@@ -1005,12 +1005,12 @@ YY_RULE_SETUP
 case 48:
 YY_RULE_SETUP
 #line 61 "mini_l.lex"
-{ printf("Error at line %d, column %d: ", currLine, currPos);  printf("identifier \"%s\" ", yytext);  printf("must begin with a letter\n"); exit(0);}
+{ printf("Error at line %d, column %d: ", currLine, currPos-yyleng+1);  printf("identifier \"%s\" ", yytext);  printf(" must begin with a letter\n"); exit(0);}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
 #line 63 "mini_l.lex"
-{printf("Error at line %d, column %d: ", currLine, currPos); printf("identifer \"%s\" cannot ", yytext); printf("end with an underscore\n");  exit(0);}
+{printf("Error at line %d, column %d: ", currLine, currPos); printf("identifier \"%s\" cannot ", yytext); printf("end with an underscore\n");  exit(0);}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
