@@ -1,6 +1,6 @@
    /* cs152-winter16 */
    /* Phase One */
-   /* Shilpa Chirackel & Rachel Law */
+   /* Shilpa Chirackel (861060176) & Rachel Law (861071722) */
 
 
 %{   
