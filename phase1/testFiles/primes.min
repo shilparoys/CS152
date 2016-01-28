@@ -54,4 +54,3 @@ beginprogram    ## main program
        i := i + 1;
    endloop;
 endprogram
-

@@ -524,14 +524,30 @@ static char *yy_last_accepting_cpos;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "mini_l.lex"
+#line 1 "MINI_L.lex"
 #define INITIAL 0
-/* cs152-winter16 */
-/* Phase One */
-/* Shilpa Chirackel & Rachel Law */
-#line 7 "mini_l.lex"
+/*
+Rachel Law (861071722) & Shilpa Chirackel (86106176)
+rlaw001@ucr.edu
+schir001@ucr.edu
+
+CS152 Compilers
+Winter '16
+
+README
+Project 1
+Assumptions:
+(1) Column line enumeration begins at 1
+(2) Position enumerations begins at 1
+
+Usage
+flex mini_l.lex
+gcc lex.yy.c -lfl
+./a.out < sampleTest.min
+*/
+#line 23 "MINI_L.lex"
    int currLine = 1, currPos = 1;
-#line 535 "lex.yy.c"
+#line 551 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -682,9 +698,9 @@ YY_DECL
 	register char *yy_cp = NULL, *yy_bp = NULL;
 	register int yy_act;
 
-#line 10 "mini_l.lex"
+#line 28 "MINI_L.lex"
 
-#line 688 "lex.yy.c"
+#line 704 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -769,275 +785,275 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "mini_l.lex"
+#line 29 "MINI_L.lex"
 {printf("PROGRAM\n");         currPos += yyleng;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 12 "mini_l.lex"
+#line 30 "MINI_L.lex"
 {printf("BEGIN_PROGRAM\n");   currPos += yyleng;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "mini_l.lex"
+#line 31 "MINI_L.lex"
 {printf("END_PROGRAM\n");     currPos += yyleng;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 14 "mini_l.lex"
+#line 32 "MINI_L.lex"
 {printf("INTEGER\n");         currPos += yyleng;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 15 "mini_l.lex"
+#line 33 "MINI_L.lex"
 {printf("ARRAY\n");           currPos += yyleng;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 16 "mini_l.lex"
+#line 34 "MINI_L.lex"
 {printf("OF\n");              currPos += yyleng;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 17 "mini_l.lex"
+#line 35 "MINI_L.lex"
 {printf("IF\n");              currPos += yyleng;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 18 "mini_l.lex"
+#line 36 "MINI_L.lex"
 {printf("THEN\n");            currPos += yyleng;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 19 "mini_l.lex"
+#line 37 "MINI_L.lex"
 {printf("ENDIF\n");           currPos += yyleng;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 20 "mini_l.lex"
+#line 38 "MINI_L.lex"
 {printf("ELSE\n");            currPos += yyleng;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 21 "mini_l.lex"
+#line 39 "MINI_L.lex"
 {printf("ELSEIF\n");          currPos += yyleng;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 22 "mini_l.lex"
+#line 40 "MINI_L.lex"
 {printf("WHILE\n");           currPos += yyleng;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 23 "mini_l.lex"
+#line 41 "MINI_L.lex"
 {printf("DO\n");              currPos += yyleng;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 24 "mini_l.lex"
+#line 42 "MINI_L.lex"
 {printf("BEGINLOOP\n");       currPos += yyleng;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 25 "mini_l.lex"
+#line 43 "MINI_L.lex"
 {printf("ENDLOOP\n");         currPos += yyleng;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 26 "mini_l.lex"
+#line 44 "MINI_L.lex"
 {printf("BREAK\n");           currPos += yyleng;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 27 "mini_l.lex"
+#line 45 "MINI_L.lex"
 {printf("CONTINUE\n");        currPos += yyleng;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 28 "mini_l.lex"
+#line 46 "MINI_L.lex"
 {printf("EXIT\n");            currPos += yyleng;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 29 "mini_l.lex"
+#line 47 "MINI_L.lex"
 {printf("READ\n");            currPos += yyleng;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 30 "mini_l.lex"
+#line 48 "MINI_L.lex"
 {printf("WRITE\n");           currPos += yyleng;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 31 "mini_l.lex"
+#line 49 "MINI_L.lex"
 {printf("AND\n");             currPos += yyleng;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 32 "mini_l.lex"
+#line 50 "MINI_L.lex"
 {printf("OR\n");              currPos += yyleng;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 33 "mini_l.lex"
+#line 51 "MINI_L.lex"
 {printf("NOT\n");             currPos += yyleng;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 34 "mini_l.lex"
+#line 52 "MINI_L.lex"
 {printf("TRUE\n");            currPos += yyleng;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 35 "mini_l.lex"
+#line 53 "MINI_L.lex"
 {printf("FALSE\n");           currPos += yyleng;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 36 "mini_l.lex"
+#line 54 "MINI_L.lex"
 {printf("SUB\n");             currPos += yyleng;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 37 "mini_l.lex"
+#line 55 "MINI_L.lex"
 {printf("ADD\n");             currPos += yyleng;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 38 "mini_l.lex"
+#line 56 "MINI_L.lex"
 {printf("MULT\n");            currPos += yyleng;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 39 "mini_l.lex"
+#line 57 "MINI_L.lex"
 {printf("DIV\n");             currPos += yyleng;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 40 "mini_l.lex"
+#line 58 "MINI_L.lex"
 {printf("MOD\n");             currPos += yyleng;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 41 "mini_l.lex"
+#line 59 "MINI_L.lex"
 {printf("EQ\n");              currPos += yyleng;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 42 "mini_l.lex"
+#line 60 "MINI_L.lex"
 {printf("NEQ\n");             currPos += yyleng;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 43 "mini_l.lex"
+#line 61 "MINI_L.lex"
 {printf("LT\n");              currPos += yyleng;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 44 "mini_l.lex"
+#line 62 "MINI_L.lex"
 {printf("GT\n");              currPos += yyleng;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 45 "mini_l.lex"
+#line 63 "MINI_L.lex"
 {printf("LTE\n");             currPos += yyleng;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 46 "mini_l.lex"
+#line 64 "MINI_L.lex"
 {printf("GTE\n");             currPos += yyleng;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 47 "mini_l.lex"
+#line 65 "MINI_L.lex"
 {printf("L_PAREN\n");         currPos += yyleng;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 48 "mini_l.lex"
+#line 66 "MINI_L.lex"
 {printf("R_PAREN\n");         currPos += yyleng;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 49 "mini_l.lex"
+#line 67 "MINI_L.lex"
 {printf("SEMICOLON\n");       currPos += yyleng;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 50 "mini_l.lex"
+#line 68 "MINI_L.lex"
 {printf("COLON\n");           currPos += yyleng;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 51 "mini_l.lex"
+#line 69 "MINI_L.lex"
 {printf("COMMA\n");           currPos += yyleng;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 52 "mini_l.lex"
+#line 70 "MINI_L.lex"
 {printf("QUESTION\n");        currPos += yyleng;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 53 "mini_l.lex"
+#line 71 "MINI_L.lex"
 {printf("L_BRACKET\n");       currPos += yyleng;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 54 "mini_l.lex"
+#line 72 "MINI_L.lex"
 {printf("R_BRACKET\n");       currPos += yyleng;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 55 "mini_l.lex"
+#line 73 "MINI_L.lex"
 {printf("ASSIGN\n");          currPos += yyleng;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 57 "mini_l.lex"
+#line 75 "MINI_L.lex"
 {printf("IDENT %s\n", yytext); currPos += yyleng;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 59 "mini_l.lex"
+#line 77 "MINI_L.lex"
 {printf("NUMBER %s\n", yytext); currPos += yyleng;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 61 "mini_l.lex"
+#line 79 "MINI_L.lex"
 { printf("Error at line %d, column %d: ", currLine, currPos);  printf("identifier \"%s\" ", yytext);  printf(" must begin with a letter\n"); exit(0);}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 63 "mini_l.lex"
+#line 81 "MINI_L.lex"
 {printf("Error at line %d, column %d: ", currLine, currPos); printf("identifier \"%s\" cannot ", yytext); printf("end with an underscore\n");  exit(0);}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 65 "mini_l.lex"
+#line 83 "MINI_L.lex"
 {currLine++; currPos = 1;}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 67 "mini_l.lex"
+#line 85 "MINI_L.lex"
 {/* ignore spaces */ currPos += yyleng;}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 69 "mini_l.lex"
+#line 87 "MINI_L.lex"
 {currLine++; currPos = 1;}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 71 "mini_l.lex"
+#line 89 "MINI_L.lex"
 {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext); exit(0);}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 73 "mini_l.lex"
+#line 91 "MINI_L.lex"
 ECHO;
 	YY_BREAK
-#line 1041 "lex.yy.c"
+#line 1057 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1919,7 +1935,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 73 "mini_l.lex"
+#line 91 "MINI_L.lex"
 
 
 int main(int argc, char ** argv)
