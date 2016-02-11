@@ -1,0 +1,189 @@
+Terminals which are not used
+
+   BEGIN_PROGRAM
+   INTEGER
+   ARRAY
+   OF
+   IF
+   THEN
+   ENDIF
+   ELSEIF
+   WHILE
+   DO
+   BEGINLOOP
+   ENDLOOP
+   BREAK
+   CONTINUE
+   EXIT
+   READ
+   WRITE
+   NOT
+   TRUE
+   FALSE
+   COLON
+   COMMA
+   QUESTION
+   L_BRACKET
+   R_BRACKET
+   ASSIGN
+   NUMBER
+   GTE
+   LTE
+   GT
+   LT
+   NEQ
+   EQ
+   MOD
+   DIV
+   MULT
+   ADD
+   SUB
+   AND
+   OR
+   ELSE_PREC
+   IF_PREC
+
+
+Rules never reduced
+
+    4 block: /* empty */
+
+
+State 5 conflicts: 1 reduce/reduce
+
+
+Grammar
+
+    0 $accept: program_start $end
+
+    1 program_start: /* empty */
+    2              | PROGRAM IDENT SEMICOLON block END_PROGRAM
+
+    3 block: /* empty */
+    4      | /* empty */
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+PROGRAM (258) 2
+BEGIN_PROGRAM (259)
+END_PROGRAM (260) 2
+INTEGER (261)
+ARRAY (262)
+OF (263)
+IF (264)
+THEN (265)
+ENDIF (266)
+ELSEIF (267)
+WHILE (268)
+DO (269)
+BEGINLOOP (270)
+ENDLOOP (271)
+BREAK (272)
+CONTINUE (273)
+EXIT (274)
+READ (275)
+WRITE (276)
+NOT (277)
+TRUE (278)
+FALSE (279)
+SEMICOLON (280) 2
+COLON (281)
+COMMA (282)
+QUESTION (283)
+L_BRACKET (284)
+R_BRACKET (285)
+ASSIGN (286)
+NUMBER (287)
+IDENT (288) 2
+GTE (289)
+LTE (290)
+GT (291)
+LT (292)
+NEQ (293)
+EQ (294)
+MOD (295)
+DIV (296)
+MULT (297)
+ADD (298)
+SUB (299)
+AND (300)
+OR (301)
+ELSE_PREC (302)
+IF_PREC (303)
+
+
+Nonterminals, with rules where they appear
+
+$accept (49)
+    on left: 0
+program_start (50)
+    on left: 1 2, on right: 0
+block (51)
+    on left: 3 4, on right: 2
+
+
+state 0
+
+    0 $accept: . program_start $end
+
+    PROGRAM  shift, and go to state 1
+
+    $default  reduce using rule 1 (program_start)
+
+    program_start  go to state 2
+
+
+state 1
+
+    2 program_start: PROGRAM . IDENT SEMICOLON block END_PROGRAM
+
+    IDENT  shift, and go to state 3
+
+
+state 2
+
+    0 $accept: program_start . $end
+
+    $end  shift, and go to state 4
+
+
+state 3
+
+    2 program_start: PROGRAM IDENT . SEMICOLON block END_PROGRAM
+
+    SEMICOLON  shift, and go to state 5
+
+
+state 4
+
+    0 $accept: program_start $end .
+
+    $default  accept
+
+
+state 5
+
+    2 program_start: PROGRAM IDENT SEMICOLON . block END_PROGRAM
+
+    END_PROGRAM  reduce using rule 3 (block)
+    END_PROGRAM  [reduce using rule 4 (block)]
+    $default     reduce using rule 3 (block)
+
+    block  go to state 6
+
+
+state 6
+
+    2 program_start: PROGRAM IDENT SEMICOLON block . END_PROGRAM
+
+    END_PROGRAM  shift, and go to state 7
+
+
+state 7
+
+    2 program_start: PROGRAM IDENT SEMICOLON block END_PROGRAM .
+
+    $default  reduce using rule 2 (program_start)
