@@ -164,6 +164,8 @@ read:
             ;
 
 Vars:
+            identifier {printf("Vars -> identifier\n");}
+            |identifier left_paren expression right_paren {printf("Vars -> identifier left_paren expression right_paren\n");}
             ;
 continue:
             CONTINUE {printf("continue -> CONTINUE\n");}
