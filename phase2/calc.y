@@ -50,7 +50,7 @@ beginprogram:
             BEGIN_PROGRAM {printf("begin_program -> BEGIN_PROGRAM\n");}
             ;
 statements:
-            statement semicolon statements {printf("statements -> statement semicolon statements\n");
+            statement semicolon statements {printf("statements -> statement semicolon statements\n");}
             |{printf("statements -> epsilon\n");}
             ;
 
@@ -77,6 +77,9 @@ elseOption:
             | {printf("elseOpitoin -> epsilon\n");}
             ;
 
+else:
+            ELSE {printf("else -> ELSE\n");}
+            ;
 endif:
             ENDIF {printf("endif -> ENDIF\n")}
             ;
@@ -99,7 +102,7 @@ statements1:
             ;
 
 endloop:
-            ENDLOOP {printf{"endloop -> ENDLOOP\n");}
+            ENDLOOP {printf("endloop -> ENDLOOP\n");}
             ;
 
 while:
