@@ -50,7 +50,78 @@ beginprogram:
             BEGIN_PROGRAM {printf("begin_program -> BEGIN_PROGRAM\n");}
             ;
 statements:
+            statement semicolon statements {printf("statements -> statement semicolon statements\n");
+            |{printf("statements -> epsilon\n");}
             ;
+
+statement:
+            continue {printf("statement -> continue\n");}
+            | write Vars {printf("statement -> write Vars\n");}
+            | read Vars {printf("statement -> read Vars\n");}
+            | do beginloop statements1 endloop while bool_exp {printf("statement -> do beginloop statements1 endloop while bool_exp\n");}
+            | while bool_exp beginloop statements1 endloop {printf("statement -> while bool_exp beginloop statements1 endloop\n");}
+            | if bool_exp then statements1 elseOption endif {printf("statement -> if bool_exp then statements1 elseOption endif\n");}
+            | Vars assign expression {printf("statement -> var assign expression\n");}
+            ;
+
+if: 
+            IF {printf("if -> IF\n");}
+            ;
+
+then:
+            THEN {printf("then -> THEN\n");}
+            ;
+
+elseOption:
+            else statements1 {printf("elseOpition -> else statements1\n");}
+            | {printf("elseOpitoin -> epsilon\n");}
+            ;
+
+endif:
+            ENDIF {printf("endif -> ENDIF\n")}
+            ;
+assign:
+            ASSIGN {printf("assign -> ASSIGN\n");}
+            ;
+
+expression:
+            ;
+
+do:
+            DO {printf("do -> DO\n");}
+            ;
+
+beginloop:
+            BEGINLOOP {printf("beginloop -> BEGINLOOP\n");}
+            ;
+
+statements1:
+            ;
+
+endloop:
+            ENDLOOP {printf{"endloop -> ENDLOOP\n");}
+            ;
+
+while:
+            WHILE {printf("while -> WHILE\n");}
+            ;
+
+bool_exp:
+            ; 
+write:
+            WRITE {printf("write -> WRITE\n");}
+            ;
+
+read:
+            READ {printf("read -> READ\n");}
+            ;
+
+Vars:
+            ;
+continue:
+            CONTINUE {printf("continue -> CONTINUE\n");}
+            ;
+            
 endprogram:
             END_PROGRAM {printf("end_program ->END_PROGRAM\n");}
             ;
