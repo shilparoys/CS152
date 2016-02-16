@@ -55,6 +55,42 @@ declarations:
             |{printf("declarations -> epsilon\n");} 
             ;
 
+declaration:
+            identifier identMore colon array left_paren number right_paren of integer {printf("declaration -> identifier indentMore colon array left_paren number right_paren of integer\n");            }
+            |identifier indentMore colon integer {printf("declaration -> indentifier indetMore colon integer\n");}
+            ;
+
+identMore:
+            comma indentMore {printf("identMore -> comma indentMore\n");}
+            |{printf("identMore -> epsilon\n");}
+            ;
+colon:
+            COLON {printf("colon -> COLON\n");}
+            ;
+array:      
+            ARRAY {printf("array -> ARRAY\n");}
+            ;
+
+left_paren:
+            L_PAREN {printf("l_paren -> L_PAREN\n");}
+            ;
+number:
+            NUMBER {printf("number -> NUMBER(%d)\n", $1);}
+            ;
+right_paren:
+            R_PAREN {printf("r_paren -> R_PAREN\n");}
+            ;
+of:
+            OF {printf("of-> OF\n");}
+            ;
+
+integer:
+            INTEGER {printf("integer -> INTEGER\n");}
+            ;
+comma:
+            COMMA {printf("comma -> COMMA\n");}
+            ;
+
 %%
 
 int main(int argc, char **argv) {
