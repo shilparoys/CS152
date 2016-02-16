@@ -20,10 +20,10 @@
 %token PROGRAM BEGIN_PROGRAM END_PROGRAM INTEGER ARRAY OF IF THEN ELSE
 %token ENDIF ELSEIF WHILE DO BEGINLOOP ENDLOOP BREAK CONTINUE END
 %token EXIT READ WRITE NOT TRUE FALSE SEMICOLON COLON COMMA QUESTION
-%token ASSIGN L_PAREN R_PAREN L_BRACKET R_BRACKET 
+%token L_BRACKET R_BRACKET ASSIGN
 %token <numToken> NUMBER
 %token <identToken> IDENT
-%left  OR AND SUB ADD MULT DIV MOD EQ NEQ LT GT LTE GTE 
+%left NOT OR AND SUB ADD MULT DIV MOD EQ NEQ LT GT LTE GTE L_PAREN R_PAREN
 %nonassoc IF_PREC ELSE_PREC
 
 
@@ -36,15 +36,12 @@ program_start:
 program:
             PROGRAM {printf("program -> PROGRAM\n");}
             ;
-
 identifier:
             IDENT {printf("ident -> IDENT (%s)\n", $1);}
             ;
-
 semicolon:
             SEMICOLON {printf("semicolon -> SEMICOLON\n");}
             ;
-
 block:
             declarations beginprogram statements {printf("block -> declarations beginprogram statements\n");}
             ;
@@ -52,7 +49,6 @@ block:
 beginprogram:
             BEGIN_PROGRAM {printf("begin_program -> BEGIN_PROGRAM\n");}
             ;
-
 statements:
             statement semicolon statements {printf("statements -> statement semicolon statements\n");}
             |{printf("statements -> epsilon\n");}
@@ -124,7 +120,6 @@ div:
 mod:
             MOD {printf("mod -> MOD\n");}
             ;
-
 moreMultExp:
             plus multplicative_exp {printf("moreMultExp -> plus multplicative_exp\n");}
             | minus multplicative_exp {printf("moreMultExp -> minus multiplicative_exp\n");}
@@ -148,8 +143,6 @@ beginloop:
             ;
 
 statements1:
-            {printf("statements1 -> epsilon\n");}
-            | statement semicolon statements1 {printf("statements1 -> statement semicolon statements1\n");}
             ;
 
 endloop:
