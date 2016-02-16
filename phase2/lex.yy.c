@@ -999,12 +999,12 @@ YY_RULE_SETUP
 case 46:
 YY_RULE_SETUP
 #line 63 "calc.lex"
-{currPos += yyleng; yylval.dval = atof(yytext); return IDENT;}
+{currPos += yyleng; yylval.identToken = yytext; return IDENT;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
 #line 65 "calc.lex"
-{ currPos += yyleng; yylval.dval = atof(yytext); return NUMBER;}
+{ currPos += yyleng; yylval.numToken= atoi(yytext); return NUMBER;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP

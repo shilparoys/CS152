@@ -46,6 +46,11 @@ block:
             declarations beginprogram statements {printf("block -> declarations beginprogram statements\n");}
             ;
 
+beginprogram:
+            BEGIN_PROGRAM {printf("begin_program -> BEGIN_PROGRAM\n");}
+            ;
+statements:
+            ;
 endprogram:
             END_PROGRAM {printf("end_program ->END_PROGRAM\n");}
             ;
@@ -57,11 +62,11 @@ declarations:
 
 declaration:
             identifier identMore colon array left_paren number right_paren of integer {printf("declaration -> identifier indentMore colon array left_paren number right_paren of integer\n");            }
-            |identifier indentMore colon integer {printf("declaration -> indentifier indetMore colon integer\n");}
+            |identifier identMore colon integer {printf("declaration -> indentifier indetMore colon integer\n");}
             ;
 
 identMore:
-            comma indentMore {printf("identMore -> comma indentMore\n");}
+            comma identMore {printf("identMore -> comma indentMore\n");}
             |{printf("identMore -> epsilon\n");}
             ;
 colon:
