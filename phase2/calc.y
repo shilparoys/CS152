@@ -88,6 +88,50 @@ assign:
             ;
 
 expression:
+            multplicative_exp moreMultExp {printf("expression -> multiplicative_exp moreMultExp\n");}
+            ;
+
+multplicative_exp:
+            term terms {printf("multplicative_exp -> term terms\n");}
+            ;
+
+term:
+            minus Vars {printf("term -> sub Var\n");}
+            | minus number {printf("term -> sub number\n");}
+            | minus left_paren expression right_paren {printf("term -> sub left_paren expression right_paren\n");}
+            | Vars {printf("term -> Var\n");}
+            | number {printf("term -> number\n");}
+            | left_paren expression right_paren {printf("term -> left_paren expression right_paren\n");}
+            ;
+terms:
+            mult term {printf("terms -> mult term\n");}
+            |div term {printf("terms -> div term\n");}
+            |mod term {printf("terms -> mod term\n");}
+            ;
+
+mult:
+            MULT {printf("mult -> MULT\n");}
+            ;
+
+div:
+            DIV {printf("div -> DIV\n");}
+            ;
+
+mod:
+            MOD {printf("mod -> MOD\n");}
+            ;
+moreMultExp:
+            plus multplicative_exp {printf("moreMultExp -> plus multplicative_exp\n");}
+            | minus multplicative_exp {printf("moreMultExp -> minus multiplicative_exp\n");}
+            | {printf("moreMultExp -> epsilon\n")};
+            ;
+
+plus:
+            ADD {printf("add -> ADD\n");}
+            ;
+
+minus:
+            SUB {printf("sub -> SUB\n");}
             ;
 
 do:
