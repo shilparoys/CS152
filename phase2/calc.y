@@ -143,6 +143,8 @@ beginloop:
             ;
 
 statements1:
+            {printf("statements1 -> epsilon\n");}
+            | statement semicolon statements1 {printf("statements1 -> statement semicolon statements1\n");}
             ;
 
 endloop:
