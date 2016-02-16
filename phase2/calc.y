@@ -1,4 +1,6 @@
-/* calculator. */
+/* Shilpa Chirackel 861060176
+   Rachel Law 
+*/
 %{
  #include <stdio.h>
  #include <stdlib.h>
@@ -27,12 +29,32 @@
 
 %% 
 program_start:	
-			| 
-            PROGRAM IDENT SEMICOLON block END_PROGRAM {printf("program_start -> program identifier semicolon block end_program\n");}
-			;
+            | 
+            program identifier semicolon block endprogram {printf("program_start -> program identifier semicolon block endprogram\n");}
+            ; 
 
+program:
+            PROGRAM {printf("program -> PROGRAM\n");}
+            ;
+identifier:
+            IDENT {printf("ident -> IDENT (%s)\n", $1);}
+            ;
+semicolon:
+            SEMICOLON {printf("semicolon -> SEMICOLON\n");}
+            ;
 block:
-			|
+            declarations beginprogram statements {printf("block -> declarations beginprogram statements\n");}
+            ;
+
+endprogram:
+            END_PROGRAM {printf("end_program ->END_PROGRAM\n");}
+            ;
+
+declarations:
+            declaration semicolon declarations {printf("declarations -> declaration semicolon declarations\n");}
+            |{printf("declarations -> epsilon\n");} 
+            ;
+
 %%
 
 int main(int argc, char **argv) {
