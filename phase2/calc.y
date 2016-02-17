@@ -32,6 +32,17 @@ program_start:
             program identifier semicolon block endprogram {printf("program_start -> program identifier semicolon block endprogram\n");}
             ; 
 
+//nonterminals
+block:
+            declarations beginprogram statements {printf("block -> declarations beginprogram statements\n");}
+ 
+
+
+
+
+
+
+//terminals
 program:
             PROGRAM {printf("program -> PROGRAM\n");}
             ;
@@ -40,9 +51,6 @@ identifier:
             ;
 semicolon:
             SEMICOLON {printf("semicolon -> SEMICOLON\n");}
-            ;
-block:
-            declarations beginprogram statements {printf("block -> declarations beginprogram statements\n");}
             ;
 
 beginprogram:
