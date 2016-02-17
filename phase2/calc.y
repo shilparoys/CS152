@@ -160,6 +160,7 @@ while:
             WHILE {printf("while -> WHILE\n");}
             ;
 
+<<<<<<< HEAD
 bool_exp:
             relation_and_exp relation_and_exp_list {printf("bool_exp -> relation_and_exp relation_and_exp_list\n");}
             ; 
@@ -183,6 +184,8 @@ and:
 or:
             OR {printf("or -> OR\n");}
             ;
+=======
+>>>>>>> old-state
 write:
             WRITE {printf("write -> WRITE\n");}
             ;
@@ -242,6 +245,63 @@ integer:
             ;
 comma:
             COMMA {printf("comma -> COMMA\n");}
+            ;
+bool_exp:
+            relation_and_exp relation_or {printf("bool_exp -> relation_and_exp relation_or \n");}
+            ;
+relation_and_exp:
+            relation_exp relation_and {printf("relation_and_exp -> relation_exp relation_and\n");}
+            ;
+
+relation_exp:
+            expression comp expression {printf("relation_exp -> expression comp expression\n");}
+            | true {printf("relation_exp -> true\n");}
+            | false {printf("relation_exp -> false\n");}
+            | left_paren bool_exp right_paren {printf("relation_exp -> left_paren bool_exp right_paren\n");}
+            | not expression comp expression {printf("relation_exp -> not expression comp expression\n");}
+            | not true {printf("relation_exp -> not true\n");}
+            | not false {printf("relation_exp -> not false\n")};
+            | not left_paren bool_exp right_paren {printf("relation_exp -> not left_paren bool_exp right_paren\n");}
+            ;
+
+true:
+            TRUE {printf("true -> TRUE\n");}
+            ;
+
+false:
+            FALSE {printf("false -> FALSE\n");}
+            ;
+
+not:
+            NOT {printf("not -> NOT\n");}
+            ;
+
+comp:
+            EQ {printf("comp -> EQ\n");}
+            | NEQ {printf("comp -> NEQ\n");}
+            | LT {printf("comp -> LT\n");}
+            | GT {printf("comp -> GT\n");}
+            | LTE {printf("comp -> LTE\n");}
+            | GTE {printf("comp -> GTE\n");}
+            ;
+             ;
+
+relation_and:
+            and relation_exp relation_and {printf("relation_and -> and relation_exp relation_and\n");}
+            | {printf("relation_and -> epsilon\n");}
+            ;
+
+relation_or:
+            or relation_and_exp relation_or {printf("relation_or -> or relation_and_exp relation_or\n");}
+            | {printf("relation_or -> epsilon\n");}
+            ;
+
+and:
+            AND {printf("and -> AND\n");}
+            ;
+
+or:
+            OR {printf("or -> OR\n");}
             ;
 
 relation_exp:
