@@ -2,7 +2,6 @@
 Rachel Law (861071722) & Shilpa Chirackel (86106176)
 rlaw001@ucr.edu
 schir001@ucr.edu
-
 */
 
 
@@ -29,9 +28,7 @@ DIGIT    [0-9]
 "do"           {currPos += yyleng; return DO;}
 "beginloop"    {currPos += yyleng; return BEGINLOOP;}
 "endloop"      {currPos += yyleng; return ENDLOOP;}
-"break"        {currPos += yyleng; return BREAK;}
 "continue"     {currPos += yyleng; return CONTINUE;}
-"exit"         {currPos += yyleng; return EXIT;}
 "read"         {currPos += yyleng; return READ;}
 "write"        {currPos += yyleng; return WRITE;}
 "and"          {currPos += yyleng; return AND;}
@@ -55,9 +52,6 @@ DIGIT    [0-9]
 ";"            {currPos += yyleng; return SEMICOLON;}
 ":"            {currPos += yyleng; return COLON;}
 ","            {currPos += yyleng; return COMMA;}
-"?"            {currPos += yyleng; return QUESTION;}
-"["            {currPos += yyleng; return L_BRACKET;}
-"]"            {currPos += yyleng; return R_BRACKET;}
 ":="           {currPos += yyleng; return ASSIGN;}
 
 [a-zA-Z]([a-zA-Z0-9]|([_]*[a-zA-Z0-9]+))* {currPos += yyleng; yylval.identToken = yytext; return IDENT;}
