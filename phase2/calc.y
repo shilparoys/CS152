@@ -160,32 +160,6 @@ while:
             WHILE {printf("while -> WHILE\n");}
             ;
 
-<<<<<<< HEAD
-bool_exp:
-            relation_and_exp relation_and_exp_list {printf("bool_exp -> relation_and_exp relation_and_exp_list\n");}
-            ; 
-
-relation_and_exp_list:
-            or relation_and_exp relation_and_exp_list {printf("relation_and_exp_list -> or relation_and_exp relation_and_exp_list\n");}
-            ;
-
-relation_and_exp:
-            relation_exp relation_and {printf("relation_and_exp -> relation_exp relation_and\n");}
-            ;
-
-relation_and:
-            and relation_exp relation_and {printf("relation_and -> and rleation_exp relation_and\n");}
-            ;
-
-and:
-            AND {printf("and -> AND\n");}
-            ;
-
-or:
-            OR {printf("or -> OR\n");}
-            ;
-=======
->>>>>>> old-state
 write:
             WRITE {printf("write -> WRITE\n");}
             ;
