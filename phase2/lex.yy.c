@@ -1029,7 +1029,7 @@ YY_RULE_SETUP
 case 52:
 YY_RULE_SETUP
 #line 75 "calc.lex"
-{currLine++; currPos = 1; return END;}
+{currLine++; currPos = 1; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP

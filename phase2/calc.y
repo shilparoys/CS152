@@ -263,7 +263,6 @@ write:
 
 read:
             READ {printf("read -> READ\n");}
-            |error{printf("error: read\n");}
             ;   
 do:
             DO {printf("do -> DO\n");}
@@ -286,7 +285,6 @@ while:
             ;
 if: 
             IF {printf("if -> IF\n");}
-            |error{printf("error: if\n");}
             ;
 
 then:
@@ -324,12 +322,10 @@ true:
 
 false:
             FALSE {printf("false -> FALSE\n");}
-            |error{printf("error: false\n");}
             ;
 
 not:
             NOT {printf("not -> NOT\n");}
-            |error{printf("error: not\n");}
             ;
 
 comp:
@@ -349,12 +345,10 @@ mult:
 
 div:
             DIV {printf("div -> DIV\n");}
-            |error{printf("error: div\n");}
             ;
 
 mod:
             MOD {printf("mod -> MOD\n");}
-            |error{printf("error: mod\n");}
             ;
 
 plus:
@@ -364,7 +358,6 @@ plus:
 
 minus:
             SUB {printf("sub -> SUB\n");}
-            |error{printf("error -> minus\n");}
             ;
 
 
