@@ -14,7 +14,7 @@ schir001@ucr.edu
 DIGIT    [0-9]
 
 %%
-"program"      {currPos += yyleng; return PROGRAM}
+"program"      {currPos += yyleng; return PROGRAM;}
 "beginprogram" {currPos += yyleng; return BEGIN_PROGRAM;}
 "endprogram"   {currPos += yyleng; return END_PROGRAM;}
 "integer"      {currPos += yyleng; return INTEGER;}
@@ -60,9 +60,9 @@ DIGIT    [0-9]
 "]"            {currPos += yyleng; return R_BRACKET;}
 ":="           {currPos += yyleng; return ASSIGN;}
 
-[a-zA-Z]([a-zA-Z0-9]|([_]*[a-zA-Z0-9]+))* {currPos += yyleng; yylval.dval = atof(yytext); return IDENT;}
+[a-zA-Z]([a-zA-Z0-9]|([_]*[a-zA-Z0-9]+))* {currPos += yyleng; yylval.identToken = yytext; return IDENT;}
 
-(\.{DIGIT}+)|({DIGIT}+(\.{DIGIT}*)?([eE][+-]?[0-9]+)?) { currPos += yyleng; yylval.dval = atof(yytext); return NUMBER;}
+(\.{DIGIT}+)|({DIGIT}+(\.{DIGIT}*)?([eE][+-]?[0-9]+)?) { currPos += yyleng; yylval.numToken= atoi(yytext); return NUMBER;}
 
 [0-9_][A-Za-z0-9_]* { printf("Error at line %d, column %d: ", currLine, currPos);  printf("identifier \"%s\" ", yytext);  printf(" must begin with a letter\n"); exit(0);}
 
@@ -72,7 +72,7 @@ DIGIT    [0-9]
 
 [ \t]+         {/* ignore spaces */ currPos += yyleng;}
 
-"\n"           {currLine++; currPos = 1; return END;}
+"\n"           {currLine++; currPos = 1; }
 
 .              {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext); exit(0);}
 

@@ -1,6 +1,6 @@
-parse: calc.lex calc.y
-	bison -v -d --file-prefix=y calc.y
-	flex calc.lex
+parse: MINI_L.lex MINI_L.y
+	bison -v -d --file-prefix=y MINI_L.y
+	flex MINI_L.lex
 	gcc -o calc y.tab.c lex.yy.c -lfl
 
 clean:
