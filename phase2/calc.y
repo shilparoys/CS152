@@ -197,68 +197,53 @@ moreMultExp:
 //terminals
 program:
             PROGRAM {printf("program -> PROGRAM\n");}
-            |error{printf("error: program\n");};
 identifier:
             IDENT {printf("identifier -> IDENT (%s)\n", $1);}
-            |error{printf("error: identifier\n");}
             ;
 semicolon:
             SEMICOLON {printf("semicolon -> SEMICOLON\n");}
-            |error{printf("error: semicolon\n");}
             ;
 
 beginprogram:
             BEGIN_PROGRAM {printf("begin_program -> BEGIN_PROGRAM\n");}
-            |error{printf("error: beginprogram\n");}
             ;
 
 endprogram:
             END_PROGRAM {printf("end_program ->END_PROGRAM\n");}
-            |error{printf("error: endprogram\n");}
             ;
 
 colon:
             COLON {printf("colon -> COLON\n");}
-            |error{printf("error: colon\n");}
             ;
 array:      
             ARRAY {printf("array -> ARRAY\n");}
-            |error{printf("error: array\n");}
             ;
 
 left_paren:
             L_PAREN {printf("l_paren -> L_PAREN\n");}
-            |error{printf("error: left_paren\n");}
             ;
 number:
             NUMBER {printf("number -> NUMBER(%d)\n", $1);}
-            |error{printf("error: number\n");}
             ;
 right_paren:
             R_PAREN {printf("r_paren -> R_PAREN\n");}
-            |error{printf("error: right_paren\n");}
             ;
 of:
             OF {printf("of-> OF\n");}
-            |error{printf("error: of\n");}
             ;
 
 integer:
             INTEGER {printf("integer -> INTEGER\n");}
-            |error{printf("error: integer\n");}
             ;
 comma:
             COMMA {printf("comma -> COMMA\n");}
-            |error{printf("error: comma\n");}
             ;
 
 continue:
             CONTINUE {printf("continue -> CONTINUE\n");}
-            |error{printf("error: continue\n");}
             ;
 write:
             WRITE {printf("write -> WRITE\n");}
-            |error{printf("error: write\n");}
             ;
 
 read:
@@ -266,22 +251,18 @@ read:
             ;   
 do:
             DO {printf("do -> DO\n");}
-            |error{printf("error: do\n");}
             ;
 
 beginloop:
             BEGINLOOP {printf("beginloop -> BEGINLOOP\n");}
-            |error{printf("error: beginloop\n");}
             ;   
 
 endloop:
             ENDLOOP {printf("endloop -> ENDLOOP\n");}
-            |error{printf("error: endloop\n");}
             ;
 
 while:
             WHILE {printf("while -> WHILE\n");}
-            |error{printf("error: while\n");}
             ;
 if: 
             IF {printf("if -> IF\n");}
@@ -289,35 +270,28 @@ if:
 
 then:
             THEN {printf("then -> THEN\n");}
-            |error{printf("error: then\n");}
             ;
 
 else:
             ELSE {printf("else -> ELSE\n");}
-            |error{printf("error: else\n");}
             ;
 endif:
             ENDIF {printf("endif -> ENDIF\n")}
-            |error{printf("error: endif\n");}
             ;
 assign:
             ASSIGN {printf("assign -> ASSIGN\n");}
-            |error{printf("error: assign\n");}
             ;
 
 and:
             AND {printf("and -> AND\n");}
-            |error{printf("error: and\n");}
             ;
 
 or:
             OR {printf("or -> OR\n");}
-            |error{printf("error: or\n");}
             ;
 
 true:
             TRUE {printf("true -> TRUE\n");}
-            |error{printf("error: true\n");}
             ;
 
 false:
@@ -340,7 +314,6 @@ comp:
 
 mult:
             MULT {printf("mult -> MULT\n");}
-            |error{printf("error: mult\n");}
             ;
 
 div:
@@ -353,7 +326,6 @@ mod:
 
 plus:
             ADD {printf("add -> ADD\n");}
-            |error{printf("error: plus\n");}
             ;
 
 minus:
