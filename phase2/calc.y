@@ -41,70 +41,78 @@ block:
 declarations:
             declaration semicolon declarations 
             {printf("declarations -> declaration semicolon declarations\n");}
-            |{printf("declarations -> epsilon\n");} 
+            |
+			{printf("declarations -> epsilon\n");} 
             ;
 
 declaration:
-            identifier identMore colon array left_paren number right_paren of integer 
-            {printf("declaration -> identifier indentMore colon array left_paren number right_paren of integer\n");            }
-            |identifier identMore colon integer
-            {printf("declaration -> indentifier indetMore colon integer\n");}
+            identifier identMore colon declaration2 integer 
+            {printf("declaration -> identifier identMore colon declaration2 integer\n");            }
             ;
+
+declaration2:
+			array left_paren number right_paren of
+			{printf("declaration2 -> array left_paren number right_paren of\n");}
+			|
+			{printf("declaration2 -> epsilon\n");}
+			;
+
 
 identMore:
             comma identifier identMore 
             {printf("identMore -> comma identifier indentMore\n");}
-            |{printf("identMore -> epsilon\n");}
+            |
+			{printf("identMore -> epsilon\n");}
             ;
 
 statements:
-            statement semicolon 
-            {printf("statements -> statement semicolon\n");}
-            |statements statement semicolon
-            {printf("statements -> statements statement semicolon\n");}
+            statement semicolon statements 
+            {printf("statements -> statement semicolon statements\n");}
+            |
+            {printf("statements -> epsilon\n");}
             ;
 
 statement:
             continue 
             {printf("statement -> continue\n");}
-            | write Vars 
-            {printf("statement -> write Vars\n");}
-            | read Vars 
-            {printf("statement -> read Vars\n");}
-            | do beginloop statements1 endloop while bool_exp 
-            {printf("statement -> do beginloop statements1 endloop while bool_exp\n");}
-            | while bool_exp beginloop statements1 endloop 
-            {printf("statement -> while bool_exp beginloop statements1 endloop\n");}
-            | if bool_exp then statements1 elseOption endif 
-            {printf("statement -> if bool_exp then statements1 elseOption endif\n");}
-            | Var assign expression {printf("statement -> Var assign expression\n");}
+            |write Var Vars 
+            {printf("statement -> write Var Vars\n");}
+            |read Var Vars 
+            {printf("statement -> read Var Vars\n");}
+            |do beginloop statement semicolon statements endloop while bool_exp 
+            {printf("statement -> do beginloop statement semicolon statements endloop while bool_exp\n");}
+            |while bool_exp beginloop statement semicolon statements endloop 
+            {printf("statement -> while bool_exp beginloop statement semicolon statements endloop\n");}
+            |if bool_exp then statement semicolon statements statement1 endif 
+            {printf("statement -> if bool_exp then statement semicolon statements statement1 endif\n");}
+            |Var assign expression {printf("statement -> Var assign expression\n");}
             ;
+
+statement1:
+			else statement semicolon statements
+			{printf("statement1 -> else statement semicolon statements\n");}
+			|
+			{printf("statement1 -> epsilon\n");}
+			;
+
 Vars:
-            Vars comma Var 
-            {printf("Vars -> Vars comma Var\n")}
-            |Var
-            {printf("Vars -> Var\n");}
+            comma Var Vars
+            {printf("Vars -> comma Var Vars\n")}
+            |
+            {printf("Vars -> epsilon\n");}
             ;
 
 Var:
-            identifier 
-            {printf("Var -> identifier\n");}
-            |identifier left_paren expression right_paren 
-            {printf("Vars -> identifier left_paren expression right_paren\n");}
+            identifier var2 
+            {printf("Var -> identifier var2\n");}
+			;
 
-
-statements1:
-            {printf("statements1 -> epsilon\n");}
-            | statement semicolon statements1 
-            {printf("statements1 -> statement semicolon statements1\n");}
-            ;
-
-elseOption:
-            else statements1 
-            {printf("elseOpition -> else statements1\n");}
-            | {printf("elseOpitoin -> epsilon\n");}
-            ;
-
+var2:
+			left_paren expression right_paren
+			{printf("var2 -> left_paren expression right_paren\n");}
+			|
+			{printf("var2 -> epsilon\n");}
+			;
 
 bool_exp:
             relation_and_exp relation_or 
@@ -130,23 +138,24 @@ relation_and:
 
 
 relation_exp:
+			not relation_exp2
+			{printf("relation_exp -> not relation_exp2\n");}
+			|relation_exp2
+			{printf("relation_exp -> relation_exp2\n");}
+			;
+
+
+relation_exp2:
             expression comp expression 
-            {printf("relation_exp -> expression comp expression\n");}
+            {printf("relation_exp2 -> expression comp expression\n");}
             | true 
-            {printf("relation_exp -> true\n");}
+            {printf("relation_exp2 -> true\n");}
             | false 
-            {printf("relation_exp -> false\n");}
+            {printf("relation_exp2 -> false\n");}
             | left_paren bool_exp right_paren 
-            {printf("relation_exp -> left_paren bool_exp right_paren\n");}
-            | not expression comp expression 
-            {printf("relation_exp -> not expression comp expression\n");}
-            | not true 
-            {printf("relation_exp -> not true\n");}
-            | not false 
-            {printf("relation_exp -> not false\n")};
-            | not left_paren bool_exp right_paren 
-            {printf("relation_exp -> not left_paren bool_exp right_paren\n");}
+            {printf("relation_exp2 -> left_paren bool_exp right_paren\n");}
             ;
+
 
 expression:
             multplicative_exp moreMultExp 
@@ -155,33 +164,37 @@ expression:
 
 
 multplicative_exp:
-            term terms 
-            {printf("multplicative_exp -> term terms\n");}
+            term term1 
+            {printf("multplicative_exp -> term term1\n");}
             ;
 
 term:
-            minus Var
-             {printf("term -> sub Vars\n");}
-            | minus number 
-            {printf("term -> sub number\n");}
-            | minus left_paren expression right_paren 
-            {printf("term -> sub left_paren expression right_paren\n");}
-            | Var 
-            {printf("term -> Var\n");}
+			minus term2
+			{printf("term -> minus term2\n");}
+			| term2
+			{printf("term -> term2\n");}
+			;
+
+term1:
+            mult term term1 
+            {printf("term1 -> mult term term1\n");}
+            |div term term1
+            {printf("term1 -> div term term1\n");}
+            |mod term term1
+            {printf("term1 -> mod term term1\n");}
+            |
+			{printf("term1 -> epsilon term1\n");}
+            ;
+
+term2:
+            Var 
+            {printf("term2 -> Var\n");}
             | number
-             {printf("term -> number\n");}
+             {printf("term2 -> number\n");}
             | left_paren expression right_paren 
-            {printf("term -> left_paren expression right_paren\n");}
+            {printf("term2 -> left_paren expression right_paren\n");}
             ;
-terms:
-            terms mult term 
-            {printf("terms -> terms mult term\n");}
-            |terms div term 
-            {printf("terms -> terms div term\n");}
-            |terms mod term 
-            {printf("terms -> terms mod term\n");}
-            |{printf("terms -> epsilon\n");}
-            ;
+		
 
 moreMultExp:
             plus multplicative_exp moreMultExp
@@ -209,7 +222,7 @@ beginprogram:
             ;
 
 endprogram:
-            END_PROGRAM {printf("end_program ->END_PROGRAM\n");}
+            END_PROGRAM {printf("end_program -> END_PROGRAM\n");}
             ;
 
 colon:
