@@ -1,0 +1,4 @@
+Error line 4: symbol "n" is multiply-defined.
+Error line 7: used variable "z" was not previously declared.
+Error line 8: used array variable "r" is missing a specified index.
+Error line 10: continue statement not within a loop.
