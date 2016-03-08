@@ -52,6 +52,8 @@
 %left OR AND SUB ADD MULT DIV MOD EQ NEQ LT GT LTE GTE L_PAREN R_PAREN
 %nonassoc IF_PREC ELSE_PREC
 
+%type <identToken> identifier
+%type <identToken> array
 %% 
 program_start:	
              program identifier {programName = $2;} semicolon block endprogram 
