@@ -6,6 +6,8 @@
  #include <stdlib.h>
  #include <vector>
  #include <string>
+ #include <sstream>
+
  using namespace std;
 
  void yyerror(const char *msg);
@@ -14,15 +16,24 @@
  extern int currPos;
  extern FILE * yyin;
 
- struct symbolTable{
+ //struct for the symbolTable
+ struct symbolTableEntry{
     string name;
     int a_size;
     int value;
-    symbolTable(): name(), a_size(0), value(0) {}
+    symbolTableEntry(): name(), a_size(0), value(0) {}
 };
 
+ //user defined functions
+ bool isVariableDeclared(string input);
+
+ //user defined variables
  string programName;
  vector<string> errorList;
+ vector<symbolTableEntry> symbolTable;
+ ostringstream output;
+ bool valid = true;
+ bool arrayValid = true;
 %}
 
 %union{
@@ -43,13 +54,13 @@
 
 %% 
 program_start:	
-             program identifier {/*programName = $2;*/} semicolon block endprogram 
+             program identifier {programName = $2;} semicolon block endprogram 
              {}
             ; 
 
 //nonterminals
 block:
-            declarations beginprogram statements 
+            declarations beginprogram {output << ": START\n";} statements 
             {}
             ;
  
@@ -62,12 +73,40 @@ declarations:
 
 declaration:
             identifier identMore colon declaration2 integer 
-            {}
+            {
+                valid = isVariableDeclared($1);
+                symbolTableEntry sym;
+                sym.name = $1;
+                sym.type = 0;
+                symbolTable.push_back(sym);
+                if(valid){
+                    string error = "Error line " << currLine << ": Variable \"" << var << "\" has an invlaid array size\n";
+                    errorList.push_back(error);
+                }
+            }
             ;
 
 declaration2:
 			array left_paren number right_paren of
-			{}
+			{
+                //semantic error checking: array of valid size
+                if($6 <= 0){
+                    arrayValid = false;
+                    string error = "Error line " << currLine << ": Variable \"" << var << "\" has an invlaid array size\n";
+                    errorList.push_back(error);
+                }
+                valid = isVariableDeclared($1);
+                symbolTableEntry sym;
+                sym.name = $1;
+                sym.a_size = atoi($6);
+                sym.type = 1;
+                symbolTable.push_back(sym);
+                
+                if(arrayValid){
+                    string error = "Error line " << currLine << ": symbol \"" << $1 << "\" << is multiply-defined\n";
+                    errorList.push_back(error);
+                }
+            }
 			|
 			{}
 			;
@@ -75,7 +114,19 @@ declaration2:
 
 identMore:
             comma identifier identMore 
-            {}
+            {
+                valid = isVariableDeclared($2);
+                if(!valid){
+                    symbolTableEntry sym;
+                    sym.name = $2;
+                    sym.type = 0;
+                    symbolTable.push_back(sym);
+                }
+                else{
+                       string error = "Error line " << currLine << ": Variable \"" << var << "\" has an invlaid array size\n";
+                    errorList.push_back(error); 
+                }
+            }
             |
 			{}
             ;
@@ -364,6 +415,19 @@ minus:
 
 %%
 
+
+bool isVariableDeclared(string input){
+    if(input == programName){
+        return true;
+    }
+    for(int i = 0; i < symbolTable.size(); i++){
+        if(symbolTable.at(i).name == input){
+            return true;
+        }
+    }
+    return false;
+}
+
 int main(int argc, char **argv) {
    if (argc > 1) {
       yyin = fopen(argv[1], "r");
@@ -383,7 +447,8 @@ int main(int argc, char **argv) {
    }
    else{
    //compilation is a success so can produce mil file
-   
+        //for(int i = 0; i < symbolTable.size(); i++){
+       //     if(symbolTable[i].type 
         programName = programName + ".mil";
    }
    return 0;
