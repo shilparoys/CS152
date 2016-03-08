@@ -5,9 +5,11 @@
  #include <stdio.h>
  #include <stdlib.h>
  void yyerror(const char *msg);
+ extern int yylex(void);
  extern int currLine;
  extern int currPos;
- FILE * yyin;
+ extern FILE * yyin;
+ using namespace std;
 %}
 
 %union{
