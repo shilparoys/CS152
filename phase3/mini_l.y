@@ -14,6 +14,14 @@
  extern int currPos;
  extern FILE * yyin;
 
+ struct symbolTable{
+    string name;
+    int a_size;
+    int value;
+    symbolTable(): name(), a_size(0), value(0) {}
+};
+
+ string programName;
  vector<string> errorList;
 %}
 
@@ -35,7 +43,7 @@
 
 %% 
 program_start:	
-             program identifier semicolon block endprogram 
+             program identifier {/*programName = $2;*/} semicolon block endprogram 
              {}
             ; 
 
@@ -376,6 +384,7 @@ int main(int argc, char **argv) {
    else{
    //compilation is a success so can produce mil file
    
+        programName = programName + ".mil";
    }
    return 0;
 }

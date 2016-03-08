@@ -1,0 +1,2182 @@
+Terminals which are not used
+
+   ELSEIF
+   BREAK
+   END
+   EXIT
+   QUESTION
+   L_BRACKET
+   R_BRACKET
+   ELSE_PREC
+   IF_PREC
+
+
+Grammar
+
+    0 $accept: program_start $end
+
+    1 @1: /* empty */
+
+    2 program_start: program identifier @1 semicolon block endprogram
+
+    3 block: declarations beginprogram statements
+
+    4 declarations: declaration semicolon declarations
+    5             | /* empty */
+
+    6 declaration: identifier identMore colon declaration2 integer
+
+    7 declaration2: array left_paren number right_paren of
+    8             | /* empty */
+
+    9 identMore: comma identifier identMore
+   10          | /* empty */
+
+   11 statements: statement semicolon statements
+   12           | /* empty */
+
+   13 statement: continue
+   14          | write Var Vars
+   15          | read Var Vars
+   16          | do beginloop statement semicolon statements endloop while bool_exp
+   17          | while bool_exp beginloop statement semicolon statements endloop
+   18          | if bool_exp then statement semicolon statements statement1 endif
+   19          | Var assign expression
+
+   20 statement1: else statement semicolon statements
+   21           | /* empty */
+
+   22 Vars: comma Var Vars
+   23     | /* empty */
+
+   24 Var: identifier var2
+
+   25 var2: left_paren expression right_paren
+   26     | /* empty */
+
+   27 bool_exp: relation_and_exp relation_or
+
+   28 relation_and_exp: relation_exp relation_and
+
+   29 relation_or: or relation_and_exp relation_or
+   30            | /* empty */
+
+   31 relation_and: and relation_exp relation_and
+   32             | /* empty */
+
+   33 relation_exp: not relation_exp2
+   34             | relation_exp2
+
+   35 relation_exp2: expression comp expression
+   36              | true
+   37              | false
+   38              | left_paren bool_exp right_paren
+
+   39 expression: multplicative_exp moreMultExp
+
+   40 multplicative_exp: term term1
+
+   41 term: minus term2
+   42     | term2
+
+   43 term1: mult term term1
+   44      | div term term1
+   45      | mod term term1
+   46      | /* empty */
+
+   47 term2: Var
+   48      | number
+   49      | left_paren expression right_paren
+
+   50 moreMultExp: plus multplicative_exp moreMultExp
+   51            | minus multplicative_exp moreMultExp
+   52            | /* empty */
+
+   53 program: PROGRAM
+
+   54 identifier: IDENT
+
+   55 semicolon: SEMICOLON
+
+   56 beginprogram: BEGIN_PROGRAM
+
+   57 endprogram: END_PROGRAM
+
+   58 colon: COLON
+
+   59 array: ARRAY
+
+   60 left_paren: L_PAREN
+
+   61 number: NUMBER
+
+   62 right_paren: R_PAREN
+
+   63 of: OF
+
+   64 integer: INTEGER
+
+   65 comma: COMMA
+
+   66 continue: CONTINUE
+
+   67 write: WRITE
+
+   68 read: READ
+
+   69 do: DO
+
+   70 beginloop: BEGINLOOP
+
+   71 endloop: ENDLOOP
+
+   72 while: WHILE
+
+   73 if: IF
+
+   74 then: THEN
+
+   75 else: ELSE
+
+   76 endif: ENDIF
+
+   77 assign: ASSIGN
+
+   78 and: AND
+
+   79 or: OR
+
+   80 true: TRUE
+
+   81 false: FALSE
+
+   82 not: NOT
+
+   83 comp: EQ
+   84     | NEQ
+   85     | LT
+   86     | GT
+   87     | LTE
+   88     | GTE
+
+   89 mult: MULT
+
+   90 div: DIV
+
+   91 mod: MOD
+
+   92 plus: ADD
+
+   93 minus: SUB
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+PROGRAM (258) 53
+BEGIN_PROGRAM (259) 56
+END_PROGRAM (260) 57
+INTEGER (261) 64
+ARRAY (262) 59
+OF (263) 63
+IF (264) 73
+THEN (265) 74
+ELSE (266) 75
+ENDIF (267) 76
+ELSEIF (268)
+WHILE (269) 72
+DO (270) 69
+BEGINLOOP (271) 70
+ENDLOOP (272) 71
+BREAK (273)
+CONTINUE (274) 66
+END (275)
+EXIT (276)
+READ (277) 68
+WRITE (278) 67
+NOT (279) 82
+TRUE (280) 80
+FALSE (281) 81
+SEMICOLON (282) 55
+COLON (283) 58
+COMMA (284) 65
+QUESTION (285)
+L_BRACKET (286)
+R_BRACKET (287)
+ASSIGN (288) 77
+NUMBER (289) 61
+IDENT (290) 54
+R_PAREN (291) 62
+L_PAREN (292) 60
+GTE (293) 88
+LTE (294) 87
+GT (295) 86
+LT (296) 85
+NEQ (297) 84
+EQ (298) 83
+MOD (299) 91
+DIV (300) 90
+MULT (301) 89
+ADD (302) 92
+SUB (303) 93
+AND (304) 78
+OR (305) 79
+ELSE_PREC (306)
+IF_PREC (307)
+
+
+Nonterminals, with rules where they appear
+
+$accept (53)
+    on left: 0
+program_start (54)
+    on left: 2, on right: 0
+@1 (55)
+    on left: 1, on right: 2
+block (56)
+    on left: 3, on right: 2
+declarations (57)
+    on left: 4 5, on right: 3 4
+declaration (58)
+    on left: 6, on right: 4
+declaration2 (59)
+    on left: 7 8, on right: 6
+identMore (60)
+    on left: 9 10, on right: 6 9
+statements (61)
+    on left: 11 12, on right: 3 11 16 17 18 20
+statement (62)
+    on left: 13 14 15 16 17 18 19, on right: 11 16 17 18 20
+statement1 (63)
+    on left: 20 21, on right: 18
+Vars (64)
+    on left: 22 23, on right: 14 15 22
+Var (65)
+    on left: 24, on right: 14 15 19 22 47
+var2 (66)
+    on left: 25 26, on right: 24
+bool_exp (67)
+    on left: 27, on right: 16 17 18 38
+relation_and_exp (68)
+    on left: 28, on right: 27 29
+relation_or (69)
+    on left: 29 30, on right: 27 29
+relation_and (70)
+    on left: 31 32, on right: 28 31
+relation_exp (71)
+    on left: 33 34, on right: 28 31
+relation_exp2 (72)
+    on left: 35 36 37 38, on right: 33 34
+expression (73)
+    on left: 39, on right: 19 25 35 49
+multplicative_exp (74)
+    on left: 40, on right: 39 50 51
+term (75)
+    on left: 41 42, on right: 40 43 44 45
+term1 (76)
+    on left: 43 44 45 46, on right: 40 43 44 45
+term2 (77)
+    on left: 47 48 49, on right: 41 42
+moreMultExp (78)
+    on left: 50 51 52, on right: 39 50 51
+program (79)
+    on left: 53, on right: 2
+identifier (80)
+    on left: 54, on right: 2 6 9 24
+semicolon (81)
+    on left: 55, on right: 2 4 11 16 17 18 20
+beginprogram (82)
+    on left: 56, on right: 3
+endprogram (83)
+    on left: 57, on right: 2
+colon (84)
+    on left: 58, on right: 6
+array (85)
+    on left: 59, on right: 7
+left_paren (86)
+    on left: 60, on right: 7 25 38 49
+number (87)
+    on left: 61, on right: 7 48
+right_paren (88)
+    on left: 62, on right: 7 25 38 49
+of (89)
+    on left: 63, on right: 7
+integer (90)
+    on left: 64, on right: 6
+comma (91)
+    on left: 65, on right: 9 22
+continue (92)
+    on left: 66, on right: 13
+write (93)
+    on left: 67, on right: 14
+read (94)
+    on left: 68, on right: 15
+do (95)
+    on left: 69, on right: 16
+beginloop (96)
+    on left: 70, on right: 16 17
+endloop (97)
+    on left: 71, on right: 16 17
+while (98)
+    on left: 72, on right: 16 17
+if (99)
+    on left: 73, on right: 18
+then (100)
+    on left: 74, on right: 18
+else (101)
+    on left: 75, on right: 20
+endif (102)
+    on left: 76, on right: 18
+assign (103)
+    on left: 77, on right: 19
+and (104)
+    on left: 78, on right: 31
+or (105)
+    on left: 79, on right: 29
+true (106)
+    on left: 80, on right: 36
+false (107)
+    on left: 81, on right: 37
+not (108)
+    on left: 82, on right: 33
+comp (109)
+    on left: 83 84 85 86 87 88, on right: 35
+mult (110)
+    on left: 89, on right: 43
+div (111)
+    on left: 90, on right: 44
+mod (112)
+    on left: 91, on right: 45
+plus (113)
+    on left: 92, on right: 50
+minus (114)
+    on left: 93, on right: 41 51
+
+
+state 0
+
+    0 $accept: . program_start $end
+
+    PROGRAM  shift, and go to state 1
+
+    program_start  go to state 2
+    program        go to state 3
+
+
+state 1
+
+   53 program: PROGRAM .
+
+    $default  reduce using rule 53 (program)
+
+
+state 2
+
+    0 $accept: program_start . $end
+
+    $end  shift, and go to state 4
+
+
+state 3
+
+    2 program_start: program . identifier @1 semicolon block endprogram
+
+    IDENT  shift, and go to state 5
+
+    identifier  go to state 6
+
+
+state 4
+
+    0 $accept: program_start $end .
+
+    $default  accept
+
+
+state 5
+
+   54 identifier: IDENT .
+
+    $default  reduce using rule 54 (identifier)
+
+
+state 6
+
+    2 program_start: program identifier . @1 semicolon block endprogram
+
+    $default  reduce using rule 1 (@1)
+
+    @1  go to state 7
+
+
+state 7
+
+    2 program_start: program identifier @1 . semicolon block endprogram
+
+    SEMICOLON  shift, and go to state 8
+
+    semicolon  go to state 9
+
+
+state 8
+
+   55 semicolon: SEMICOLON .
+
+    $default  reduce using rule 55 (semicolon)
+
+
+state 9
+
+    2 program_start: program identifier @1 semicolon . block endprogram
+
+    IDENT  shift, and go to state 5
+
+    $default  reduce using rule 5 (declarations)
+
+    block         go to state 10
+    declarations  go to state 11
+    declaration   go to state 12
+    identifier    go to state 13
+
+
+state 10
+
+    2 program_start: program identifier @1 semicolon block . endprogram
+
+    END_PROGRAM  shift, and go to state 14
+
+    endprogram  go to state 15
+
+
+state 11
+
+    3 block: declarations . beginprogram statements
+
+    BEGIN_PROGRAM  shift, and go to state 16
+
+    beginprogram  go to state 17
+
+
+state 12
+
+    4 declarations: declaration . semicolon declarations
+
+    SEMICOLON  shift, and go to state 8
+
+    semicolon  go to state 18
+
+
+state 13
+
+    6 declaration: identifier . identMore colon declaration2 integer
+
+    COMMA  shift, and go to state 19
+
+    $default  reduce using rule 10 (identMore)
+
+    identMore  go to state 20
+    comma      go to state 21
+
+
+state 14
+
+   57 endprogram: END_PROGRAM .
+
+    $default  reduce using rule 57 (endprogram)
+
+
+state 15
+
+    2 program_start: program identifier @1 semicolon block endprogram .
+
+    $default  reduce using rule 2 (program_start)
+
+
+state 16
+
+   56 beginprogram: BEGIN_PROGRAM .
+
+    $default  reduce using rule 56 (beginprogram)
+
+
+state 17
+
+    3 block: declarations beginprogram . statements
+
+    IF        shift, and go to state 22
+    WHILE     shift, and go to state 23
+    DO        shift, and go to state 24
+    CONTINUE  shift, and go to state 25
+    READ      shift, and go to state 26
+    WRITE     shift, and go to state 27
+    IDENT     shift, and go to state 5
+
+    $default  reduce using rule 12 (statements)
+
+    statements  go to state 28
+    statement   go to state 29
+    Var         go to state 30
+    identifier  go to state 31
+    continue    go to state 32
+    write       go to state 33
+    read        go to state 34
+    do          go to state 35
+    while       go to state 36
+    if          go to state 37
+
+
+state 18
+
+    4 declarations: declaration semicolon . declarations
+
+    IDENT  shift, and go to state 5
+
+    $default  reduce using rule 5 (declarations)
+
+    declarations  go to state 38
+    declaration   go to state 12
+    identifier    go to state 13
+
+
+state 19
+
+   65 comma: COMMA .
+
+    $default  reduce using rule 65 (comma)
+
+
+state 20
+
+    6 declaration: identifier identMore . colon declaration2 integer
+
+    COLON  shift, and go to state 39
+
+    colon  go to state 40
+
+
+state 21
+
+    9 identMore: comma . identifier identMore
+
+    IDENT  shift, and go to state 5
+
+    identifier  go to state 41
+
+
+state 22
+
+   73 if: IF .
+
+    $default  reduce using rule 73 (if)
+
+
+state 23
+
+   72 while: WHILE .
+
+    $default  reduce using rule 72 (while)
+
+
+state 24
+
+   69 do: DO .
+
+    $default  reduce using rule 69 (do)
+
+
+state 25
+
+   66 continue: CONTINUE .
+
+    $default  reduce using rule 66 (continue)
+
+
+state 26
+
+   68 read: READ .
+
+    $default  reduce using rule 68 (read)
+
+
+state 27
+
+   67 write: WRITE .
+
+    $default  reduce using rule 67 (write)
+
+
+state 28
+
+    3 block: declarations beginprogram statements .
+
+    $default  reduce using rule 3 (block)
+
+
+state 29
+
+   11 statements: statement . semicolon statements
+
+    SEMICOLON  shift, and go to state 8
+
+    semicolon  go to state 42
+
+
+state 30
+
+   19 statement: Var . assign expression
+
+    ASSIGN  shift, and go to state 43
+
+    assign  go to state 44
+
+
+state 31
+
+   24 Var: identifier . var2
+
+    L_PAREN  shift, and go to state 45
+
+    $default  reduce using rule 26 (var2)
+
+    var2        go to state 46
+    left_paren  go to state 47
+
+
+state 32
+
+   13 statement: continue .
+
+    $default  reduce using rule 13 (statement)
+
+
+state 33
+
+   14 statement: write . Var Vars
+
+    IDENT  shift, and go to state 5
+
+    Var         go to state 48
+    identifier  go to state 31
+
+
+state 34
+
+   15 statement: read . Var Vars
+
+    IDENT  shift, and go to state 5
+
+    Var         go to state 49
+    identifier  go to state 31
+
+
+state 35
+
+   16 statement: do . beginloop statement semicolon statements endloop while bool_exp
+
+    BEGINLOOP  shift, and go to state 50
+
+    beginloop  go to state 51
+
+
+state 36
+
+   17 statement: while . bool_exp beginloop statement semicolon statements endloop
+
+    NOT      shift, and go to state 52
+    TRUE     shift, and go to state 53
+    FALSE    shift, and go to state 54
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var                go to state 57
+    bool_exp           go to state 58
+    relation_and_exp   go to state 59
+    relation_exp       go to state 60
+    relation_exp2      go to state 61
+    expression         go to state 62
+    multplicative_exp  go to state 63
+    term               go to state 64
+    term2              go to state 65
+    identifier         go to state 31
+    left_paren         go to state 66
+    number             go to state 67
+    true               go to state 68
+    false              go to state 69
+    not                go to state 70
+    minus              go to state 71
+
+
+state 37
+
+   18 statement: if . bool_exp then statement semicolon statements statement1 endif
+
+    NOT      shift, and go to state 52
+    TRUE     shift, and go to state 53
+    FALSE    shift, and go to state 54
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var                go to state 57
+    bool_exp           go to state 72
+    relation_and_exp   go to state 59
+    relation_exp       go to state 60
+    relation_exp2      go to state 61
+    expression         go to state 62
+    multplicative_exp  go to state 63
+    term               go to state 64
+    term2              go to state 65
+    identifier         go to state 31
+    left_paren         go to state 66
+    number             go to state 67
+    true               go to state 68
+    false              go to state 69
+    not                go to state 70
+    minus              go to state 71
+
+
+state 38
+
+    4 declarations: declaration semicolon declarations .
+
+    $default  reduce using rule 4 (declarations)
+
+
+state 39
+
+   58 colon: COLON .
+
+    $default  reduce using rule 58 (colon)
+
+
+state 40
+
+    6 declaration: identifier identMore colon . declaration2 integer
+
+    ARRAY  shift, and go to state 73
+
+    $default  reduce using rule 8 (declaration2)
+
+    declaration2  go to state 74
+    array         go to state 75
+
+
+state 41
+
+    9 identMore: comma identifier . identMore
+
+    COMMA  shift, and go to state 19
+
+    $default  reduce using rule 10 (identMore)
+
+    identMore  go to state 76
+    comma      go to state 21
+
+
+state 42
+
+   11 statements: statement semicolon . statements
+
+    IF        shift, and go to state 22
+    WHILE     shift, and go to state 23
+    DO        shift, and go to state 24
+    CONTINUE  shift, and go to state 25
+    READ      shift, and go to state 26
+    WRITE     shift, and go to state 27
+    IDENT     shift, and go to state 5
+
+    $default  reduce using rule 12 (statements)
+
+    statements  go to state 77
+    statement   go to state 29
+    Var         go to state 30
+    identifier  go to state 31
+    continue    go to state 32
+    write       go to state 33
+    read        go to state 34
+    do          go to state 35
+    while       go to state 36
+    if          go to state 37
+
+
+state 43
+
+   77 assign: ASSIGN .
+
+    $default  reduce using rule 77 (assign)
+
+
+state 44
+
+   19 statement: Var assign . expression
+
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var                go to state 57
+    expression         go to state 78
+    multplicative_exp  go to state 63
+    term               go to state 64
+    term2              go to state 65
+    identifier         go to state 31
+    left_paren         go to state 79
+    number             go to state 67
+    minus              go to state 71
+
+
+state 45
+
+   60 left_paren: L_PAREN .
+
+    $default  reduce using rule 60 (left_paren)
+
+
+state 46
+
+   24 Var: identifier var2 .
+
+    $default  reduce using rule 24 (Var)
+
+
+state 47
+
+   25 var2: left_paren . expression right_paren
+
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var                go to state 57
+    expression         go to state 80
+    multplicative_exp  go to state 63
+    term               go to state 64
+    term2              go to state 65
+    identifier         go to state 31
+    left_paren         go to state 79
+    number             go to state 67
+    minus              go to state 71
+
+
+state 48
+
+   14 statement: write Var . Vars
+
+    COMMA  shift, and go to state 19
+
+    $default  reduce using rule 23 (Vars)
+
+    Vars   go to state 81
+    comma  go to state 82
+
+
+state 49
+
+   15 statement: read Var . Vars
+
+    COMMA  shift, and go to state 19
+
+    $default  reduce using rule 23 (Vars)
+
+    Vars   go to state 83
+    comma  go to state 82
+
+
+state 50
+
+   70 beginloop: BEGINLOOP .
+
+    $default  reduce using rule 70 (beginloop)
+
+
+state 51
+
+   16 statement: do beginloop . statement semicolon statements endloop while bool_exp
+
+    IF        shift, and go to state 22
+    WHILE     shift, and go to state 23
+    DO        shift, and go to state 24
+    CONTINUE  shift, and go to state 25
+    READ      shift, and go to state 26
+    WRITE     shift, and go to state 27
+    IDENT     shift, and go to state 5
+
+    statement   go to state 84
+    Var         go to state 30
+    identifier  go to state 31
+    continue    go to state 32
+    write       go to state 33
+    read        go to state 34
+    do          go to state 35
+    while       go to state 36
+    if          go to state 37
+
+
+state 52
+
+   82 not: NOT .
+
+    $default  reduce using rule 82 (not)
+
+
+state 53
+
+   80 true: TRUE .
+
+    $default  reduce using rule 80 (true)
+
+
+state 54
+
+   81 false: FALSE .
+
+    $default  reduce using rule 81 (false)
+
+
+state 55
+
+   61 number: NUMBER .
+
+    $default  reduce using rule 61 (number)
+
+
+state 56
+
+   93 minus: SUB .
+
+    $default  reduce using rule 93 (minus)
+
+
+state 57
+
+   47 term2: Var .
+
+    $default  reduce using rule 47 (term2)
+
+
+state 58
+
+   17 statement: while bool_exp . beginloop statement semicolon statements endloop
+
+    BEGINLOOP  shift, and go to state 50
+
+    beginloop  go to state 85
+
+
+state 59
+
+   27 bool_exp: relation_and_exp . relation_or
+
+    OR  shift, and go to state 86
+
+    $default  reduce using rule 30 (relation_or)
+
+    relation_or  go to state 87
+    or           go to state 88
+
+
+state 60
+
+   28 relation_and_exp: relation_exp . relation_and
+
+    AND  shift, and go to state 89
+
+    $default  reduce using rule 32 (relation_and)
+
+    relation_and  go to state 90
+    and           go to state 91
+
+
+state 61
+
+   34 relation_exp: relation_exp2 .
+
+    $default  reduce using rule 34 (relation_exp)
+
+
+state 62
+
+   35 relation_exp2: expression . comp expression
+
+    GTE  shift, and go to state 92
+    LTE  shift, and go to state 93
+    GT   shift, and go to state 94
+    LT   shift, and go to state 95
+    NEQ  shift, and go to state 96
+    EQ   shift, and go to state 97
+
+    comp  go to state 98
+
+
+state 63
+
+   39 expression: multplicative_exp . moreMultExp
+
+    ADD  shift, and go to state 99
+    SUB  shift, and go to state 56
+
+    $default  reduce using rule 52 (moreMultExp)
+
+    moreMultExp  go to state 100
+    plus         go to state 101
+    minus        go to state 102
+
+
+state 64
+
+   40 multplicative_exp: term . term1
+
+    MOD   shift, and go to state 103
+    DIV   shift, and go to state 104
+    MULT  shift, and go to state 105
+
+    $default  reduce using rule 46 (term1)
+
+    term1  go to state 106
+    mult   go to state 107
+    div    go to state 108
+    mod    go to state 109
+
+
+state 65
+
+   42 term: term2 .
+
+    $default  reduce using rule 42 (term)
+
+
+state 66
+
+   38 relation_exp2: left_paren . bool_exp right_paren
+   49 term2: left_paren . expression right_paren
+
+    NOT      shift, and go to state 52
+    TRUE     shift, and go to state 53
+    FALSE    shift, and go to state 54
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var                go to state 57
+    bool_exp           go to state 110
+    relation_and_exp   go to state 59
+    relation_exp       go to state 60
+    relation_exp2      go to state 61
+    expression         go to state 111
+    multplicative_exp  go to state 63
+    term               go to state 64
+    term2              go to state 65
+    identifier         go to state 31
+    left_paren         go to state 66
+    number             go to state 67
+    true               go to state 68
+    false              go to state 69
+    not                go to state 70
+    minus              go to state 71
+
+
+state 67
+
+   48 term2: number .
+
+    $default  reduce using rule 48 (term2)
+
+
+state 68
+
+   36 relation_exp2: true .
+
+    $default  reduce using rule 36 (relation_exp2)
+
+
+state 69
+
+   37 relation_exp2: false .
+
+    $default  reduce using rule 37 (relation_exp2)
+
+
+state 70
+
+   33 relation_exp: not . relation_exp2
+
+    TRUE     shift, and go to state 53
+    FALSE    shift, and go to state 54
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var                go to state 57
+    relation_exp2      go to state 112
+    expression         go to state 62
+    multplicative_exp  go to state 63
+    term               go to state 64
+    term2              go to state 65
+    identifier         go to state 31
+    left_paren         go to state 66
+    number             go to state 67
+    true               go to state 68
+    false              go to state 69
+    minus              go to state 71
+
+
+state 71
+
+   41 term: minus . term2
+
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+
+    Var         go to state 57
+    term2       go to state 113
+    identifier  go to state 31
+    left_paren  go to state 79
+    number      go to state 67
+
+
+state 72
+
+   18 statement: if bool_exp . then statement semicolon statements statement1 endif
+
+    THEN  shift, and go to state 114
+
+    then  go to state 115
+
+
+state 73
+
+   59 array: ARRAY .
+
+    $default  reduce using rule 59 (array)
+
+
+state 74
+
+    6 declaration: identifier identMore colon declaration2 . integer
+
+    INTEGER  shift, and go to state 116
+
+    integer  go to state 117
+
+
+state 75
+
+    7 declaration2: array . left_paren number right_paren of
+
+    L_PAREN  shift, and go to state 45
+
+    left_paren  go to state 118
+
+
+state 76
+
+    9 identMore: comma identifier identMore .
+
+    $default  reduce using rule 9 (identMore)
+
+
+state 77
+
+   11 statements: statement semicolon statements .
+
+    $default  reduce using rule 11 (statements)
+
+
+state 78
+
+   19 statement: Var assign expression .
+
+    $default  reduce using rule 19 (statement)
+
+
+state 79
+
+   49 term2: left_paren . expression right_paren
+
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var                go to state 57
+    expression         go to state 119
+    multplicative_exp  go to state 63
+    term               go to state 64
+    term2              go to state 65
+    identifier         go to state 31
+    left_paren         go to state 79
+    number             go to state 67
+    minus              go to state 71
+
+
+state 80
+
+   25 var2: left_paren expression . right_paren
+
+    R_PAREN  shift, and go to state 120
+
+    right_paren  go to state 121
+
+
+state 81
+
+   14 statement: write Var Vars .
+
+    $default  reduce using rule 14 (statement)
+
+
+state 82
+
+   22 Vars: comma . Var Vars
+
+    IDENT  shift, and go to state 5
+
+    Var         go to state 122
+    identifier  go to state 31
+
+
+state 83
+
+   15 statement: read Var Vars .
+
+    $default  reduce using rule 15 (statement)
+
+
+state 84
+
+   16 statement: do beginloop statement . semicolon statements endloop while bool_exp
+
+    SEMICOLON  shift, and go to state 8
+
+    semicolon  go to state 123
+
+
+state 85
+
+   17 statement: while bool_exp beginloop . statement semicolon statements endloop
+
+    IF        shift, and go to state 22
+    WHILE     shift, and go to state 23
+    DO        shift, and go to state 24
+    CONTINUE  shift, and go to state 25
+    READ      shift, and go to state 26
+    WRITE     shift, and go to state 27
+    IDENT     shift, and go to state 5
+
+    statement   go to state 124
+    Var         go to state 30
+    identifier  go to state 31
+    continue    go to state 32
+    write       go to state 33
+    read        go to state 34
+    do          go to state 35
+    while       go to state 36
+    if          go to state 37
+
+
+state 86
+
+   79 or: OR .
+
+    $default  reduce using rule 79 (or)
+
+
+state 87
+
+   27 bool_exp: relation_and_exp relation_or .
+
+    $default  reduce using rule 27 (bool_exp)
+
+
+state 88
+
+   29 relation_or: or . relation_and_exp relation_or
+
+    NOT      shift, and go to state 52
+    TRUE     shift, and go to state 53
+    FALSE    shift, and go to state 54
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var                go to state 57
+    relation_and_exp   go to state 125
+    relation_exp       go to state 60
+    relation_exp2      go to state 61
+    expression         go to state 62
+    multplicative_exp  go to state 63
+    term               go to state 64
+    term2              go to state 65
+    identifier         go to state 31
+    left_paren         go to state 66
+    number             go to state 67
+    true               go to state 68
+    false              go to state 69
+    not                go to state 70
+    minus              go to state 71
+
+
+state 89
+
+   78 and: AND .
+
+    $default  reduce using rule 78 (and)
+
+
+state 90
+
+   28 relation_and_exp: relation_exp relation_and .
+
+    $default  reduce using rule 28 (relation_and_exp)
+
+
+state 91
+
+   31 relation_and: and . relation_exp relation_and
+
+    NOT      shift, and go to state 52
+    TRUE     shift, and go to state 53
+    FALSE    shift, and go to state 54
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var                go to state 57
+    relation_exp       go to state 126
+    relation_exp2      go to state 61
+    expression         go to state 62
+    multplicative_exp  go to state 63
+    term               go to state 64
+    term2              go to state 65
+    identifier         go to state 31
+    left_paren         go to state 66
+    number             go to state 67
+    true               go to state 68
+    false              go to state 69
+    not                go to state 70
+    minus              go to state 71
+
+
+state 92
+
+   88 comp: GTE .
+
+    $default  reduce using rule 88 (comp)
+
+
+state 93
+
+   87 comp: LTE .
+
+    $default  reduce using rule 87 (comp)
+
+
+state 94
+
+   86 comp: GT .
+
+    $default  reduce using rule 86 (comp)
+
+
+state 95
+
+   85 comp: LT .
+
+    $default  reduce using rule 85 (comp)
+
+
+state 96
+
+   84 comp: NEQ .
+
+    $default  reduce using rule 84 (comp)
+
+
+state 97
+
+   83 comp: EQ .
+
+    $default  reduce using rule 83 (comp)
+
+
+state 98
+
+   35 relation_exp2: expression comp . expression
+
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var                go to state 57
+    expression         go to state 127
+    multplicative_exp  go to state 63
+    term               go to state 64
+    term2              go to state 65
+    identifier         go to state 31
+    left_paren         go to state 79
+    number             go to state 67
+    minus              go to state 71
+
+
+state 99
+
+   92 plus: ADD .
+
+    $default  reduce using rule 92 (plus)
+
+
+state 100
+
+   39 expression: multplicative_exp moreMultExp .
+
+    $default  reduce using rule 39 (expression)
+
+
+state 101
+
+   50 moreMultExp: plus . multplicative_exp moreMultExp
+
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var                go to state 57
+    multplicative_exp  go to state 128
+    term               go to state 64
+    term2              go to state 65
+    identifier         go to state 31
+    left_paren         go to state 79
+    number             go to state 67
+    minus              go to state 71
+
+
+state 102
+
+   51 moreMultExp: minus . multplicative_exp moreMultExp
+
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var                go to state 57
+    multplicative_exp  go to state 129
+    term               go to state 64
+    term2              go to state 65
+    identifier         go to state 31
+    left_paren         go to state 79
+    number             go to state 67
+    minus              go to state 71
+
+
+state 103
+
+   91 mod: MOD .
+
+    $default  reduce using rule 91 (mod)
+
+
+state 104
+
+   90 div: DIV .
+
+    $default  reduce using rule 90 (div)
+
+
+state 105
+
+   89 mult: MULT .
+
+    $default  reduce using rule 89 (mult)
+
+
+state 106
+
+   40 multplicative_exp: term term1 .
+
+    $default  reduce using rule 40 (multplicative_exp)
+
+
+state 107
+
+   43 term1: mult . term term1
+
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var         go to state 57
+    term        go to state 130
+    term2       go to state 65
+    identifier  go to state 31
+    left_paren  go to state 79
+    number      go to state 67
+    minus       go to state 71
+
+
+state 108
+
+   44 term1: div . term term1
+
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var         go to state 57
+    term        go to state 131
+    term2       go to state 65
+    identifier  go to state 31
+    left_paren  go to state 79
+    number      go to state 67
+    minus       go to state 71
+
+
+state 109
+
+   45 term1: mod . term term1
+
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var         go to state 57
+    term        go to state 132
+    term2       go to state 65
+    identifier  go to state 31
+    left_paren  go to state 79
+    number      go to state 67
+    minus       go to state 71
+
+
+state 110
+
+   38 relation_exp2: left_paren bool_exp . right_paren
+
+    R_PAREN  shift, and go to state 120
+
+    right_paren  go to state 133
+
+
+state 111
+
+   35 relation_exp2: expression . comp expression
+   49 term2: left_paren expression . right_paren
+
+    R_PAREN  shift, and go to state 120
+    GTE      shift, and go to state 92
+    LTE      shift, and go to state 93
+    GT       shift, and go to state 94
+    LT       shift, and go to state 95
+    NEQ      shift, and go to state 96
+    EQ       shift, and go to state 97
+
+    right_paren  go to state 134
+    comp         go to state 98
+
+
+state 112
+
+   33 relation_exp: not relation_exp2 .
+
+    $default  reduce using rule 33 (relation_exp)
+
+
+state 113
+
+   41 term: minus term2 .
+
+    $default  reduce using rule 41 (term)
+
+
+state 114
+
+   74 then: THEN .
+
+    $default  reduce using rule 74 (then)
+
+
+state 115
+
+   18 statement: if bool_exp then . statement semicolon statements statement1 endif
+
+    IF        shift, and go to state 22
+    WHILE     shift, and go to state 23
+    DO        shift, and go to state 24
+    CONTINUE  shift, and go to state 25
+    READ      shift, and go to state 26
+    WRITE     shift, and go to state 27
+    IDENT     shift, and go to state 5
+
+    statement   go to state 135
+    Var         go to state 30
+    identifier  go to state 31
+    continue    go to state 32
+    write       go to state 33
+    read        go to state 34
+    do          go to state 35
+    while       go to state 36
+    if          go to state 37
+
+
+state 116
+
+   64 integer: INTEGER .
+
+    $default  reduce using rule 64 (integer)
+
+
+state 117
+
+    6 declaration: identifier identMore colon declaration2 integer .
+
+    $default  reduce using rule 6 (declaration)
+
+
+state 118
+
+    7 declaration2: array left_paren . number right_paren of
+
+    NUMBER  shift, and go to state 55
+
+    number  go to state 136
+
+
+state 119
+
+   49 term2: left_paren expression . right_paren
+
+    R_PAREN  shift, and go to state 120
+
+    right_paren  go to state 134
+
+
+state 120
+
+   62 right_paren: R_PAREN .
+
+    $default  reduce using rule 62 (right_paren)
+
+
+state 121
+
+   25 var2: left_paren expression right_paren .
+
+    $default  reduce using rule 25 (var2)
+
+
+state 122
+
+   22 Vars: comma Var . Vars
+
+    COMMA  shift, and go to state 19
+
+    $default  reduce using rule 23 (Vars)
+
+    Vars   go to state 137
+    comma  go to state 82
+
+
+state 123
+
+   16 statement: do beginloop statement semicolon . statements endloop while bool_exp
+
+    IF        shift, and go to state 22
+    WHILE     shift, and go to state 23
+    DO        shift, and go to state 24
+    CONTINUE  shift, and go to state 25
+    READ      shift, and go to state 26
+    WRITE     shift, and go to state 27
+    IDENT     shift, and go to state 5
+
+    $default  reduce using rule 12 (statements)
+
+    statements  go to state 138
+    statement   go to state 29
+    Var         go to state 30
+    identifier  go to state 31
+    continue    go to state 32
+    write       go to state 33
+    read        go to state 34
+    do          go to state 35
+    while       go to state 36
+    if          go to state 37
+
+
+state 124
+
+   17 statement: while bool_exp beginloop statement . semicolon statements endloop
+
+    SEMICOLON  shift, and go to state 8
+
+    semicolon  go to state 139
+
+
+state 125
+
+   29 relation_or: or relation_and_exp . relation_or
+
+    OR  shift, and go to state 86
+
+    $default  reduce using rule 30 (relation_or)
+
+    relation_or  go to state 140
+    or           go to state 88
+
+
+state 126
+
+   31 relation_and: and relation_exp . relation_and
+
+    AND  shift, and go to state 89
+
+    $default  reduce using rule 32 (relation_and)
+
+    relation_and  go to state 141
+    and           go to state 91
+
+
+state 127
+
+   35 relation_exp2: expression comp expression .
+
+    $default  reduce using rule 35 (relation_exp2)
+
+
+state 128
+
+   50 moreMultExp: plus multplicative_exp . moreMultExp
+
+    ADD  shift, and go to state 99
+    SUB  shift, and go to state 56
+
+    $default  reduce using rule 52 (moreMultExp)
+
+    moreMultExp  go to state 142
+    plus         go to state 101
+    minus        go to state 102
+
+
+state 129
+
+   51 moreMultExp: minus multplicative_exp . moreMultExp
+
+    ADD  shift, and go to state 99
+    SUB  shift, and go to state 56
+
+    $default  reduce using rule 52 (moreMultExp)
+
+    moreMultExp  go to state 143
+    plus         go to state 101
+    minus        go to state 102
+
+
+state 130
+
+   43 term1: mult term . term1
+
+    MOD   shift, and go to state 103
+    DIV   shift, and go to state 104
+    MULT  shift, and go to state 105
+
+    $default  reduce using rule 46 (term1)
+
+    term1  go to state 144
+    mult   go to state 107
+    div    go to state 108
+    mod    go to state 109
+
+
+state 131
+
+   44 term1: div term . term1
+
+    MOD   shift, and go to state 103
+    DIV   shift, and go to state 104
+    MULT  shift, and go to state 105
+
+    $default  reduce using rule 46 (term1)
+
+    term1  go to state 145
+    mult   go to state 107
+    div    go to state 108
+    mod    go to state 109
+
+
+state 132
+
+   45 term1: mod term . term1
+
+    MOD   shift, and go to state 103
+    DIV   shift, and go to state 104
+    MULT  shift, and go to state 105
+
+    $default  reduce using rule 46 (term1)
+
+    term1  go to state 146
+    mult   go to state 107
+    div    go to state 108
+    mod    go to state 109
+
+
+state 133
+
+   38 relation_exp2: left_paren bool_exp right_paren .
+
+    $default  reduce using rule 38 (relation_exp2)
+
+
+state 134
+
+   49 term2: left_paren expression right_paren .
+
+    $default  reduce using rule 49 (term2)
+
+
+state 135
+
+   18 statement: if bool_exp then statement . semicolon statements statement1 endif
+
+    SEMICOLON  shift, and go to state 8
+
+    semicolon  go to state 147
+
+
+state 136
+
+    7 declaration2: array left_paren number . right_paren of
+
+    R_PAREN  shift, and go to state 120
+
+    right_paren  go to state 148
+
+
+state 137
+
+   22 Vars: comma Var Vars .
+
+    $default  reduce using rule 22 (Vars)
+
+
+state 138
+
+   16 statement: do beginloop statement semicolon statements . endloop while bool_exp
+
+    ENDLOOP  shift, and go to state 149
+
+    endloop  go to state 150
+
+
+state 139
+
+   17 statement: while bool_exp beginloop statement semicolon . statements endloop
+
+    IF        shift, and go to state 22
+    WHILE     shift, and go to state 23
+    DO        shift, and go to state 24
+    CONTINUE  shift, and go to state 25
+    READ      shift, and go to state 26
+    WRITE     shift, and go to state 27
+    IDENT     shift, and go to state 5
+
+    $default  reduce using rule 12 (statements)
+
+    statements  go to state 151
+    statement   go to state 29
+    Var         go to state 30
+    identifier  go to state 31
+    continue    go to state 32
+    write       go to state 33
+    read        go to state 34
+    do          go to state 35
+    while       go to state 36
+    if          go to state 37
+
+
+state 140
+
+   29 relation_or: or relation_and_exp relation_or .
+
+    $default  reduce using rule 29 (relation_or)
+
+
+state 141
+
+   31 relation_and: and relation_exp relation_and .
+
+    $default  reduce using rule 31 (relation_and)
+
+
+state 142
+
+   50 moreMultExp: plus multplicative_exp moreMultExp .
+
+    $default  reduce using rule 50 (moreMultExp)
+
+
+state 143
+
+   51 moreMultExp: minus multplicative_exp moreMultExp .
+
+    $default  reduce using rule 51 (moreMultExp)
+
+
+state 144
+
+   43 term1: mult term term1 .
+
+    $default  reduce using rule 43 (term1)
+
+
+state 145
+
+   44 term1: div term term1 .
+
+    $default  reduce using rule 44 (term1)
+
+
+state 146
+
+   45 term1: mod term term1 .
+
+    $default  reduce using rule 45 (term1)
+
+
+state 147
+
+   18 statement: if bool_exp then statement semicolon . statements statement1 endif
+
+    IF        shift, and go to state 22
+    WHILE     shift, and go to state 23
+    DO        shift, and go to state 24
+    CONTINUE  shift, and go to state 25
+    READ      shift, and go to state 26
+    WRITE     shift, and go to state 27
+    IDENT     shift, and go to state 5
+
+    $default  reduce using rule 12 (statements)
+
+    statements  go to state 152
+    statement   go to state 29
+    Var         go to state 30
+    identifier  go to state 31
+    continue    go to state 32
+    write       go to state 33
+    read        go to state 34
+    do          go to state 35
+    while       go to state 36
+    if          go to state 37
+
+
+state 148
+
+    7 declaration2: array left_paren number right_paren . of
+
+    OF  shift, and go to state 153
+
+    of  go to state 154
+
+
+state 149
+
+   71 endloop: ENDLOOP .
+
+    $default  reduce using rule 71 (endloop)
+
+
+state 150
+
+   16 statement: do beginloop statement semicolon statements endloop . while bool_exp
+
+    WHILE  shift, and go to state 23
+
+    while  go to state 155
+
+
+state 151
+
+   17 statement: while bool_exp beginloop statement semicolon statements . endloop
+
+    ENDLOOP  shift, and go to state 149
+
+    endloop  go to state 156
+
+
+state 152
+
+   18 statement: if bool_exp then statement semicolon statements . statement1 endif
+
+    ELSE  shift, and go to state 157
+
+    $default  reduce using rule 21 (statement1)
+
+    statement1  go to state 158
+    else        go to state 159
+
+
+state 153
+
+   63 of: OF .
+
+    $default  reduce using rule 63 (of)
+
+
+state 154
+
+    7 declaration2: array left_paren number right_paren of .
+
+    $default  reduce using rule 7 (declaration2)
+
+
+state 155
+
+   16 statement: do beginloop statement semicolon statements endloop while . bool_exp
+
+    NOT      shift, and go to state 52
+    TRUE     shift, and go to state 53
+    FALSE    shift, and go to state 54
+    NUMBER   shift, and go to state 55
+    IDENT    shift, and go to state 5
+    L_PAREN  shift, and go to state 45
+    SUB      shift, and go to state 56
+
+    Var                go to state 57
+    bool_exp           go to state 160
+    relation_and_exp   go to state 59
+    relation_exp       go to state 60
+    relation_exp2      go to state 61
+    expression         go to state 62
+    multplicative_exp  go to state 63
+    term               go to state 64
+    term2              go to state 65
+    identifier         go to state 31
+    left_paren         go to state 66
+    number             go to state 67
+    true               go to state 68
+    false              go to state 69
+    not                go to state 70
+    minus              go to state 71
+
+
+state 156
+
+   17 statement: while bool_exp beginloop statement semicolon statements endloop .
+
+    $default  reduce using rule 17 (statement)
+
+
+state 157
+
+   75 else: ELSE .
+
+    $default  reduce using rule 75 (else)
+
+
+state 158
+
+   18 statement: if bool_exp then statement semicolon statements statement1 . endif
+
+    ENDIF  shift, and go to state 161
+
+    endif  go to state 162
+
+
+state 159
+
+   20 statement1: else . statement semicolon statements
+
+    IF        shift, and go to state 22
+    WHILE     shift, and go to state 23
+    DO        shift, and go to state 24
+    CONTINUE  shift, and go to state 25
+    READ      shift, and go to state 26
+    WRITE     shift, and go to state 27
+    IDENT     shift, and go to state 5
+
+    statement   go to state 163
+    Var         go to state 30
+    identifier  go to state 31
+    continue    go to state 32
+    write       go to state 33
+    read        go to state 34
+    do          go to state 35
+    while       go to state 36
+    if          go to state 37
+
+
+state 160
+
+   16 statement: do beginloop statement semicolon statements endloop while bool_exp .
+
+    $default  reduce using rule 16 (statement)
+
+
+state 161
+
+   76 endif: ENDIF .
+
+    $default  reduce using rule 76 (endif)
+
+
+state 162
+
+   18 statement: if bool_exp then statement semicolon statements statement1 endif .
+
+    $default  reduce using rule 18 (statement)
+
+
+state 163
+
+   20 statement1: else statement . semicolon statements
+
+    SEMICOLON  shift, and go to state 8
+
+    semicolon  go to state 164
+
+
+state 164
+
+   20 statement1: else statement semicolon . statements
+
+    IF        shift, and go to state 22
+    WHILE     shift, and go to state 23
+    DO        shift, and go to state 24
+    CONTINUE  shift, and go to state 25
+    READ      shift, and go to state 26
+    WRITE     shift, and go to state 27
+    IDENT     shift, and go to state 5
+
+    $default  reduce using rule 12 (statements)
+
+    statements  go to state 165
+    statement   go to state 29
+    Var         go to state 30
+    identifier  go to state 31
+    continue    go to state 32
+    write       go to state 33
+    read        go to state 34
+    do          go to state 35
+    while       go to state 36
+    if          go to state 37
+
+
+state 165
+
+   20 statement1: else statement semicolon statements .
+
+    $default  reduce using rule 20 (statement1)
