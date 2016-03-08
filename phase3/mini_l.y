@@ -4,12 +4,17 @@
 %{
  #include <stdio.h>
  #include <stdlib.h>
+ #include <vector>
+ #include <string>
+ using namespace std;
+
  void yyerror(const char *msg);
  extern int yylex(void);
  extern int currLine;
  extern int currPos;
  extern FILE * yyin;
- using namespace std;
+
+ vector<string> errorList;
 %}
 
 %union{
@@ -359,6 +364,19 @@ int main(int argc, char **argv) {
       }//end if
    }//end if
    yyparse(); // Calls yylex() for tokens.
+   
+   //Checking for semantic errors
+   //If found, output and then exit
+   if(errorList.empty()){
+        for(int i = 0; i < errorList.size(); i++){
+            printf("%s", errorList[i].c_str());
+        }
+        return 0;
+   }
+   else{
+   //compilation is a success so can produce mil file
+   
+   }
    return 0;
 }
 
