@@ -34,6 +34,7 @@
  ostringstream output;
  bool valid = true;
  bool arrayValid = true;
+ string arrayName;
 %}
 
 %union{
@@ -54,6 +55,7 @@
 
 %type <identToken> identifier
 %type <identToken> array
+%type <identToken> number
 %% 
 program_start:	
              program identifier {programName = $2;} semicolon block endprogram 
@@ -76,14 +78,17 @@ declarations:
 declaration:
             identifier identMore colon declaration2 integer 
             {
-                valid = isVariableDeclared($1);
+                arrayName = $1;
+                valid = isVariableDeclared($1); 
                 symbolTableEntry sym;
+                sym.value = 0;
                 sym.name = $1;
-                sym.type = 0;
                 symbolTable.push_back(sym);
+
                 if(valid){
-                    string error = "Error line " << currLine << ": Variable \"" << var << "\" has an invlaid array size\n";
-                    errorList.push_back(error);
+                    stringstream err;
+                    err << "Error line " << currLine << ": symbol \"" << $1 << "\" << is multiply-defined\n";
+                    errorList.push_back(err.str());
                 }
             }
             ;
@@ -91,22 +96,24 @@ declaration:
 declaration2:
 			array left_paren number right_paren of
 			{
-                //semantic error checking: array of valid size
-                if($6 <= 0){
+                //semantic checking of array size
+                if($3 <= 0){
                     arrayValid = false;
-                    string error = "Error line " << currLine << ": Variable \"" << var << "\" has an invlaid array size\n";
-                    errorList.push_back(error);
+                    stringstream err;
+                    err <<  "Error line " << currLine << ": Variable \"" << arrayName << "\" has an invlaid array size\n";
+                    errorList.push_back(err.str());
                 }
-                valid = isVariableDeclared($1);
+
                 symbolTableEntry sym;
-                sym.name = $1;
-                sym.a_size = atoi($6);
-                sym.type = 1;
+                sym.value = 1;
+                sym.a_size = atoi($3);
+                sym.name = arrayName;
                 symbolTable.push_back(sym);
-                
+               
                 if(arrayValid){
-                    string error = "Error line " << currLine << ": symbol \"" << $1 << "\" << is multiply-defined\n";
-                    errorList.push_back(error);
+                    stringstream err;
+                    err <<  "Error line " << currLine << ": symbol \"" << arrayName << "\" << is multiply-defined\n";
+                    errorList.push_back(err.str());
                 }
             }
 			|
@@ -120,13 +127,14 @@ identMore:
                 valid = isVariableDeclared($2);
                 if(!valid){
                     symbolTableEntry sym;
+                    sym.value = 0;
                     sym.name = $2;
-                    sym.type = 0;
                     symbolTable.push_back(sym);
                 }
                 else{
-                       string error = "Error line " << currLine << ": Variable \"" << var << "\" has an invlaid array size\n";
-                    errorList.push_back(error); 
+                    stringstream err;
+                    err << "Error line " << currLine << ": symbol \"" << $2 << "\" is multiply-defined\n";
+                    errorList.push_back(err.str());
                 }
             }
             |
