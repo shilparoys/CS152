@@ -30,11 +30,24 @@
  //user defined variables
  string programName;
  vector<string> errorList;
+ vector <string> continueLabel;
+ vector <string> doloop_l;
+ vector <string> t_vars;
+ vector <string> p_vars;
+ vector <string> l_labels;
+ vector <string> opelse;
+ vector <string> t;
+ vector <string>  v;
+ vector <bool> elsep
  vector<symbolTableEntry> symbolTable;
+ string doloop_c;
  ostringstream output;
  bool valid = true;
  bool arrayValid = true;
+ bool readBool = false;
+ bool writeBool = false;
  string arrayName;
+ int l_size = 0;
 %}
 
 %union{
@@ -56,7 +69,9 @@
 %type <identToken> identifier
 %type <identToken> array
 %type <identToken> number
-%% 
+%type <identToken> Var
+%type <identToken> comp
+
 program_start:	
              program identifier {programName = $2;} semicolon block endprogram 
              {}
@@ -150,18 +165,83 @@ statements:
 
 statement:
             continue 
-            {}
+            { output << ":= " << continueLabel[continueLabel.size()-1] << "\n";}
             |write Var Vars 
-            {}
+            {writeBool = false;}
             |read Var Vars 
+            {readBool = false;}
+            |do beginloop statement semicolon statements {output << ": " << continueLabel[continueLabel.size()-1] << endl; continueLabel.pop_back();}endloop while bool_exp 
+            { stringstream temp;
+              temp << "p"<< p_vars.size();
+              p_vars.push_back(temp.str());
+              output << "== " << temp.str() << ", " << doloop_c << ", 0" << endl;
+              output <<"?:= " << doloop_l[doloop_l.size()-1] << ", "<<p_vars[p_vars.size()-1 ]<< endl;
+              output << ": " << l_labels[l_labels.size() -1] <<endl;
+              l_labels.pop_back();
+              doloop_l.pop_back();
+            }
+            |while bool_exp beginloop statement semicolon statements {output << ": " << continueLabel[continueLabel.size()-1] << endl; continueLabel.pop_back();} endloop 
             {}
-            |do beginloop statement semicolon statements endloop while bool_exp 
+            |if bool_exp then statement semicolon statements {stringstream temp; temp << "L" << l_size; l_size++; l_labels.push_back(temp.str()); output << ":= " << temp.str() << endl;}statement1 endif 
             {}
-            |while bool_exp beginloop statement semicolon statements endloop 
-            {}
-            |if bool_exp then statement semicolon statements statement1 endif 
-            {}
-            |Var assign expression {}
+            |Var assign expression {
+                string var = $1; 
+                int i = var.find(" ",0);
+                if(i != string::npos){//array on lhs
+                    string a, b, c;
+                    a = var.substr(0,i);
+                    b = var.substr(i+1);
+                    c = $3;
+                    if(!check_if_temp(a) )
+                        a.insert(0,"_");
+                    if(!check_if_temp(b) )
+                        b.insert(0,"_");
+                    if(!check_if_temp(c) )
+                        c.insert(0,"_");
+
+                    //check if c is an array 
+                    int i2 = c.find(" ",0);
+                    if(i2 != string::npos){
+                        string x,y;
+                        x = c.substr(0,i2);
+                        y = c.substr(i2+1);
+                        if(!check_if_temp(y) )
+                        y.insert(0,"_");
+
+                        stringstream temp;
+                        temp << "t" <<t_vars.size();
+                        t_vars.push_back(temp.str() );
+                        output << "=[] " << temp.str() << ", " << x << ", " << y <<endl;
+                        output << "[]= " << a << ", "<< b<< ", "<< temp.str() << endl;
+                    }
+                    else
+                        output << "[]= " << a << ", "<< b<< ", "<< c << endl;
+                }
+                else{
+                    string exp = $3;    
+                    if(!check_if_temp(var) )
+                        var.insert(0,"_");
+                    
+                    int i = exp.find(" ",0);
+                    if(i != string::npos){//array on rhs 
+                        string a, b;
+                        a = exp.substr(0,i);
+                        b = exp.substr(i+1);
+
+                        if(!check_if_temp(a) )
+                            a.insert(0,"_");
+                        if(!check_if_temp(b) )
+                            b.insert(0,"_");
+
+                        output << "=[] " << var << ", " << a << ", " << b <<endl;
+                    }
+                    else{
+                        if(!check_if_temp(exp) )
+                            exp.insert(0,"_");
+                        output << "= " << var << ", "<< exp << endl;
+                    }
+                }
+
             ;
 
 statement1:
@@ -333,26 +413,54 @@ continue:
             CONTINUE {}
             ;
 write:
-            WRITE {}
+            WRITE {writeBool = true;}
             ;
 
 read:
-            READ {}
+            READ {readBool = true;}
             ;   
 do:
             DO {}
             ;
 
 beginloop:
-            BEGINLOOP {}
+            BEGINLOOP {
+                stringstream temp;
+                temp << "L" << l_size;
+                l_size++;   
+                doloop_l.push_back(temp.str());
+                output << ": " << doloop_l[doloop_l.size()-1] << endl;
+
+                stringstream cont;
+                cont << "L" << l_size;
+                l_size++;
+                continueLabel.push_back(cont.str());
+            }
             ;   
 
 endloop:
-            ENDLOOP {}
+            ENDLOOP {
+                output <<":= " << l_labels[l_labels.size() -2] <<endl;
+                output << ": " << l_labels[l_labels.size() -1] <<endl; 
+
+                l_labels.pop_back();
+                l_labels.pop_back();
+            }
             ;
 
 while:
-            WHILE {}
+            WHILE {
+                stringstream temp;
+                temp << "L" << l_size;
+                l_size++;
+                l_labels.push_back(temp.str());
+                output<<": " << l_labels[l_labels.size()-1] <<endl;
+
+                 stringstream cont;
+                 cont <<"L"<<l_size;
+                 l_size++;
+                 continueLabel.push_back(cont.str() );
+            }
             ;
 if: 
             IF {}
@@ -366,7 +474,19 @@ else:
             ELSE {}
             ;
 endif:
-            ENDIF {}
+            ENDIF {
+            if (elsep[elsep.size()-1] == false){
+                    output <<": " << l_labels[l_labels.size() -2] <<endl;
+                }
+                output << ": " << l_labels[l_labels.size() -1] <<endl; 
+                
+                l_labels.pop_back();
+                l_labels.pop_back();
+
+                opelse.pop_back();
+                elsep.pop_back(); 
+            }
+
             ;
 assign:
             ASSIGN {}
@@ -393,12 +513,12 @@ not:
             ;
 
 comp:
-            EQ {}
-            | NEQ {}
-            | LT {}
-            | GT {}
-            | LTE {}
-            | GTE {}
+            EQ    { $$ = "==";}
+            | NEQ { $$ = "!=";}
+            | LT  { $$ = "<";}
+            | GT  { $$ = ">";}
+            | LTE { $$ = "<=";}
+            | GTE { $$ =">=";}
             ;
 
 

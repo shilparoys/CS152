@@ -60,7 +60,7 @@ DIGIT    [0-9]
 "]"            {currPos += yyleng; return R_BRACKET;}
 ":="           {currPos += yyleng; return ASSIGN;}
 
-[a-zA-Z]([a-zA-Z0-9]|([_]*[a-zA-Z0-9]+))* {currPos += yyleng; yylval.identToken = yytext; return IDENT;}
+[a-zA-Z]([a-zA-Z0-9]|([_]*[a-zA-Z0-9]+))* {currPos += yyleng; yylval.identToken= yytext; return IDENT;}
 
 (\.{DIGIT}+)|({DIGIT}+(\.{DIGIT}*)?([eE][+-]?[0-9]+)?) { currPos += yyleng; yylval.numToken= atoi(yytext); return NUMBER;}
 
