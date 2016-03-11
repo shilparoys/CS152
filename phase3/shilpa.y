@@ -115,10 +115,21 @@ declaration:
 identMore:
             COMMA IDENT identMore 
             {
-               /* SymbolNode temp;
-                temp.type = 1; 
-                temp.name = $2;
-                SymbolTable.push_back(temp);*/
+                //semantic check if it is already defined
+                definedValid = isDefinedAlready($2);
+                if(definedValid){
+                    err << "Error line " << currLine << ": sybmol \"" << $2 << "\"" << "has already been declared\n";
+                    errorList.push_back(err.str());
+                }
+                if(!definedValid){
+                    symbolNode temp;
+                    temp.value = -1;
+                    temp.size = -1;
+                    temp.type = 2;
+                    temp.name = $2;
+                    symbolTable.push_back(temp);
+                }
+
             }
             |
 			{}
