@@ -176,7 +176,7 @@ Vars:
 
 Var:
             IDENT
-            { cout << $1 << endl;}
+            { }
 		    |
 			IDENT L_PAREN expression R_PAREN
 			{}
