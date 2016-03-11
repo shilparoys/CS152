@@ -29,6 +29,9 @@
  string fileName;
  stringstream output;
  stringstream err;
+ bool arrayValid = true; //false - invalid array
+ bool definedValid = false;//true - it is already defined
+ bool isDefinedAlready(string str);
 %}
 
 %union{
@@ -70,18 +73,43 @@ declaration:
             {
                 //semantic checking of array size
                 if($6 <= 0){
+                    arrayValid = false;
                     err << "Error line " << currLine << ": invalid array size\n";
                     errorList.push_back(err.str());
                 }
-                /*SymbolNode temp;
-                temp.value = -1;
-                temp.size = 0;
-                temp.type = 1; //integer
-                temp.name = $1;
-                SymbolTable.push_back(temp);*/
+                //semantic check if it is already defined
+                definedValid = isDefinedAlready($1);
+                if(definedValid){
+                    err << "Error line " << currLine << ": sybmol \"" << $1 << "\"" << "has already been declared\n";
+                    errorList.push_back(err.str());
+                }
+                if(arrayValid && !definedValid){
+                    symbolNode temp;
+                    temp.value = -1;
+                    temp.size  = $6;//array size
+                    temp.type  = 1; //integer
+                    temp.name  = $1;
+                    symbolTable.push_back(temp);
+
+                }
             }
             |IDENT identMore COLON INTEGER
-             {}
+             {
+                //semantic check if it is already defined
+                definedValid = isDefinedAlready($1);
+                if(definedValid){
+                    err << "Error line " << currLine << ": sybmol \"" << $1 << "\"" << "has already been declared\n";
+                    errorList.push_back(err.str());
+                }
+                if(!definedValid){
+                    symbolNode temp;
+                    temp.value = -1;
+                    temp.size = -1;
+                    temp.type = 2;
+                    temp.name = $1;
+                    symbolTable.push_back(temp);
+                } 
+            }
             ;
 
 identMore:
