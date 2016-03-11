@@ -10,6 +10,17 @@
  extern int currPos;
  extern FILE * yyin;
  using namespace std;
+
+ struct symbolNode{
+    int value;
+    int size;
+    int type;
+    string name;
+ };
+
+ vector<symbolNode> symbolTable;
+
+ string fileName;
 %}
 
 %union{
@@ -30,30 +41,30 @@
 
 %% 
 program_start:	
-             program identifier semicolon block endprogram 
+             PROGRAM IDENT SEMICOLON block END_PROGRAM 
              {}
             ; 
 
 //nonterminals
 block:
-            declarations beginprogram statements 
+            declarations BEGIN_PROGRAM statements 
             {}
             ;
  
 declarations:
-            declaration semicolon declarations 
+            declaration SEMICOLON declarations 
             {}
             |
 			{} 
             ;
 
 declaration:
-            identifier identMore colon declaration2 integer 
+            IDENT identMore COLON declaration2 INTEGER 
             {}
             ;
 
 declaration2:
-			array left_paren number right_paren of
+			ARRAY L_PAREN NUMBER R_PAREN OF
 			{}
 			|
 			{}
@@ -61,56 +72,56 @@ declaration2:
 
 
 identMore:
-            comma identifier identMore 
+            COMMA IDENT identMore 
             {}
             |
 			{}
             ;
 
 statements:
-            statement semicolon statements 
+            statement SEMICOLON statements 
             {}
             |
             {}
             ;
 
 statement:
-            continue 
+            CONTINUE 
             {}
-            |write Var Vars 
+            |WRITE Var Vars 
             {}
-            |read Var Vars 
+            |READ Var Vars 
             {}
-            |do beginloop statement semicolon statements endloop while bool_exp 
+            |DO BEGINLOOP statement SEMICOLON statements ENDLOOP WHILE bool_exp 
             {}
-            |while bool_exp beginloop statement semicolon statements endloop 
+            |WHILE bool_exp BEGINLOOP statement SEMICOLON statements ENDLOOP 
             {}
-            |if bool_exp then statement semicolon statements statement1 endif 
+            |IF bool_exp THEN statement SEMIOCOLON statements statement1 ENDIF
             {}
-            |Var assign expression {}
+            |Var ASSIGN  expression {}
             ;
 
 statement1:
-			else statement semicolon statements
+			ELSE statement SEMICOLON statements
 			{}
 			|
 			{}
 			;
 
 Vars:
-            comma Var Vars
+            COMMA Var Vars
             {}
             |
             {}
             ;
 
 Var:
-            identifier var2 
+            IDENT var2 
             {}
 			;
 
 var2:
-			left_paren expression right_paren
+			L_PAREN expression R_PAREN
 			{}
 			|
 			{}
@@ -127,20 +138,20 @@ relation_and_exp:
             ;
 
 relation_or:
-            or relation_and_exp relation_or 
+            OR relation_and_exp relation_or 
             {}
             | {}
             ;
 
 relation_and:
-            and relation_exp relation_and 
+            AND relation_exp relation_and 
             {}
             | {}
             ;
 
 
 relation_exp:
-			not relation_exp2
+			NOT relation_exp2
 			{}
 			|relation_exp2
 			{}
@@ -150,11 +161,11 @@ relation_exp:
 relation_exp2:
             expression comp expression 
             {}
-            | true 
+            | TRUE
             {}
-            | false 
+            | FALSE 
             {}
-            | left_paren bool_exp right_paren 
+            |L_PAREN bool_exp R_PAREN 
             {}
             ;
 
@@ -171,18 +182,18 @@ multplicative_exp:
             ;
 
 term:
-			minus term2
+			SUB term2
 			{}
 			| term2
 			{}
 			;
 
 term1:
-            mult term term1 
+            MULT term term1 
             {}
-            |div term term1
+            |DIV term term1
             {}
-            |mod term term1
+            |MOD term term1
             {}
             |
 			{}
@@ -191,131 +202,19 @@ term1:
 term2:
             Var 
             {}
-            | number
+            | NUMBER 
              {}
-            | left_paren expression right_paren 
+            | L_PAREN  expression R_PAREN 
             {}
             ;
 		
 
 moreMultExp:
-            plus multplicative_exp moreMultExp
+            ADD multplicative_exp moreMultExp
             {}
-            | minus multplicative_exp moreMultExp
+            | MINUS multplicative_exp moreMultExp
             {}
             | {};
-            ;
-
-
-
-
-//terminals
-program:
-            PROGRAM {}
-            ;
-identifier:
-            IDENT {}
-            ;
-semicolon:
-            SEMICOLON {}
-            ;
-
-beginprogram:
-            BEGIN_PROGRAM {}
-            ;
-
-endprogram:
-            END_PROGRAM {}
-            ;
-
-colon:
-            COLON {}
-            ;
-array:      
-            ARRAY {}
-            ;
-
-left_paren:
-            L_PAREN {}
-            ;
-number:
-            NUMBER {}
-            ;
-right_paren:
-            R_PAREN {}
-            ;
-of:
-            OF {}
-            ;
-
-integer:
-            INTEGER {}
-            ;
-comma:
-            COMMA {}
-            ;
-
-continue:
-            CONTINUE {}
-            ;
-write:
-            WRITE {}
-            ;
-
-read:
-            READ {}
-            ;   
-do:
-            DO {}
-            ;
-
-beginloop:
-            BEGINLOOP {}
-            ;   
-
-endloop:
-            ENDLOOP {}
-            ;
-
-while:
-            WHILE {}
-            ;
-if: 
-            IF {}
-            ;
-
-then:
-            THEN {}
-            ;
-
-else:
-            ELSE {}
-            ;
-endif:
-            ENDIF {}
-            ;
-assign:
-            ASSIGN {}
-            ;
-
-and:
-            AND {}
-            ;
-
-or:
-            OR {}
-            ;
-
-true:
-            TRUE {}
-            ;
-
-false:
-            FALSE {}
-            ;
-
-not:
-            NOT {}
             ;
 
 comp:
@@ -326,28 +225,6 @@ comp:
             | LTE {}
             | GTE {}
             ;
-
-
-mult:
-            MULT {}
-            ;
-
-div:
-            DIV {}
-            ;
-
-mod:
-            MOD {}
-            ;
-
-plus:
-            ADD {}
-            ;
-
-minus:
-            SUB {}
-            ;
-
 
 %%
 
