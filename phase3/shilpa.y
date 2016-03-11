@@ -48,7 +48,7 @@
 program_start:	
              PROGRAM IDENT {fileName = $2;} SEMICOLON block END_PROGRAM 
              {}
-            ; 
+             ; 
 
 block:
             declarations BEGIN_PROGRAM{output << ": START << endl";} statements
@@ -203,11 +203,11 @@ term:
 			;
 
 term1:
-            MULT term term1 
+            term1 MULT term  
             {}
-            |DIV term term1
+            |term1 DIV term 
             {}
-            |MOD term term1
+            |term1 MOD term 
             {}
             |
 			{}
