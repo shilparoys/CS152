@@ -8,6 +8,9 @@ schir001@ucr.edu
 
 %{   
    #include "y.tab.h" 
+   #include <string.h>
+   #include <stdlib.h>
+   #include <stdio.h>
    int currLine = 1, currPos = 1;
 %}
 
@@ -54,9 +57,9 @@ DIGIT    [0-9]
 ","            {currPos += yyleng; return COMMA;}
 ":="           {currPos += yyleng; return ASSIGN;}
 
-[a-zA-Z]([a-zA-Z0-9]|([_]*[a-zA-Z0-9]+))* {currPos += yyleng; yylval.identToken = yytext; return IDENT;}
+[a-zA-Z]([a-zA-Z0-9]|([_]*[a-zA-Z0-9]+))* {currPos += yyleng; yylval.identToken = strdup(yytext); return IDENT;}
 
-(\.{DIGIT}+)|({DIGIT}+(\.{DIGIT}*)?([eE][+-]?[0-9]+)?) { currPos += yyleng; yylval.numToken= atoi(yytext); return NUMBER;}
+(\.{DIGIT}+)|({DIGIT}+(\.{DIGIT}*)?([eE][+-]?[0-9]+)?) { currPos += yyleng; yylval.identToken= strdup(yytext); return NUMBER;}
 
 [0-9_][A-Za-z0-9_]* { printf("Error at line %d, column %d: ", currLine, currPos);  printf("identifier \"%s\" ", yytext);  printf(" must begin with a letter\n"); exit(0);}
 

@@ -30,7 +30,7 @@
 
 %union{
   char* identToken;
-  int numToken;
+  int  numToken;
 }
 
 %error-verbose
