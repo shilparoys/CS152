@@ -29,6 +29,7 @@
  string fileName;
  stringstream output;
  stringstream err;
+ stringstream fileOutput;
  bool arrayValid = true; //false - invalid array
  bool definedValid = false;//true - it is already defined
  bool isDefinedAlready(string str);
@@ -57,7 +58,7 @@ program_start:
              ; 
 
 block:
-            declarations BEGIN_PROGRAM{output << ": START << endl";} statements
+            declarations BEGIN_PROGRAM{output << ": START\n";} statements
             {}
             ;
 
@@ -87,7 +88,7 @@ declaration:
                     symbolNode temp;
                     temp.value = -1;
                     temp.size  = $6;//array size
-                    temp.type  = 1; //integer
+                    temp.type  = 1; //array
                     temp.name  = $1;
                     symbolTable.push_back(temp);
 
@@ -105,7 +106,7 @@ declaration:
                     symbolNode temp;
                     temp.value = -1;
                     temp.size = -1;
-                    temp.type = 2;
+                    temp.type = 2;//integer
                     temp.name = $1;
                     symbolTable.push_back(temp);
                 } 
@@ -312,6 +313,20 @@ int main(int argc, char **argv) {
    fileName = fileName + ".mil";
    ofstream myFile;
    myFile.open(fileName.c_str());
+   
+   for(int i = 0; i < symbolTable.size(); i++){
+        if(symbolTable.at(i).type == 2){
+            fileOutput << ". _" << symbolTable.at(i).name << endl;
+        }
+        if(symbolTable.at(i).type == 1){
+            fileOutput << ".[] _" << symbolTable.at(i).name << ", " << symbolTable.at(i).size << endl;
+        }
+   }
+   fileOutput << output.str();
+   myFile << fileOutput.str();
+    
+
+
    myFile.close();
    return 0;
 
