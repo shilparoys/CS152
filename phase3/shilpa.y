@@ -8,6 +8,7 @@
  #include <vector>
  #include <string>
  #include <sstream>
+ #include <fstream>
  void yyerror(const char *msg);
  extern int yylex(void);
  extern int currLine;
@@ -243,14 +244,22 @@ comp:
 %%
 
 int main(int argc, char **argv) {
-   if (argc > 1) {
+    
+   yyparse(); // Calls yylex() for tokens.
+    if (argc > 1) {
       yyin = fopen(argv[1], "r");
       if (yyin == NULL){
          printf("syntax: %s filename\n", argv[0]);
       }//end if
    }//end if
-   yyparse(); // Calls yylex() for tokens.
+
+   //create the mil file with given program name
+   fileName = fileName + ".mil";
+   ofstream myFile;
+   myFile.open(fileName.c_str());
+   myFile.close();
    return 0;
+
 }
 
 void yyerror(const char *msg) {
