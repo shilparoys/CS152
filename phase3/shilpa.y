@@ -282,3 +282,11 @@ void yyerror(const char *msg) {
    printf("** Line %d, position %d: %s\n", currLine, currPos, msg);
 }
 
+bool isDefinedAlready(string str){
+    for(int i = 0; i < symbolTable.size(); i++){
+        if(str.compare(symbolTable.at(i).name) == 0){
+            return true;
+        }
+    }
+    return false;
+}
