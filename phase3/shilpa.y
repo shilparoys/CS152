@@ -24,9 +24,11 @@
  };
 
  vector<symbolNode> symbolTable;
+ vector <string> errorList;
  int counter = 0;
  string fileName;
  stringstream output;
+ stringstream err;
 %}
 
 %union{
@@ -66,6 +68,11 @@ declarations:
 declaration:
             IDENT identMore COLON ARRAY L_PAREN NUMBER R_PAREN OF INTEGER 
             {
+                //semantic checking of array size
+                if($6 <= 0){
+                    err << "Error line " << currLine << ": invalid array size\n";
+                    errorList.push_back(err.str());
+                }
                 /*SymbolNode temp;
                 temp.value = -1;
                 temp.size = 0;
@@ -246,6 +253,15 @@ comp:
 int main(int argc, char **argv) {
     
    yyparse(); // Calls yylex() for tokens.
+   if(!errorList.empty()){
+        //there are errors
+        //print out errors and exit
+        //POTENTIAL ERROR WITH COUT!!!!!!!!!
+        for(int i = 0; i < errorList.size(); i++){
+                cout << errorList.at(i);
+        }
+        exit(1);
+    }
     if (argc > 1) {
       yyin = fopen(argv[1], "r");
       if (yyin == NULL){
