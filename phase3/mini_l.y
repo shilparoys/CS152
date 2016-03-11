@@ -4,6 +4,9 @@
 %{
  #include <stdio.h>
  #include <stdlib.h>
+ #include <vector>
+ #include <string>
+ #include <sstream>
  void yyerror(const char *msg);
  extern int yylex(void);
  extern int currLine;
@@ -96,7 +99,7 @@ statement:
             {}
             |WHILE bool_exp BEGINLOOP statement SEMICOLON statements ENDLOOP 
             {}
-            |IF bool_exp THEN statement SEMIOCOLON statements statement1 ENDIF
+            |IF bool_exp THEN statement SEMICOLON statements statement1 ENDIF
             {}
             |Var ASSIGN  expression {}
             ;
@@ -212,7 +215,7 @@ term2:
 moreMultExp:
             ADD multplicative_exp moreMultExp
             {}
-            | MINUS multplicative_exp moreMultExp
+            |SUB  multplicative_exp moreMultExp
             {}
             | {};
             ;
