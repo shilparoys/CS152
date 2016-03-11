@@ -50,12 +50,11 @@ program_start:
              {}
             ; 
 
-//nonterminals
 block:
-            declarations BEGIN_PROGRAM {output << ": START\n";} statements 
+            declarations BEGIN_PROGRAM{output << ": START << endl";} statements
             {}
             ;
- 
+
 declarations:
             declaration SEMICOLON declarations 
             {}
@@ -64,7 +63,7 @@ declarations:
             ;
 
 declaration:
-            IDENT identMore COLON declaration2 INTEGER 
+            IDENT identMore COLON ARRAY L_PAREN NUMBER R_PAREN OF INTEGER 
             {
                 /*SymbolNode temp;
                 temp.value = -1;
@@ -73,19 +72,9 @@ declaration:
                 temp.name = $1;
                 SymbolTable.push_back(temp);*/
             }
+            |IDENT identMore COLON INTEGER
+             {}
             ;
-
-declaration2:
-			ARRAY L_PAREN NUMBER R_PAREN OF
-			{
-                /*SymbolNode temp = SymbolTable[SymbolTable.size()-1];
-                temp.type = 2; //array
-                temp.size = $3;*/
-            }
-			|
-			{}
-			;
-
 
 identMore:
             COMMA IDENT identMore 
@@ -100,53 +89,57 @@ identMore:
             ;
 
 statements:
-            statement SEMICOLON statements 
+            statement SEMICOLON  
             {}
-            |
+            |statements statement SEMICOLON
             {}
             ;
 
 statement:
             CONTINUE 
             {}
-            |WRITE Var Vars 
+            |WRITE Vars 
             {}
-            |READ Var Vars 
+            |READ Vars 
             {}
-            |DO BEGINLOOP statement SEMICOLON statements ENDLOOP WHILE bool_exp 
+            |DO BEGINLOOP statement1  ENDLOOP WHILE bool_exp 
             {}
-            |WHILE bool_exp BEGINLOOP statement SEMICOLON statements ENDLOOP 
+            |WHILE bool_exp BEGINLOOP statement1 ENDLOOP 
             {}
-            |IF bool_exp THEN statement SEMICOLON statements statement1 ENDIF
+            |IF bool_exp THEN statement1 optionelse ENDIF
             {}
-            |Var ASSIGN  expression {}
+            |Var ASSIGN  expression
+             {}
             ;
 
 statement1:
-			ELSE statement SEMICOLON statements
+			statement SEMICOLON statement1
 			{}
 			|
 			{}
 			;
 
 Vars:
-            COMMA Var Vars
+            Vars COMMA Var
             {}
-            |
+            |Var
             {}
             ;
 
 Var:
-            IDENT var2 
+            IDENT
             { cout << $1 << endl;}
+		    |
+			IDENT L_PAREN expression R_PAREN
+			{}
 			;
 
-var2:
-			L_PAREN expression R_PAREN
-			{}
-			|
-			{}
-			;
+optionelse:
+            ELSE statement1 
+            {}
+            |
+            {}
+            ;
 
 bool_exp:
             relation_and_exp relation_or 
