@@ -50,12 +50,14 @@
 %token ENDIF ELSEIF WHILE DO BEGINLOOP ENDLOOP BREAK CONTINUE END
 %token EXIT READ WRITE NOT TRUE FALSE SEMICOLON COLON COMMA QUESTION
 %token L_BRACKET R_BRACKET ASSIGN
-%token <numToken> NUMBER
+%token <identToken> NUMBER
 %token <identToken> IDENT
 %left OR AND SUB ADD MULT DIV MOD EQ NEQ LT GT LTE GTE L_PAREN R_PAREN
 %nonassoc IF_PREC ELSE_PREC
 
 %type <identToken> Var
+%type <identToken> comp
+%type <identToken> term2
 %type <identToken> expression
 %% 
 program_start:	
@@ -93,7 +95,7 @@ declaration:
                 if(arrayValid && !definedValid){
                     symbolNode temp;
                     temp.value = -1;
-                    temp.size  = $6;//array size
+                    temp.size  = atoi($6);//array size
                     temp.type  = 1; //array
                     temp.name  = $1;
                     symbolTable.push_back(temp);
@@ -293,11 +295,11 @@ term:
 			;
 
 term1:
-            term1 MULT term  
+            MULT term term1 
             {}
-            |term1 DIV term 
+            |DIV term term1 
             {}
-            |term1 MOD term 
+            |MOD term term1 
             {}
             |
 			{}
@@ -305,11 +307,11 @@ term1:
 
 term2:
             Var 
-            {}
+            {$$ = $1;}
             | NUMBER 
-             {}
+             { $$ = $1;}
             | L_PAREN  expression R_PAREN 
-            {}
+            { $$ = $2;}
             ;
 		
 
@@ -322,12 +324,12 @@ moreMultExp:
             ;
 
 comp:
-            EQ {}
-            | NEQ {}
-            | LT {}
-            | GT {}
-            | LTE {}
-            | GTE {}
+            EQ    { $$ = "==";}
+            | NEQ { $$ = "!=" }
+            | LT  { $$ = "<"}
+            | GT  { $$ = ">"}
+            | LTE { $$ = "<="}
+            | GTE { $$ = ">+"}
             ;
 
 %%
