@@ -59,6 +59,7 @@
 %type <identToken> comp
 %type <identToken> term2
 %type <identToken> expression
+%type <identToken> term
 %% 
 program_start:	
              PROGRAM IDENT {fileName = $2;} SEMICOLON block END_PROGRAM 
@@ -289,7 +290,10 @@ multplicative_exp:
 
 term:
 			SUB term2
-			{}
+			{
+               // output << "* " << "_" << $2 << ", " << "_" << $2 << ", -1" << endl;
+               // $$ = $2;
+            }
 			| term2
 			{}
 			;
@@ -307,11 +311,11 @@ term1:
 
 term2:
             Var 
-            {$$ = $1;}
+            {/*$$ = $1;*/}
             | NUMBER 
-             { $$ = $1;}
+             { /*$ = $1;*/}
             | L_PAREN  expression R_PAREN 
-            { $$ = $2;}
+            { /*$$ = $2;*/}
             ;
 		
 
