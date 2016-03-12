@@ -23,6 +23,9 @@
     string name;
  };
 
+ vector <string> temps;
+ vector <string> predicates;
+
  vector<symbolNode> symbolTable;
  vector <string> errorList;
  int counter = 0;
@@ -33,6 +36,7 @@
  bool arrayValid = true; //false - invalid array
  bool definedValid = false;//true - it is already defined
  bool isDefinedAlready(string str);
+ int getType(string str);
 %}
 
 %union{
@@ -51,6 +55,8 @@
 %left OR AND SUB ADD MULT DIV MOD EQ NEQ LT GT LTE GTE L_PAREN R_PAREN
 %nonassoc IF_PREC ELSE_PREC
 
+%type <identToken> Var
+%type <identToken> expression
 %% 
 program_start:	
              PROGRAM IDENT {fileName = $2;} SEMICOLON block END_PROGRAM 
@@ -176,10 +182,46 @@ Vars:
 
 Var:
             IDENT
-            { }
+            {
+                //semantic checking = has it been declared 
+                definedValid = isDefinedAlready($1);
+                 if(!definedValid){
+                    err << "Error line " << currLine << ": sybmol \"" << $1 << "\"" << "has not been declared previously\n";
+                    errorList.push_back(err.str());
+                }
+                int type = getType($1);
+                if(type == 2){
+                    $$ = $1;
+                }
+                else if (type == 1){
+                    err << "Error line " << currLine << ": used array variable \"" << $1 << "\"" << "does not have an index\n";
+                    errorList.push_back(err.str());
+                }
+            }
 		    |
 			IDENT L_PAREN expression R_PAREN
-			{}
+			{
+                //semantic checking = has it been declared
+                definedValid = isDefinedAlready($1);
+                if(!definedValid){
+                    err << "Error line " << currLine << ": sybmol \"" << $1 << "\"" << "has not been declared previously\n";
+                    errorList.push_back(err.str());
+                }
+                int type = getType($1);
+                if(type == 1){
+                    //doing fancy stuff for me to realize that it is an array when this gets propogated up
+                    string temp = "";
+                    temp += $1;
+                    temp += "arraycoming";
+                    temp += $3;
+                    strcpy($$, temp.c_str());
+                }
+                else if (type == 2){
+                    err << "Error line " << currLine << ": used integer variable \"" << $1 << "\"" << "is used as an array\n";
+                    errorList.push_back(err.str());
+               } 
+                
+            }
 			;
 
 optionelse:
@@ -343,4 +385,13 @@ bool isDefinedAlready(string str){
         }
     }
     return false;
+}
+
+int getType(string str){
+    for(int i = 0; i < symbolTable.size(); i++){
+        if(str.compare(symbolTable.at(i).name) == 0){
+            return symbolTable.at(i).type;
+        }
+    }
+    return -1;
 }
