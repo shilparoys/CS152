@@ -17,6 +17,7 @@
  using namespace std;
 
  struct symbolNode{
+    int value;
     int size;
     int type;
     string name;
@@ -32,16 +33,11 @@
  stringstream output;
  stringstream err;
  stringstream fileOutput;
- stringstream t;
  bool arrayValid = true; //false - invalid array
  bool definedValid = false;//true - it is already defined
  bool isDefinedAlready(string str);
- bool shouldIPutUnderscore(string str);
  int getType(string str);
  int whatTerm = 0;
- bool inTrue = false;
- bool inFalse = false;
- bool inNot = false;
 %}
 
 %union{
@@ -68,10 +64,6 @@
 %type <identToken> moreMultExp
 %type <identToken> multplicative_exp
 %type <identToken> relation_exp2
-%type <identToken> relation_and_exp
-%type <identToken> relation_or
-%type <identToken> relation_and
-%type <identToken> relation_exp
 %% 
 program_start:	
              PROGRAM IDENT {fileName = $2;} SEMICOLON block END_PROGRAM 
@@ -107,6 +99,7 @@ declaration:
                 }
                 if(arrayValid && !definedValid){
                     symbolNode temp;
+                    temp.value = -1;
                     temp.size  = atoi($6);//array size
                     temp.type  = 1; //array
                     temp.name  = $1;
@@ -124,6 +117,7 @@ declaration:
                 }
                 if(!definedValid){
                     symbolNode temp;
+                    temp.value = -1;
                     temp.size = -1;
                     temp.type = 2;//integer
                     temp.name = $1;
@@ -143,6 +137,7 @@ identMore:
                 }
                 if(!definedValid){
                     symbolNode temp;
+                    temp.value = -1;
                     temp.size = -1;
                     temp.type = 2;
                     temp.name = $2;
@@ -224,7 +219,7 @@ Var:
                     //doing fancy stuff for me to realize that it is an array when this gets propogated up
                     string temp = "";
                     temp += $1;
-                    temp += " ";
+                    temp += "arraycoming";
                     temp += $3;
                     strcpy($$, temp.c_str());
                 }
@@ -250,46 +245,25 @@ bool_exp:
 
 relation_and_exp:
             relation_exp relation_and 
-            {
-                if($2 == NULL){
-                    $$ = $1;
-                }
-                else{
-                    t.str("");
-                    t << "p" << predicates.size();
-                    predicates.push_back(t.str());
-                    string temp = $1;
-                    string temp2 = $2;
-                    bool a = shouldIPutUnderscore(temp);
-                    bool b = shouldIPutUnderscore(temp2);
-                    if(a)
-                        temp.insert(0, "_");
-                    if(b)
-                        temp.insert(0, "_");
-                    output << "&& " << t.str() << ", " << temp << ", " << temp2 << endl;
-                    strcpy($$, t.str().c_str());
-                }
-            }
+            {}
             ;
 
 relation_or:
             OR relation_and_exp relation_or 
-            {$$ = $2;}
-            | {$$ = NULL;}
+            {}
+            | {}
             ;
 
 relation_and:
             AND relation_exp relation_and 
-            { $$ = $2;}
-            | { $$ = NULL;}
+            {}
+            | {}
             ;
 
 
 relation_exp:
 			NOT relation_exp2
-			{
-                inNot = true;
-            }
+			{}
 			|relation_exp2
 			{}
 			;
@@ -297,44 +271,10 @@ relation_exp:
 
 relation_exp2:
             expression comp expression 
-            {
-               t.str("");
-               t << "p" << predicates.size();
-               predicates.push_back(t.str());
-               string temp = $1;
-               string temp2 = $2;
-               bool a = shouldIPutUnderscore(temp);
-               bool b = shouldIPutUnderscore(temp2);
-               if(a)
-                    temp.insert(0, "_");
-               if(b)
-                    temp.insert(0, "_");
-               size_t found = temp.find(" ");
-               if(found != string::npos){
-                    t.str("");
-                    t << "p" << temps.size();
-                    temps.push_back(t.str());
-                    string c, d;
-                    if(shouldIPutUnderscore(temp.substr(0, found)))
-                        c = (temp.substr(0,found)).insert(0, "_");
-                    if(shouldIPutUnderscore(temp.substr(found +1)))
-                        d = (temp.substr(found+1)).insert(0, "_");
-                    output << "=[] " << temp2 << ", " << c << "," << d << endl;
-               }
-               output << $2 << " " <<  t.str() << ", " << temp << ", " << temp2 << endl;
-            }
+            {}
             | TRUE
             {
-                if(inNot){
-                    t.str("");
-                    t << "p" << predicates.size();
-                    predicates.push_back(t.str());
-                    output << "= " << t.str() << ", 0 " << endl;
-                    strcpy($$, t.str().c_str());
-                    inNot = false;
-
-                }
-                t.str("");
+                stringstream t;
                 t << "p" << predicates.size();
                 predicates.push_back(t.str());
                 output << "= " << t.str() << ", 1 " << endl;
@@ -342,15 +282,7 @@ relation_exp2:
             }
             | FALSE 
             {
-              if(inNot){
-                t.str("");
-                t << "p" << predicates.size();
-                predicates.push_back(t.str());
-                output << "= " << t.str() << ", 1 " << endl;
-                strcpy($$, t.str().c_str());
-                inNot = false;
-              }
-              t.str("");
+              stringstream t;
               t << "p" << predicates.size();
               predicates.push_back(t.str());
               output << "= " << t.str() << ", 0 " << endl;
@@ -371,13 +303,7 @@ expression:
                 else{
                     string temp = $1;
                     string temp2 = $2;
-                    bool a = shouldIPutUnderscore(temp);
-                    bool b = shouldIPutUnderscore(temp2);
-                    if(a)
-                        temp.insert(0, "_");
-                    if(b)
-                        temp2.insert(0, "_");
-                    t.str("");
+                    stringstream t;
                     t << "t" << temps.size();
                     temps.push_back(t.str());
                     if(whatTerm == 1){
@@ -395,22 +321,14 @@ expression:
 
 multplicative_exp:
             term term1 
-            { 
-              //term1 returned an empty production
-              if($2 == NULL){
+            { if($2 == NULL){
                 $$ = $1;
               }
               else{
                 string temp =  $1;
                 string temp2 = $2;
-                
-                bool a = shouldIPutUnderscore(temp);
-                bool b = shouldIPutUnderscore(temp2);
-                if(a)
-                    temp.insert(0, "_");
-                if(b)
-                    temp2.insert(0, "_");
-                t.str("");
+
+                stringstream t;
                 t << "t" << temps.size();
                 temps.push_back(t.str());
                 if(whatTerm == 3){
@@ -445,10 +363,9 @@ term:
             | NUMBER
             { $$ = $1;}
             | L_PAREN expression R_PAREN
-            { $$ = $2;}
+            {}
 			;
 
-//whatTerm 3 means it is mult, 4 means it is div, and 5 is mod
 term1:
             term1 MULT term  
             { $$ = $3; whatTerm = 3;}
@@ -462,21 +379,12 @@ term1:
 
 moreMultExp:
             ADD multplicative_exp moreMultExp
-            {
-                $$ = $2;
-                //1 indicates that it is addition
-                whatTerm = 1;
+            {$$ = $2;
+             whatTerm = 1;
             }
             |SUB  multplicative_exp moreMultExp
-            {
-                 $$ = $2;
-                 //2 indicates that it is subtraction
-                 whatTerm = 2;
-            }
-            |
-            {
-                $$ = NULL;
-            };
+            {$$ = $2; whatTerm = 2;}
+            |{$$ = NULL;};
             ;
 
 comp:
@@ -522,13 +430,6 @@ int main(int argc, char **argv) {
             fileOutput << ".[] _" << symbolTable.at(i).name << ", " << symbolTable.at(i).size << endl;
         }
    }
-   for(int i = 0; i < temps.size(); i++){
-            fileOutput << ". " << temps.at(i) << endl;
-    }
-
-   for(int i = 0; i < predicates.size(); i++){
-            fileOutput << ". " << predicates.at(i) << endl;
-    }
    fileOutput << output.str();
    myFile << fileOutput.str();
     
@@ -560,13 +461,3 @@ int getType(string str){
     }
     return -1;
 }
-
-bool shouldIPutUnderscore (string temp){
-
-  if((temp.at(0) == 't' && isdigit(temp.at(1)) || (temp.at(0) == 'p' && isdigit(temp.at(1)) ) || isdigit(temp.at(0) || temp.at(0) == '_'))) 
-        return false;
-  else
-        return true;
-}
-
-        

@@ -4,45 +4,40 @@
 . _i
 . _sqrt_n
 . _x
+. t0
+. t1
+. t2
+. t3
+. t4
+. p5
+. t6
+. t7
+. t8
+. p9
+. t10
+. p0
+. p1
+. p2
+. p3
+. p4
+. p5
+. p6
 : START
-IDENT: n
-IDENT: x
-IDENT: n
-IDENT: x
-IDENT: n
-IDENT: x
-IDENT: x
-IDENT: x
-IDENT: n
-IDENT: x
-IDENT: sqrt_n
-IDENT: x
-IDENT: i
-IDENT: i
-IDENT: n
-IDENT: i
-IDENT: i
-IDENT: i
-IDENT: i
-IDENT: i
-IDENT: sqrt_n
-IDENT: i
-IDENT: j
-IDENT: i
-IDENT: i
-IDENT: j
-IDENT: n
-IDENT: j
-IDENT: j
-IDENT: j
-IDENT: i
-IDENT: i
-IDENT: i
-IDENT: i
-IDENT: i
-IDENT: n
-IDENT: i
-IDENT: i
-IDENT: i
-IDENT: i
-
+/ t0, _n, _x
+> p0, __x, >
+/ t1, _n, _x
++ t2, _x, t1
+/ t3, t2, _2
+<= p1, __i, <=
++ t4, _i, _1
+<= p2, __i, <=
+=[] ==, ___a,_i
+== p5, __a i, ==
++ t6, _i, _i
+<= p4, __j, <=
++ t7, _j, _i
++ t8, _i, _1
+<= p5, __i, <=
+=[] ==, ___a,_i
+== p9, __a i, ==
++ t10, _i, _1
