@@ -1,0 +1,546 @@
+1: program -> PROGRAM
+2: ident -> IDENT (mytest)
+3: semicolon -> SEMICOLON
+4: ident -> IDENT (n)
+5: declaration2 -> 
+6: colon -> COLON
+7: integer -> INTEGER
+8: declaration3 -> integer#7
+9: declaration -> ident#4 declaration2#5 colon#6 declaration3#8
+10: semicolon -> SEMICOLON
+11: ident -> IDENT (i)
+12: comma -> COMMA
+13: ident -> IDENT (j)
+14: comma -> COMMA
+15: ident -> IDENT (k)
+16: declaration2 -> 
+17: declaration2 -> comma#14 ident#15 declaration2#16
+18: declaration2 -> comma#12 ident#13 declaration2#17
+19: colon -> COLON
+20: integer -> INTEGER
+21: declaration3 -> integer#20
+22: declaration -> ident#11 declaration2#18 colon#19 declaration3#21
+23: semicolon -> SEMICOLON
+24: ident -> IDENT (t)
+25: declaration2 -> 
+26: colon -> COLON
+27: array -> ARRAY
+28: l_paren -> L_PAREN
+29: number -> NUMBER (20)
+30: r_paren -> R_PAREN
+31: of -> OF
+32: integer -> INTEGER
+33: declaration3 -> array#27 l_paren#28 number#29 r_paren#30 of#31 integer#32
+34: declaration -> ident#24 declaration2#25 colon#26 declaration3#33
+35: semicolon -> SEMICOLON
+36: block2 -> 
+37: block2 -> statement#34 semicolon#35 block2#36
+38: block2 -> statement#22 semicolon#23 block2#37
+39: begin_program -> BEGIN_PROGRAM
+40: read -> READ
+41: ident -> IDENT (i)
+42: var -> ident#41
+43: comma -> COMMA
+44: ident -> IDENT (j)
+45: var -> ident#44
+46: statement3 -> 
+47: statement3 -> comma#43 var#45 statement3#46
+48: statement -> read#40 var#42 statement3#47
+49: semicolon -> SEMICOLON
+50: ident -> IDENT (k)
+51: var -> ident#50
+52: assign -> ASSIGN
+53: number -> NUMBER (0)
+54: term2 -> number#53
+55: term -> term2#54
+56: expression -> term#55
+57: statement -> var#51 assign#52 expression#56
+58: semicolon -> SEMICOLON
+59: ident -> IDENT (n)
+60: var -> ident#59
+61: assign -> ASSIGN
+62: number -> NUMBER (20)
+63: term2 -> number#62
+64: term -> term2#63
+65: expression -> term#64
+66: statement -> var#60 assign#61 expression#65
+67: semicolon -> SEMICOLON
+68: do -> DO
+69: beginloop -> BEGINLOOP
+70: ident -> IDENT (t)
+71: l_paren -> L_PAREN
+72: ident -> IDENT (k)
+73: var -> ident#72
+74: term2 -> var#73
+75: term -> term2#74
+76: expression -> term#75
+77: r_paren -> R_PAREN
+78: var -> l_paren#70 expression#71 r_paren#76
+79: assign -> ASSIGN
+80: ident -> IDENT (k)
+81: var -> ident#80
+82: term2 -> var#81
+83: term -> term2#82
+84: expression -> term#83
+85: statement -> var#78 assign#79 expression#84
+86: semicolon -> SEMICOLON
+87: ident -> IDENT (k)
+88: var -> ident#87
+89: assign -> ASSIGN
+90: ident -> IDENT (k)
+91: var -> ident#90
+92: term2 -> var#91
+93: term -> term2#92
+94: expression -> term#93
+95: number -> NUMBER (1)
+96: term2 -> number#95
+97: term -> term2#96
+98: expression -> term#97
+99: expression -> expression#94 add#0 expression#98
+100: statement -> var#88 assign#89 expression#99
+101: semicolon -> SEMICOLON
+102: if -> IF
+103: ident -> IDENT (k)
+104: var -> ident#103
+105: term2 -> var#104
+106: term -> term2#105
+107: expression -> term#106
+108: number -> NUMBER (2)
+109: term2 -> number#108
+110: term -> term2#109
+111: expression -> term#110
+112: expression -> expression#107 mod#0 expression#111
+113: comp -> EQ#0
+114: number -> NUMBER (0)
+115: term2 -> number#114
+116: term -> term2#115
+117: expression -> term#116
+118: relation_exp2 -> expression#112 comp#113 expression#117
+119: relation_exp -> relation_exp2#118
+120: bool_exp -> relation_exp#119
+121: then -> THEN
+122: continue -> CONTINUE
+123: statement -> continue#122
+124: semicolon -> SEMICOLON
+125: statement2 -> 
+126: endif -> ENDIF
+127: statement -> if#102 bool_exp#120 then#121 statement#123 semicolon#124 statement2#125 endif#126
+128: semicolon -> SEMICOLON
+129: write -> WRITE
+130: ident -> IDENT (t)
+131: l_paren -> L_PAREN
+132: ident -> IDENT (k)
+133: var -> ident#132
+134: term2 -> var#133
+135: term -> term2#134
+136: expression -> term#135
+137: number -> NUMBER (1)
+138: term2 -> number#137
+139: term -> term2#138
+140: expression -> term#139
+141: expression -> expression#136 sub#0 expression#140
+142: r_paren -> R_PAREN
+143: var -> l_paren#130 expression#131 r_paren#141
+144: statement3 -> 
+145: statement -> write#129 var#143 statement3#144
+146: semicolon -> SEMICOLON
+147: statement2 -> 
+148: statement2 -> statement#145 semicolon#146 statement2#147
+149: statement2 -> statement#127 semicolon#128 statement2#148
+150: statement2 -> statement#100 semicolon#101 statement2#149
+151: endloop -> ENDLOOP
+152: while -> WHILE
+153: ident -> IDENT (k)
+154: var -> ident#153
+155: term2 -> var#154
+156: term -> term2#155
+157: expression -> term#156
+158: comp -> LT#0
+159: ident -> IDENT (n)
+160: var -> ident#159
+161: term2 -> var#160
+162: term -> term2#161
+163: expression -> term#162
+164: relation_exp2 -> expression#157 comp#158 expression#163
+165: relation_exp -> relation_exp2#164
+166: bool_exp -> relation_exp#165
+167: statement -> do#68 beginloop#69 statement#85 semicolon#86 statement2#150 endloop#151 while#152 bool_exp#166
+168: semicolon -> SEMICOLON
+169: if -> IF
+170: ident -> IDENT (i)
+171: var -> ident#170
+172: term2 -> var#171
+173: term -> term2#172
+174: expression -> term#173
+175: comp -> LT#0
+176: ident -> IDENT (j)
+177: var -> ident#176
+178: term2 -> var#177
+179: term -> term2#178
+180: expression -> term#179
+181: relation_exp2 -> expression#174 comp#175 expression#180
+182: relation_exp -> relation_exp2#181
+183: bool_exp -> relation_exp#182
+184: ident -> IDENT (j)
+185: var -> ident#184
+186: term2 -> var#185
+187: term -> term2#186
+188: expression -> term#187
+189: comp -> LT#0
+190: ident -> IDENT (n)
+191: var -> ident#190
+192: term2 -> var#191
+193: term -> term2#192
+194: expression -> term#193
+195: relation_exp2 -> expression#188 comp#189 expression#194
+196: relation_exp -> relation_exp2#195
+197: bool_exp -> relation_exp#196
+198: bool_exp -> bool_exp#183  and#0 bool_exp#197
+199: ident -> IDENT (i)
+200: var -> ident#199
+201: term2 -> var#200
+202: term -> term2#201
+203: expression -> term#202
+204: comp -> GTE#0
+205: number -> NUMBER (0)
+206: term2 -> number#205
+207: term -> term2#206
+208: expression -> term#207
+209: relation_exp2 -> expression#203 comp#204 expression#208
+210: relation_exp -> relation_exp2#209
+211: bool_exp -> relation_exp#210
+212: bool_exp -> bool_exp#198  and#0 bool_exp#211
+213: then -> THEN
+214: ident -> IDENT (t)
+215: l_paren -> L_PAREN
+216: ident -> IDENT (i)
+217: var -> ident#216
+218: term2 -> var#217
+219: term -> term2#218
+220: expression -> term#219
+221: r_paren -> R_PAREN
+222: var -> l_paren#214 expression#215 r_paren#220
+223: assign -> ASSIGN
+224: ident -> IDENT (i)
+225: var -> ident#224
+226: term2 -> var#225
+227: term -> term2#226
+228: expression -> term#227
+229: number -> NUMBER (2)
+230: term2 -> number#229
+231: term -> term2#230
+232: expression -> term#231
+233: expression -> expression#228 mult#0 expression#232
+234: statement -> var#222 assign#223 expression#233
+235: semicolon -> SEMICOLON
+236: ident -> IDENT (t)
+237: l_paren -> L_PAREN
+238: ident -> IDENT (j)
+239: var -> ident#238
+240: term2 -> var#239
+241: term -> term2#240
+242: expression -> term#241
+243: r_paren -> R_PAREN
+244: var -> l_paren#236 expression#237 r_paren#242
+245: assign -> ASSIGN
+246: ident -> IDENT (j)
+247: var -> ident#246
+248: term2 -> var#247
+249: term -> term2#248
+250: expression -> term#249
+251: number -> NUMBER (2)
+252: term2 -> number#251
+253: term -> term2#252
+254: expression -> term#253
+255: expression -> expression#250 mult#0 expression#254
+256: statement -> var#244 assign#245 expression#255
+257: semicolon -> SEMICOLON
+258: ident -> IDENT (k)
+259: var -> ident#258
+260: assign -> ASSIGN
+261: ident -> IDENT (t)
+262: l_paren -> L_PAREN
+263: ident -> IDENT (i)
+264: var -> ident#263
+265: term2 -> var#264
+266: term -> term2#265
+267: expression -> term#266
+268: r_paren -> R_PAREN
+269: var -> l_paren#261 expression#262 r_paren#267
+270: term2 -> var#269
+271: term -> term2#270
+272: expression -> term#271
+273: statement -> var#259 assign#260 expression#272
+274: semicolon -> SEMICOLON
+275: ident -> IDENT (t)
+276: l_paren -> L_PAREN
+277: ident -> IDENT (i)
+278: var -> ident#277
+279: term2 -> var#278
+280: term -> term2#279
+281: expression -> term#280
+282: r_paren -> R_PAREN
+283: var -> l_paren#275 expression#276 r_paren#281
+284: assign -> ASSIGN
+285: ident -> IDENT (t)
+286: l_paren -> L_PAREN
+287: ident -> IDENT (j)
+288: var -> ident#287
+289: term2 -> var#288
+290: term -> term2#289
+291: expression -> term#290
+292: r_paren -> R_PAREN
+293: var -> l_paren#285 expression#286 r_paren#291
+294: term2 -> var#293
+295: term -> term2#294
+296: expression -> term#295
+297: statement -> var#283 assign#284 expression#296
+298: semicolon -> SEMICOLON
+299: ident -> IDENT (t)
+300: l_paren -> L_PAREN
+301: ident -> IDENT (j)
+302: var -> ident#301
+303: term2 -> var#302
+304: term -> term2#303
+305: expression -> term#304
+306: r_paren -> R_PAREN
+307: var -> l_paren#299 expression#300 r_paren#305
+308: assign -> ASSIGN
+309: ident -> IDENT (k)
+310: var -> ident#309
+311: term2 -> var#310
+312: term -> term2#311
+313: expression -> term#312
+314: statement -> var#307 assign#308 expression#313
+315: semicolon -> SEMICOLON
+316: statement2 -> 
+317: statement2 -> statement#314 semicolon#315 statement2#316
+318: statement2 -> statement#297 semicolon#298 statement2#317
+319: statement2 -> statement#273 semicolon#274 statement2#318
+320: statement2 -> statement#256 semicolon#257 statement2#319
+321: else -> ELSE
+322: while -> WHILE
+323: ident -> IDENT (i)
+324: var -> ident#323
+325: term2 -> var#324
+326: term -> term2#325
+327: expression -> term#326
+328: comp -> GTE#0
+329: ident -> IDENT (j)
+330: var -> ident#329
+331: term2 -> var#330
+332: term -> term2#331
+333: expression -> term#332
+334: relation_exp2 -> expression#327 comp#328 expression#333
+335: relation_exp -> relation_exp2#334
+336: bool_exp -> relation_exp#335
+337: false -> FALSE
+338: relation_exp2 -> false#337
+339: relation_exp -> relation_exp2#338
+340: bool_exp -> relation_exp#339
+341: bool_exp -> bool_exp#336  or#0 bool_exp#340
+342: beginloop -> BEGINLOOP
+343: ident -> IDENT (k)
+344: var -> ident#343
+345: assign -> ASSIGN
+346: l_paren -> L_PAREN
+347: number -> NUMBER (1)
+348: term2 -> number#347
+349: term -> term2#348
+350: expression -> term#349
+351: ident -> IDENT (i)
+352: var -> ident#351
+353: term2 -> var#352
+354: term -> term2#353
+355: expression -> term#354
+356: expression -> expression#350 add#0 expression#355
+357: ident -> IDENT (j)
+358: var -> ident#357
+359: term2 -> var#358
+360: term -> term2#359
+361: expression -> term#360
+362: expression -> expression#356 sub#0 expression#361
+363: r_paren -> R_PAREN
+364: term2 -> l_paren#346 expression#362 r_paren#363
+365: term -> term2#364
+366: expression -> term#365
+367: number -> NUMBER (3)
+368: term2 -> number#367
+369: term -> term2#368
+370: expression -> term#369
+371: expression -> expression#366 mod#0 expression#370
+372: statement -> var#344 assign#345 expression#371
+373: semicolon -> SEMICOLON
+374: ident -> IDENT (i)
+375: var -> ident#374
+376: assign -> ASSIGN
+377: ident -> IDENT (i)
+378: var -> ident#377
+379: term2 -> var#378
+380: term -> term2#379
+381: expression -> term#380
+382: number -> NUMBER (1)
+383: term2 -> number#382
+384: term -> term2#383
+385: expression -> term#384
+386: expression -> expression#381 sub#0 expression#385
+387: statement -> var#375 assign#376 expression#386
+388: semicolon -> SEMICOLON
+389: if -> IF
+390: ident -> IDENT (k)
+391: var -> ident#390
+392: term2 -> var#391
+393: term -> term2#392
+394: expression -> term#393
+395: comp -> GT#0
+396: number -> NUMBER (1)
+397: term2 -> number#396
+398: term -> term2#397
+399: expression -> term#398
+400: relation_exp2 -> expression#394 comp#395 expression#399
+401: relation_exp -> relation_exp2#400
+402: bool_exp -> relation_exp#401
+403: then -> THEN
+404: continue -> CONTINUE
+405: statement -> continue#404
+406: semicolon -> SEMICOLON
+407: statement2 -> 
+408: endif -> ENDIF
+409: statement -> if#389 bool_exp#402 then#403 statement#405 semicolon#406 statement2#407 endif#408
+410: semicolon -> SEMICOLON
+411: write -> WRITE
+412: ident -> IDENT (k)
+413: var -> ident#412
+414: statement3 -> 
+415: statement -> write#411 var#413 statement3#414
+416: semicolon -> SEMICOLON
+417: statement2 -> 
+418: statement2 -> statement#415 semicolon#416 statement2#417
+419: statement2 -> statement#409 semicolon#410 statement2#418
+420: statement2 -> statement#387 semicolon#388 statement2#419
+421: endloop -> ENDLOOP
+422: statement -> while#322 bool_exp#341 beginloop#342 statement#372 semicolon#373 statement2#420 endloop#421
+423: semicolon -> SEMICOLON
+424: statement2 -> 
+425: endif -> ENDIF
+426: statement -> if#169 bool_exp#212 then#213 statement#234 semicolon#235 statement2#320 else#321 statement#422 semicolon#423 statement2#424 endif#425
+427: semicolon -> SEMICOLON
+428: write -> WRITE
+429: ident -> IDENT (i)
+430: var -> ident#429
+431: comma -> COMMA
+432: ident -> IDENT (j)
+433: var -> ident#432
+434: comma -> COMMA
+435: ident -> IDENT (k)
+436: var -> ident#435
+437: statement3 -> 
+438: statement3 -> comma#434 var#436 statement3#437
+439: statement3 -> comma#431 var#433 statement3#438
+440: statement -> write#428 var#430 statement3#439
+441: semicolon -> SEMICOLON
+442: if -> IF
+443: ident -> IDENT (i)
+444: var -> ident#443
+445: term2 -> var#444
+446: term -> term2#445
+447: expression -> term#446
+448: comp -> LT#0
+449: ident -> IDENT (n)
+450: var -> ident#449
+451: term2 -> var#450
+452: term -> term2#451
+453: expression -> term#452
+454: relation_exp2 -> expression#447 comp#448 expression#453
+455: relation_exp -> relation_exp2#454
+456: bool_exp -> relation_exp#455
+457: ident -> IDENT (i)
+458: var -> ident#457
+459: term2 -> var#458
+460: term -> term2#459
+461: expression -> term#460
+462: comp -> GTE#0
+463: number -> NUMBER (0)
+464: term2 -> number#463
+465: term -> term2#464
+466: expression -> term#465
+467: relation_exp2 -> expression#461 comp#462 expression#466
+468: relation_exp -> relation_exp2#467
+469: bool_exp -> relation_exp#468
+470: bool_exp -> bool_exp#456  and#0 bool_exp#469
+471: then -> THEN
+472: write -> WRITE
+473: ident -> IDENT (t)
+474: l_paren -> L_PAREN
+475: ident -> IDENT (i)
+476: var -> ident#475
+477: term2 -> var#476
+478: term -> term2#477
+479: expression -> term#478
+480: r_paren -> R_PAREN
+481: var -> l_paren#473 expression#474 r_paren#479
+482: statement3 -> 
+483: statement -> write#472 var#481 statement3#482
+484: semicolon -> SEMICOLON
+485: statement2 -> 
+486: endif -> ENDIF
+487: statement -> if#442 bool_exp#470 then#471 statement#483 semicolon#484 statement2#485 endif#486
+488: semicolon -> SEMICOLON
+489: if -> IF
+490: ident -> IDENT (j)
+491: var -> ident#490
+492: term2 -> var#491
+493: term -> term2#492
+494: expression -> term#493
+495: comp -> LT#0
+496: ident -> IDENT (n)
+497: var -> ident#496
+498: term2 -> var#497
+499: term -> term2#498
+500: expression -> term#499
+501: relation_exp2 -> expression#494 comp#495 expression#500
+502: relation_exp -> relation_exp2#501
+503: bool_exp -> relation_exp#502
+504: ident -> IDENT (j)
+505: var -> ident#504
+506: term2 -> var#505
+507: term -> term2#506
+508: expression -> term#507
+509: comp -> GTE#0
+510: number -> NUMBER (0)
+511: term2 -> number#510
+512: term -> term2#511
+513: expression -> term#512
+514: relation_exp2 -> expression#508 comp#509 expression#513
+515: relation_exp -> relation_exp2#514
+516: bool_exp -> relation_exp#515
+517: bool_exp -> bool_exp#503  and#0 bool_exp#516
+518: then -> THEN
+519: write -> WRITE
+520: ident -> IDENT (t)
+521: l_paren -> L_PAREN
+522: ident -> IDENT (j)
+523: var -> ident#522
+524: term2 -> var#523
+525: term -> term2#524
+526: expression -> term#525
+527: r_paren -> R_PAREN
+528: var -> l_paren#520 expression#521 r_paren#526
+529: statement3 -> 
+530: statement -> write#519 var#528 statement3#529
+531: semicolon -> SEMICOLON
+532: statement2 -> 
+533: endif -> ENDIF
+534: statement -> if#489 bool_exp#517 then#518 statement#530 semicolon#531 statement2#532 endif#533
+535: semicolon -> SEMICOLON
+536: block3 -> 
+537: block3 -> statement#534 semicolon#535 block3#536
+538: block3 -> statement#487 semicolon#488 block3#537
+539: block3 -> statement#440 semicolon#441 block3#538
+540: block3 -> statement#426 semicolon#427 block3#539
+541: block3 -> statement#167 semicolon#168 block3#540
+542: block3 -> statement#66 semicolon#67 block3#541
+543: block3 -> statement#57 semicolon#58 block3#542
+544: block -> declaration#9 semicolon#10 block2#38 begin_program#39 statement#48 semicolon#49 block3#543
+545: end_program -> END_PROGRAM
+546: prog_start -> program#1 ident#2 semicolon#3 block#544 end_program#545

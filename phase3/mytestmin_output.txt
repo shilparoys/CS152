@@ -1,0 +1,775 @@
+program -> PROGRAM
+identifier -> IDENT (mytest)
+semicolon -> SEMICOLON
+identifier -> IDENT (n)
+identMore -> epsilon
+colon -> COLON
+declaration2 -> epsilon
+integer -> INTEGER
+declaration -> identifier identMore colon declaration2 integer
+semicolon -> SEMICOLON
+identifier -> IDENT (i)
+comma -> COMMA
+identifier -> IDENT (j)
+comma -> COMMA
+identifier -> IDENT (k)
+identMore -> epsilon
+identMore -> comma identifier indentMore
+identMore -> comma identifier indentMore
+colon -> COLON
+declaration2 -> epsilon
+integer -> INTEGER
+declaration -> identifier identMore colon declaration2 integer
+semicolon -> SEMICOLON
+identifier -> IDENT (t)
+identMore -> epsilon
+colon -> COLON
+array -> ARRAY
+l_paren -> L_PAREN
+number -> NUMBER(20)
+r_paren -> R_PAREN
+of-> OF
+declaration2 -> array left_paren number right_paren of
+integer -> INTEGER
+declaration -> identifier identMore colon declaration2 integer
+semicolon -> SEMICOLON
+declarations -> epsilon
+declarations -> declaration semicolon declarations
+declarations -> declaration semicolon declarations
+declarations -> declaration semicolon declarations
+begin_program -> BEGIN_PROGRAM
+read -> READ
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+comma -> COMMA
+identifier -> IDENT (j)
+var2 -> epsilon
+Var -> identifier var2
+Vars -> epsilon
+Vars -> comma Var Vars
+statement -> read Var Vars
+semicolon -> SEMICOLON
+identifier -> IDENT (k)
+var2 -> epsilon
+Var -> identifier var2
+assign -> ASSIGN
+number -> NUMBER(0)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+statement -> Var assign expression
+semicolon -> SEMICOLON
+identifier -> IDENT (n)
+var2 -> epsilon
+Var -> identifier var2
+assign -> ASSIGN
+number -> NUMBER(20)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+statement -> Var assign expression
+semicolon -> SEMICOLON
+do -> DO
+beginloop -> BEGINLOOP
+identifier -> IDENT (t)
+l_paren -> L_PAREN
+identifier -> IDENT (k)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+r_paren -> R_PAREN
+var2 -> left_paren expression right_paren
+Var -> identifier var2
+assign -> ASSIGN
+identifier -> IDENT (k)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+statement -> Var assign expression
+semicolon -> SEMICOLON
+identifier -> IDENT (k)
+var2 -> epsilon
+Var -> identifier var2
+assign -> ASSIGN
+identifier -> IDENT (k)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+add -> ADD
+number -> NUMBER(1)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+moreMultExp -> plus multplicative_exp moreMultExp
+expression -> multiplicative_exp moreMultExp
+statement -> Var assign expression
+semicolon -> SEMICOLON
+if -> IF
+identifier -> IDENT (k)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+mod -> MOD
+number -> NUMBER(2)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+term1 -> mod term term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+comp -> EQ
+number -> NUMBER(0)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+relation_exp2 -> expression comp expression
+relation_exp -> relation_exp2
+relation_and -> epsilon
+relation_and_exp -> relation_exp relation_and
+relation_or -> epsilon
+bool_exp -> relation_and_exp relation_or 
+then -> THEN
+continue -> CONTINUE
+statement -> continue
+semicolon -> SEMICOLON
+statements -> epsilon
+statement1 -> epsilon
+endif -> ENDIF
+statement -> if bool_exp then statement semicolon statements statement1 endif
+semicolon -> SEMICOLON
+write -> WRITE
+identifier -> IDENT (t)
+l_paren -> L_PAREN
+identifier -> IDENT (k)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+sub -> SUB
+number -> NUMBER(1)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+moreMultExp -> minus multiplicative_exp moreMultExp
+expression -> multiplicative_exp moreMultExp
+r_paren -> R_PAREN
+var2 -> left_paren expression right_paren
+Var -> identifier var2
+Vars -> epsilon
+statement -> write Var Vars
+semicolon -> SEMICOLON
+statements -> epsilon
+statements -> statement semicolon statements
+statements -> statement semicolon statements
+statements -> statement semicolon statements
+endloop -> ENDLOOP
+while -> WHILE
+identifier -> IDENT (k)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+comp -> LT
+identifier -> IDENT (n)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+relation_exp2 -> expression comp expression
+relation_exp -> relation_exp2
+relation_and -> epsilon
+relation_and_exp -> relation_exp relation_and
+relation_or -> epsilon
+bool_exp -> relation_and_exp relation_or 
+statement -> do beginloop statement semicolon statements endloop while bool_exp
+semicolon -> SEMICOLON
+if -> IF
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+comp -> LT
+identifier -> IDENT (j)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+relation_exp2 -> expression comp expression
+relation_exp -> relation_exp2
+and -> AND
+identifier -> IDENT (j)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+comp -> LT
+identifier -> IDENT (n)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+relation_exp2 -> expression comp expression
+relation_exp -> relation_exp2
+and -> AND
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+comp -> GTE
+number -> NUMBER(0)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+relation_exp2 -> expression comp expression
+relation_exp -> relation_exp2
+relation_and -> epsilon
+relation_and -> and relation_exp relation_and
+relation_and -> and relation_exp relation_and
+relation_and_exp -> relation_exp relation_and
+relation_or -> epsilon
+bool_exp -> relation_and_exp relation_or 
+then -> THEN
+identifier -> IDENT (t)
+l_paren -> L_PAREN
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+r_paren -> R_PAREN
+var2 -> left_paren expression right_paren
+Var -> identifier var2
+assign -> ASSIGN
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+mult -> MULT
+number -> NUMBER(2)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+term1 -> mult term term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+statement -> Var assign expression
+semicolon -> SEMICOLON
+identifier -> IDENT (t)
+l_paren -> L_PAREN
+identifier -> IDENT (j)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+r_paren -> R_PAREN
+var2 -> left_paren expression right_paren
+Var -> identifier var2
+assign -> ASSIGN
+identifier -> IDENT (j)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+mult -> MULT
+number -> NUMBER(2)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+term1 -> mult term term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+statement -> Var assign expression
+semicolon -> SEMICOLON
+identifier -> IDENT (k)
+var2 -> epsilon
+Var -> identifier var2
+assign -> ASSIGN
+identifier -> IDENT (t)
+l_paren -> L_PAREN
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+r_paren -> R_PAREN
+var2 -> left_paren expression right_paren
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+statement -> Var assign expression
+semicolon -> SEMICOLON
+identifier -> IDENT (t)
+l_paren -> L_PAREN
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+r_paren -> R_PAREN
+var2 -> left_paren expression right_paren
+Var -> identifier var2
+assign -> ASSIGN
+identifier -> IDENT (t)
+l_paren -> L_PAREN
+identifier -> IDENT (j)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+r_paren -> R_PAREN
+var2 -> left_paren expression right_paren
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+statement -> Var assign expression
+semicolon -> SEMICOLON
+identifier -> IDENT (t)
+l_paren -> L_PAREN
+identifier -> IDENT (j)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+r_paren -> R_PAREN
+var2 -> left_paren expression right_paren
+Var -> identifier var2
+assign -> ASSIGN
+identifier -> IDENT (k)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+statement -> Var assign expression
+semicolon -> SEMICOLON
+statements -> epsilon
+statements -> statement semicolon statements
+statements -> statement semicolon statements
+statements -> statement semicolon statements
+statements -> statement semicolon statements
+else -> ELSE
+while -> WHILE
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+comp -> GTE
+identifier -> IDENT (j)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+relation_exp2 -> expression comp expression
+relation_exp -> relation_exp2
+relation_and -> epsilon
+relation_and_exp -> relation_exp relation_and
+or -> OR
+false -> FALSE
+relation_exp2 -> false
+relation_exp -> relation_exp2
+relation_and -> epsilon
+relation_and_exp -> relation_exp relation_and
+relation_or -> epsilon
+relation_or -> or relation_and_exp relation_or
+bool_exp -> relation_and_exp relation_or 
+beginloop -> BEGINLOOP
+identifier -> IDENT (k)
+var2 -> epsilon
+Var -> identifier var2
+assign -> ASSIGN
+l_paren -> L_PAREN
+number -> NUMBER(1)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+add -> ADD
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+sub -> SUB
+identifier -> IDENT (j)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+moreMultExp -> minus multiplicative_exp moreMultExp
+moreMultExp -> plus multplicative_exp moreMultExp
+expression -> multiplicative_exp moreMultExp
+r_paren -> R_PAREN
+term2 -> left_paren expression right_paren
+term -> term2
+mod -> MOD
+number -> NUMBER(3)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+term1 -> mod term term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+statement -> Var assign expression
+semicolon -> SEMICOLON
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+assign -> ASSIGN
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+sub -> SUB
+number -> NUMBER(1)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+moreMultExp -> minus multiplicative_exp moreMultExp
+expression -> multiplicative_exp moreMultExp
+statement -> Var assign expression
+semicolon -> SEMICOLON
+if -> IF
+identifier -> IDENT (k)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+comp -> GT
+number -> NUMBER(1)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+relation_exp2 -> expression comp expression
+relation_exp -> relation_exp2
+relation_and -> epsilon
+relation_and_exp -> relation_exp relation_and
+relation_or -> epsilon
+bool_exp -> relation_and_exp relation_or 
+then -> THEN
+continue -> CONTINUE
+statement -> continue
+semicolon -> SEMICOLON
+statements -> epsilon
+statement1 -> epsilon
+endif -> ENDIF
+statement -> if bool_exp then statement semicolon statements statement1 endif
+semicolon -> SEMICOLON
+write -> WRITE
+identifier -> IDENT (k)
+var2 -> epsilon
+Var -> identifier var2
+Vars -> epsilon
+statement -> write Var Vars
+semicolon -> SEMICOLON
+statements -> epsilon
+statements -> statement semicolon statements
+statements -> statement semicolon statements
+statements -> statement semicolon statements
+endloop -> ENDLOOP
+statement -> while bool_exp beginloop statement semicolon statements endloop
+semicolon -> SEMICOLON
+statements -> epsilon
+statement1 -> else statement semicolon statements
+endif -> ENDIF
+statement -> if bool_exp then statement semicolon statements statement1 endif
+semicolon -> SEMICOLON
+write -> WRITE
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+comma -> COMMA
+identifier -> IDENT (j)
+var2 -> epsilon
+Var -> identifier var2
+comma -> COMMA
+identifier -> IDENT (k)
+var2 -> epsilon
+Var -> identifier var2
+Vars -> epsilon
+Vars -> comma Var Vars
+Vars -> comma Var Vars
+statement -> write Var Vars
+semicolon -> SEMICOLON
+if -> IF
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+comp -> LT
+identifier -> IDENT (n)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+relation_exp2 -> expression comp expression
+relation_exp -> relation_exp2
+and -> AND
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+comp -> GTE
+number -> NUMBER(0)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+relation_exp2 -> expression comp expression
+relation_exp -> relation_exp2
+relation_and -> epsilon
+relation_and -> and relation_exp relation_and
+relation_and_exp -> relation_exp relation_and
+relation_or -> epsilon
+bool_exp -> relation_and_exp relation_or 
+then -> THEN
+write -> WRITE
+identifier -> IDENT (t)
+l_paren -> L_PAREN
+identifier -> IDENT (i)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+r_paren -> R_PAREN
+var2 -> left_paren expression right_paren
+Var -> identifier var2
+Vars -> epsilon
+statement -> write Var Vars
+semicolon -> SEMICOLON
+statements -> epsilon
+statement1 -> epsilon
+endif -> ENDIF
+statement -> if bool_exp then statement semicolon statements statement1 endif
+semicolon -> SEMICOLON
+if -> IF
+identifier -> IDENT (j)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+comp -> LT
+identifier -> IDENT (n)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+relation_exp2 -> expression comp expression
+relation_exp -> relation_exp2
+and -> AND
+identifier -> IDENT (j)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+comp -> GTE
+number -> NUMBER(0)
+term2 -> number
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+relation_exp2 -> expression comp expression
+relation_exp -> relation_exp2
+relation_and -> epsilon
+relation_and -> and relation_exp relation_and
+relation_and_exp -> relation_exp relation_and
+relation_or -> epsilon
+bool_exp -> relation_and_exp relation_or 
+then -> THEN
+write -> WRITE
+identifier -> IDENT (t)
+l_paren -> L_PAREN
+identifier -> IDENT (j)
+var2 -> epsilon
+Var -> identifier var2
+term2 -> Var
+term -> term2
+term1 -> epsilon term1
+multplicative_exp -> term term1
+moreMultExp -> epsilon
+expression -> multiplicative_exp moreMultExp
+r_paren -> R_PAREN
+var2 -> left_paren expression right_paren
+Var -> identifier var2
+Vars -> epsilon
+statement -> write Var Vars
+semicolon -> SEMICOLON
+statements -> epsilon
+statement1 -> epsilon
+endif -> ENDIF
+statement -> if bool_exp then statement semicolon statements statement1 endif
+semicolon -> SEMICOLON
+statements -> epsilon
+statements -> statement semicolon statements
+statements -> statement semicolon statements
+statements -> statement semicolon statements
+statements -> statement semicolon statements
+statements -> statement semicolon statements
+statements -> statement semicolon statements
+statements -> statement semicolon statements
+statements -> statement semicolon statements
+block -> declarations beginprogram statements
+end_program -> END_PROGRAM
+program_start -> program identifier semicolon block endprogram
