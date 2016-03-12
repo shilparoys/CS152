@@ -174,7 +174,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 4 "calc.y"
+#line 4 "mini_l.y"
 
  #include <stdio.h>
  #include <stdlib.h>
@@ -204,7 +204,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 13 "calc.y"
+#line 13 "mini_l.y"
 {
   char* identToken;
   int numToken;
@@ -1577,462 +1577,462 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 33 "calc.y"
+#line 33 "mini_l.y"
     {printf("program_start -> program identifier semicolon block endprogram\n");;}
     break;
 
   case 3:
-#line 39 "calc.y"
+#line 39 "mini_l.y"
     {printf("block -> declarations beginprogram statements\n");;}
     break;
 
   case 4:
-#line 43 "calc.y"
+#line 43 "mini_l.y"
     {printf("declarations -> declaration semicolon declarations\n");;}
     break;
 
   case 5:
-#line 45 "calc.y"
+#line 45 "mini_l.y"
     {printf("declarations -> epsilon\n");;}
     break;
 
   case 6:
-#line 50 "calc.y"
+#line 50 "mini_l.y"
     {printf("declaration -> identifier identMore colon declaration2 integer\n");            ;}
     break;
 
   case 7:
-#line 55 "calc.y"
+#line 55 "mini_l.y"
     {printf("declaration2 -> array left_paren number right_paren of\n");;}
     break;
 
   case 8:
-#line 57 "calc.y"
+#line 57 "mini_l.y"
     {printf("declaration2 -> epsilon\n");;}
     break;
 
   case 9:
-#line 63 "calc.y"
+#line 63 "mini_l.y"
     {printf("identMore -> comma identifier indentMore\n");;}
     break;
 
   case 10:
-#line 65 "calc.y"
+#line 65 "mini_l.y"
     {printf("identMore -> epsilon\n");;}
     break;
 
   case 11:
-#line 70 "calc.y"
+#line 70 "mini_l.y"
     {printf("statements -> statement semicolon statements\n");;}
     break;
 
   case 12:
-#line 72 "calc.y"
+#line 72 "mini_l.y"
     {printf("statements -> epsilon\n");;}
     break;
 
   case 13:
-#line 77 "calc.y"
+#line 77 "mini_l.y"
     {printf("statement -> continue\n");;}
     break;
 
   case 14:
-#line 79 "calc.y"
+#line 79 "mini_l.y"
     {printf("statement -> write Var Vars\n");;}
     break;
 
   case 15:
-#line 81 "calc.y"
+#line 81 "mini_l.y"
     {printf("statement -> read Var Vars\n");;}
     break;
 
   case 16:
-#line 83 "calc.y"
+#line 83 "mini_l.y"
     {printf("statement -> do beginloop statement semicolon statements endloop while bool_exp\n");;}
     break;
 
   case 17:
-#line 85 "calc.y"
+#line 85 "mini_l.y"
     {printf("statement -> while bool_exp beginloop statement semicolon statements endloop\n");;}
     break;
 
   case 18:
-#line 87 "calc.y"
+#line 87 "mini_l.y"
     {printf("statement -> if bool_exp then statement semicolon statements statement1 endif\n");;}
     break;
 
   case 19:
-#line 88 "calc.y"
+#line 88 "mini_l.y"
     {printf("statement -> Var assign expression\n");;}
     break;
 
   case 20:
-#line 93 "calc.y"
+#line 93 "mini_l.y"
     {printf("statement1 -> else statement semicolon statements\n");;}
     break;
 
   case 21:
-#line 95 "calc.y"
+#line 95 "mini_l.y"
     {printf("statement1 -> epsilon\n");;}
     break;
 
   case 22:
-#line 100 "calc.y"
+#line 100 "mini_l.y"
     {printf("Vars -> comma Var Vars\n");}
     break;
 
   case 23:
-#line 102 "calc.y"
+#line 102 "mini_l.y"
     {printf("Vars -> epsilon\n");;}
     break;
 
   case 24:
-#line 107 "calc.y"
+#line 107 "mini_l.y"
     {printf("Var -> identifier var2\n");;}
     break;
 
   case 25:
-#line 112 "calc.y"
+#line 112 "mini_l.y"
     {printf("var2 -> left_paren expression right_paren\n");;}
     break;
 
   case 26:
-#line 114 "calc.y"
+#line 114 "mini_l.y"
     {printf("var2 -> epsilon\n");;}
     break;
 
   case 27:
-#line 119 "calc.y"
+#line 119 "mini_l.y"
     {printf("bool_exp -> relation_and_exp relation_or \n");;}
     break;
 
   case 28:
-#line 124 "calc.y"
+#line 124 "mini_l.y"
     {printf("relation_and_exp -> relation_exp relation_and\n");;}
     break;
 
   case 29:
-#line 129 "calc.y"
+#line 129 "mini_l.y"
     {printf("relation_or -> or relation_and_exp relation_or\n");;}
     break;
 
   case 30:
-#line 130 "calc.y"
+#line 130 "mini_l.y"
     {printf("relation_or -> epsilon\n");;}
     break;
 
   case 31:
-#line 135 "calc.y"
+#line 135 "mini_l.y"
     {printf("relation_and -> and relation_exp relation_and\n");;}
     break;
 
   case 32:
-#line 136 "calc.y"
+#line 136 "mini_l.y"
     {printf("relation_and -> epsilon\n");;}
     break;
 
   case 33:
-#line 142 "calc.y"
+#line 142 "mini_l.y"
     {printf("relation_exp -> not relation_exp2\n");;}
     break;
 
   case 34:
-#line 144 "calc.y"
+#line 144 "mini_l.y"
     {printf("relation_exp -> relation_exp2\n");;}
     break;
 
   case 35:
-#line 150 "calc.y"
+#line 150 "mini_l.y"
     {printf("relation_exp2 -> expression comp expression\n");;}
     break;
 
   case 36:
-#line 152 "calc.y"
+#line 152 "mini_l.y"
     {printf("relation_exp2 -> true\n");;}
     break;
 
   case 37:
-#line 154 "calc.y"
+#line 154 "mini_l.y"
     {printf("relation_exp2 -> false\n");;}
     break;
 
   case 38:
-#line 156 "calc.y"
+#line 156 "mini_l.y"
     {printf("relation_exp2 -> left_paren bool_exp right_paren\n");;}
     break;
 
   case 39:
-#line 162 "calc.y"
+#line 162 "mini_l.y"
     {printf("expression -> multiplicative_exp moreMultExp\n");;}
     break;
 
   case 40:
-#line 168 "calc.y"
+#line 168 "mini_l.y"
     {printf("multplicative_exp -> term term1\n");;}
     break;
 
   case 41:
-#line 173 "calc.y"
+#line 173 "mini_l.y"
     {printf("term -> minus term2\n");;}
     break;
 
   case 42:
-#line 175 "calc.y"
+#line 175 "mini_l.y"
     {printf("term -> term2\n");;}
     break;
 
   case 43:
-#line 180 "calc.y"
+#line 180 "mini_l.y"
     {printf("term1 -> mult term term1\n");;}
     break;
 
   case 44:
-#line 182 "calc.y"
+#line 182 "mini_l.y"
     {printf("term1 -> div term term1\n");;}
     break;
 
   case 45:
-#line 184 "calc.y"
+#line 184 "mini_l.y"
     {printf("term1 -> mod term term1\n");;}
     break;
 
   case 46:
-#line 186 "calc.y"
+#line 186 "mini_l.y"
     {printf("term1 -> epsilon term1\n");;}
     break;
 
   case 47:
-#line 191 "calc.y"
+#line 191 "mini_l.y"
     {printf("term2 -> Var\n");;}
     break;
 
   case 48:
-#line 193 "calc.y"
+#line 193 "mini_l.y"
     {printf("term2 -> number\n");;}
     break;
 
   case 49:
-#line 195 "calc.y"
+#line 195 "mini_l.y"
     {printf("term2 -> left_paren expression right_paren\n");;}
     break;
 
   case 50:
-#line 201 "calc.y"
+#line 201 "mini_l.y"
     {printf("moreMultExp -> plus multplicative_exp moreMultExp\n");;}
     break;
 
   case 51:
-#line 203 "calc.y"
+#line 203 "mini_l.y"
     {printf("moreMultExp -> minus multiplicative_exp moreMultExp\n");;}
     break;
 
   case 52:
-#line 204 "calc.y"
+#line 204 "mini_l.y"
     {printf("moreMultExp -> epsilon\n");}
     break;
 
   case 53:
-#line 212 "calc.y"
+#line 212 "mini_l.y"
     {printf("program -> PROGRAM\n");;}
     break;
 
   case 54:
-#line 214 "calc.y"
+#line 214 "mini_l.y"
     {printf("identifier -> IDENT (%s)\n", (yyvsp[(1) - (1)].identToken));;}
     break;
 
   case 55:
-#line 217 "calc.y"
+#line 217 "mini_l.y"
     {printf("semicolon -> SEMICOLON\n");;}
     break;
 
   case 56:
-#line 221 "calc.y"
+#line 221 "mini_l.y"
     {printf("begin_program -> BEGIN_PROGRAM\n");;}
     break;
 
   case 57:
-#line 225 "calc.y"
-    {printf("end_program ->END_PROGRAM\n");;}
+#line 225 "mini_l.y"
+    {printf("end_program -> END_PROGRAM\n");;}
     break;
 
   case 58:
-#line 229 "calc.y"
+#line 229 "mini_l.y"
     {printf("colon -> COLON\n");;}
     break;
 
   case 59:
-#line 232 "calc.y"
+#line 232 "mini_l.y"
     {printf("array -> ARRAY\n");;}
     break;
 
   case 60:
-#line 236 "calc.y"
+#line 236 "mini_l.y"
     {printf("l_paren -> L_PAREN\n");;}
     break;
 
   case 61:
-#line 239 "calc.y"
+#line 239 "mini_l.y"
     {printf("number -> NUMBER(%d)\n", (yyvsp[(1) - (1)].numToken));;}
     break;
 
   case 62:
-#line 242 "calc.y"
+#line 242 "mini_l.y"
     {printf("r_paren -> R_PAREN\n");;}
     break;
 
   case 63:
-#line 245 "calc.y"
+#line 245 "mini_l.y"
     {printf("of-> OF\n");;}
     break;
 
   case 64:
-#line 249 "calc.y"
+#line 249 "mini_l.y"
     {printf("integer -> INTEGER\n");;}
     break;
 
   case 65:
-#line 252 "calc.y"
+#line 252 "mini_l.y"
     {printf("comma -> COMMA\n");;}
     break;
 
   case 66:
-#line 256 "calc.y"
+#line 256 "mini_l.y"
     {printf("continue -> CONTINUE\n");;}
     break;
 
   case 67:
-#line 259 "calc.y"
+#line 259 "mini_l.y"
     {printf("write -> WRITE\n");;}
     break;
 
   case 68:
-#line 263 "calc.y"
+#line 263 "mini_l.y"
     {printf("read -> READ\n");;}
     break;
 
   case 69:
-#line 266 "calc.y"
+#line 266 "mini_l.y"
     {printf("do -> DO\n");;}
     break;
 
   case 70:
-#line 270 "calc.y"
+#line 270 "mini_l.y"
     {printf("beginloop -> BEGINLOOP\n");;}
     break;
 
   case 71:
-#line 274 "calc.y"
+#line 274 "mini_l.y"
     {printf("endloop -> ENDLOOP\n");;}
     break;
 
   case 72:
-#line 278 "calc.y"
+#line 278 "mini_l.y"
     {printf("while -> WHILE\n");;}
     break;
 
   case 73:
-#line 281 "calc.y"
+#line 281 "mini_l.y"
     {printf("if -> IF\n");;}
     break;
 
   case 74:
-#line 285 "calc.y"
+#line 285 "mini_l.y"
     {printf("then -> THEN\n");;}
     break;
 
   case 75:
-#line 289 "calc.y"
+#line 289 "mini_l.y"
     {printf("else -> ELSE\n");;}
     break;
 
   case 76:
-#line 292 "calc.y"
+#line 292 "mini_l.y"
     {printf("endif -> ENDIF\n");}
     break;
 
   case 77:
-#line 295 "calc.y"
+#line 295 "mini_l.y"
     {printf("assign -> ASSIGN\n");;}
     break;
 
   case 78:
-#line 299 "calc.y"
+#line 299 "mini_l.y"
     {printf("and -> AND\n");;}
     break;
 
   case 79:
-#line 303 "calc.y"
+#line 303 "mini_l.y"
     {printf("or -> OR\n");;}
     break;
 
   case 80:
-#line 307 "calc.y"
+#line 307 "mini_l.y"
     {printf("true -> TRUE\n");;}
     break;
 
   case 81:
-#line 311 "calc.y"
+#line 311 "mini_l.y"
     {printf("false -> FALSE\n");;}
     break;
 
   case 82:
-#line 315 "calc.y"
+#line 315 "mini_l.y"
     {printf("not -> NOT\n");;}
     break;
 
   case 83:
-#line 319 "calc.y"
+#line 319 "mini_l.y"
     {printf("comp -> EQ\n");;}
     break;
 
   case 84:
-#line 320 "calc.y"
+#line 320 "mini_l.y"
     {printf("comp -> NEQ\n");;}
     break;
 
   case 85:
-#line 321 "calc.y"
+#line 321 "mini_l.y"
     {printf("comp -> LT\n");;}
     break;
 
   case 86:
-#line 322 "calc.y"
+#line 322 "mini_l.y"
     {printf("comp -> GT\n");;}
     break;
 
   case 87:
-#line 323 "calc.y"
+#line 323 "mini_l.y"
     {printf("comp -> LTE\n");;}
     break;
 
   case 88:
-#line 324 "calc.y"
+#line 324 "mini_l.y"
     {printf("comp -> GTE\n");;}
     break;
 
   case 89:
-#line 329 "calc.y"
+#line 329 "mini_l.y"
     {printf("mult -> MULT\n");;}
     break;
 
   case 90:
-#line 333 "calc.y"
+#line 333 "mini_l.y"
     {printf("div -> DIV\n");;}
     break;
 
   case 91:
-#line 337 "calc.y"
+#line 337 "mini_l.y"
     {printf("mod -> MOD\n");;}
     break;
 
   case 92:
-#line 341 "calc.y"
+#line 341 "mini_l.y"
     {printf("add -> ADD\n");;}
     break;
 
   case 93:
-#line 345 "calc.y"
+#line 345 "mini_l.y"
     {printf("sub -> SUB\n");;}
     break;
 
@@ -2252,7 +2252,7 @@ yyreturn:
 }
 
 
-#line 350 "calc.y"
+#line 350 "mini_l.y"
 
 
 int main(int argc, char **argv) {
