@@ -24,7 +24,7 @@
 
  vector <string> temps;
  vector <string> predicates;
-
+ vector <string> loop;
  vector<symbolNode> symbolTable;
  vector <string> errorList;
  int counter = 0;
@@ -42,6 +42,11 @@
  bool inTrue = false;
  bool inFalse = false;
  bool inNot = false;
+ bool isRead = false;
+ string temp = "";
+ string temp2 = "";
+ bool isWrite = false;
+ ofstream myFile;
 %}
 
 %union{
@@ -71,11 +76,15 @@
 %type <identToken> relation_and_exp
 %type <identToken> relation_or
 %type <identToken> relation_and
+%type <identToken> Vars
 %type <identToken> relation_exp
+%type <identToken> statement
+%type <identToken> bool_exp
 %% 
 program_start:	
              PROGRAM IDENT {fileName = $2;} SEMICOLON block END_PROGRAM 
              {}
+
              ; 
 
 block:
@@ -164,11 +173,19 @@ statements:
 statement:
             CONTINUE 
             {}
-            |WRITE Vars 
+            |WRITE {isWrite = true;}Vars{isWrite = false;} 
             {}
-            |READ Vars 
+            |READ {isRead = true;} Vars {isRead = false;}
             {}
-            |DO BEGINLOOP statement1  ENDLOOP WHILE bool_exp 
+            |DO BEGINLOOP {
+                t.str("");
+                t << "L" << loop.size();
+                loop.push_back(t.str());
+                output << ": " << t.str() << endl;
+                t.str("");
+            }                
+
+            statement1  ENDLOOP WHILE bool_exp 
             {}
             |WHILE bool_exp BEGINLOOP statement1 ENDLOOP 
             {}
@@ -187,10 +204,62 @@ statement1:
 
 Vars:
             Vars COMMA Var
-            {}
+            {
+                string temp = $3;
+                if(isRead){
+                    int type = getType(temp);
+                    if(type == 2){
+                        output << ".< _ " << temp << endl;
+                    }
+                    else{
+                        size_t found = temp.find(" ");
+                        if(shouldIPutUnderscore(temp.substr(found + 1)))
+                            temp.substr(found+1).insert(0, "_");
+                            output << ".[]< _ " << temp.substr(0,found) << ", " << temp.substr(found+1) << endl;
+                    }
+                }
+                if(isWrite){
+                    int type = getType(temp);
+                    if(type == 1)
+                        output << ".> _ " << temp;
+                    else{
+                        size_t found = temp.find(" ");
+                        if(shouldIPutUnderscore(temp.substr(found + 1)))
+                            temp.substr(found+1).insert(0, "_");
+                        output << ".[]> _" << temp.substr(0,found) << ", " << temp.substr(found+1) << endl;
+                    }
+                }
+                }
+
+
+
             |Var
-            {}
-            ;
+            { string temp = $1;
+                if(isRead){
+                    int type = getType(temp);
+                    if(type == 2){
+                        output << ".< _ " << temp << endl;
+                    }
+                    else{
+                        size_t found = temp.find(" ");
+                        if(shouldIPutUnderscore(temp.substr(found + 1)))
+                            temp.substr(found+1).insert(0, "_");
+                            output << ".[]< _ " << temp.substr(0,found) << ", " << temp.substr(found+1) << endl;
+                    }
+                }
+                if(isWrite){
+                    int type = getType(temp);
+                    if(type == 1)
+                        output << ".> _ " << temp;
+                    else{
+                        size_t found = temp.find(" ");
+                        if(shouldIPutUnderscore(temp.substr(found + 1)))
+                            temp.substr(found+1).insert(0, "_");
+                        output << ".[]> _" << temp.substr(0,found) << ", " << temp.substr(found+1) << endl;
+                    }
+                }
+                }
+;
 
 Var:
             IDENT
@@ -224,7 +293,7 @@ Var:
                     //doing fancy stuff for me to realize that it is an array when this gets propogated up
                     string temp = "";
                     temp += $1;
-                    temp += " ";
+                    temp += "@";
                     temp += $3;
                     strcpy($$, temp.c_str());
                 }
@@ -245,7 +314,28 @@ optionelse:
 
 bool_exp:
             relation_and_exp relation_or 
-            {}
+            {
+                if($2 == NULL){
+                    $$ = $1;
+                }
+                else{
+                    t.str("");
+                    t << "p" << predicates.size();
+                    predicates.push_back(t.str());
+                    temp.clear();
+                    temp2.clear();
+                    temp = $1;
+                    temp2 = $2;
+                    bool a = shouldIPutUnderscore(temp);
+                    bool b = shouldIPutUnderscore(temp2);
+                    if(a)
+                        temp.insert(0, "_");
+                    if(b)
+                        temp2.insert(0, "_");
+                    output << "|| " << t.str() << ", " << temp << ", " << temp2 << endl;
+                    strcpy($$, t.str().c_str());
+                }
+            }
             ;
 
 relation_and_exp:
@@ -258,14 +348,16 @@ relation_and_exp:
                     t.str("");
                     t << "p" << predicates.size();
                     predicates.push_back(t.str());
-                    string temp = $1;
-                    string temp2 = $2;
+                    temp.clear();
+                    temp2.clear();
+                    temp = $1;
+                    temp2 = $2;
                     bool a = shouldIPutUnderscore(temp);
                     bool b = shouldIPutUnderscore(temp2);
                     if(a)
                         temp.insert(0, "_");
                     if(b)
-                        temp.insert(0, "_");
+                        temp2.insert(0, "_");
                     output << "&& " << t.str() << ", " << temp << ", " << temp2 << endl;
                     strcpy($$, t.str().c_str());
                 }
@@ -301,15 +393,17 @@ relation_exp2:
                t.str("");
                t << "p" << predicates.size();
                predicates.push_back(t.str());
-               string temp = $1;
-               string temp2 = $2;
+               temp.clear();
+               temp2.clear();
+               temp = $1;
+               temp2 = $2;
                bool a = shouldIPutUnderscore(temp);
                bool b = shouldIPutUnderscore(temp2);
                if(a)
                     temp.insert(0, "_");
                if(b)
-                    temp.insert(0, "_");
-               size_t found = temp.find(" ");
+                    temp2.insert(0, "_");
+               size_t found = temp.find("@");
                if(found != string::npos){
                     t.str("");
                     t << "p" << temps.size();
@@ -369,8 +463,10 @@ expression:
                     $$ = $1;
                 }
                 else{
-                    string temp = $1;
-                    string temp2 = $2;
+                    temp.clear();
+                    temp2.clear();
+                    temp = $1;
+                    temp2 = $2;
                     bool a = shouldIPutUnderscore(temp);
                     bool b = shouldIPutUnderscore(temp2);
                     if(a)
@@ -401,18 +497,24 @@ multplicative_exp:
                 $$ = $1;
               }
               else{
-                string temp =  $1;
-                string temp2 = $2;
+                temp.clear();
+                temp2.clear();
+                temp =  $1;
+                temp2 = $2;
                 
+                //figures out if I should put the  _
                 bool a = shouldIPutUnderscore(temp);
                 bool b = shouldIPutUnderscore(temp2);
+                //inserts the _ if needed
                 if(a)
                     temp.insert(0, "_");
                 if(b)
                     temp2.insert(0, "_");
+                //clears the buffer
                 t.str("");
                 t << "t" << temps.size();
                 temps.push_back(t.str());
+                //print out based on what mult
                 if(whatTerm == 3){
                     output << "* " << t.str() << ", " << temp << ", " << temp2 << endl;
                 }
@@ -493,10 +595,8 @@ comp:
 int main(int argc, char **argv) {
     
    yyparse(); // Calls yylex() for tokens.
+   //prints out the erros
    if(!errorList.empty()){
-        //there are errors
-        //print out errors and exit
-        //POTENTIAL ERROR WITH COUT!!!!!!!!!
         for(int i = 0; i < errorList.size(); i++){
                 cout << errorList.at(i);
         }
@@ -511,29 +611,29 @@ int main(int argc, char **argv) {
 
    //create the mil file with given program name
    fileName = fileName + ".mil";
-   ofstream myFile;
    myFile.open(fileName.c_str());
    
    for(int i = 0; i < symbolTable.size(); i++){
-        if(symbolTable.at(i).type == 2){
+       //print out all the integers  
+       if(symbolTable.at(i).type == 2){
             fileOutput << ". _" << symbolTable.at(i).name << endl;
         }
+        //print out all the arrays
         if(symbolTable.at(i).type == 1){
             fileOutput << ".[] _" << symbolTable.at(i).name << ", " << symbolTable.at(i).size << endl;
         }
    }
+   //print out all the temps
    for(int i = 0; i < temps.size(); i++){
             fileOutput << ". " << temps.at(i) << endl;
     }
-
+   //print out all the predicates
    for(int i = 0; i < predicates.size(); i++){
             fileOutput << ". " << predicates.at(i) << endl;
     }
+   //print out the mil instructions
    fileOutput << output.str();
    myFile << fileOutput.str();
-    
-
-
    myFile.close();
    return 0;
 
